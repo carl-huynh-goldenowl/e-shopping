@@ -12,11 +12,14 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["react", "prettier", "import"],
+  plugins: ["react", "import", "prettier"],
   rules: {
     "no-console": "warn",
     "import/first": "error",
     "react/prop-types": 0,
     "linebreak-style": ["error", "unix"],
+    "arrow-body-style": "off",
+    "prefer-arrow-callback": "off",
+    "prettier/prettier": "error",
   },
 }
