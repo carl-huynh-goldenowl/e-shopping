@@ -5,6 +5,7 @@ import Footer from "./layout/Footer"
 import { Container, Box } from "@chakra-ui/layout"
 import { Routes, Route } from "react-router-dom"
 import ProductDetailPage from "./pages/ProductDetailPage"
+import Homepage from "./pages/Homepage"
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Container maxW="container.xl" py={6}>
         <Routes>
           <Route exact path="/products/*" element={<ProductDetailPage />} />
+          <Route exact path="/" element={<Homepage />} />
         </Routes>
       </Container>
       <Footer />
