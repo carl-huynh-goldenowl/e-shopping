@@ -19,6 +19,7 @@ import ProductDetail from "../containers/ProductDetail"
 import BestSeller from "../containers/BestSeller"
 import SimilarProductSlider from "../components/Slider/SimilarProductSlider"
 import RecommendedProductsSlider from "../components/Slider/RecommendedProductsSlider"
+import ShippingFeeSelect from "../components/Select/ShippingFeeSelect"
 
 const productInfo = {
   id: 1,
@@ -124,8 +125,10 @@ const ProductDetailPage = () => {
               </VStack>
             </GridItem>
             <GridItem>Vận chuyển</GridItem>
-            <GridItem colSpan={3}></GridItem>
-            <GridItem>Số lượng</GridItem>
+            <GridItem colSpan={2}>
+              <ShippingFeeSelect />
+            </GridItem>
+            <GridItem colStart={1}>Số lượng</GridItem>
             <GridItem>
               <QuantityInput />
             </GridItem>
