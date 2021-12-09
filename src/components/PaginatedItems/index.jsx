@@ -18,8 +18,10 @@ export default function PaginatedItems({
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage
-    setCurrentItems(productList.slice(itemOffset, endOffset))
-    setPageCount(Math.ceil(productList.length / itemsPerPage))
+    if (productList) {
+      setCurrentItems(productList.slice(itemOffset, endOffset))
+      setPageCount(Math.ceil(productList.length / itemsPerPage))
+    }
   }, [itemOffset, itemsPerPage])
 
   const handlePageClick = (event) => {

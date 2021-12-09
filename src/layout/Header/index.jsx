@@ -13,8 +13,20 @@ import SearchBar from "./SearchBar"
 import { Image } from "@chakra-ui/react"
 import { MdOutlineShoppingCart, MdOutlineAccountCircle } from "react-icons/md"
 import CatalogueSlider from "../../components/Slider/CatalogueSlider"
+import { useQuery } from "react-query"
+import { getCatalogue } from "../../services/api"
 
 const Header = () => {
+  const {
+    isLoading,
+    error,
+    data: catalogue,
+  } = useQuery("catalogue", getCatalogue)
+
+  if (isLoading) return <h6>Loading...</h6>
+
+  if (error) return "An error has occurred: " + error.message
+
   return (
     <Box bg="teal.300">
       <Container maxW="container.xl">
@@ -56,7 +68,7 @@ const Header = () => {
       </Container>
       <Box bg="white" py={1}>
         <Container maxW="container.xl" h="3rem">
-          <CatalogueSlider />
+          <CatalogueSlider catalogue={catalogue} />
         </Container>
       </Box>
     </Box>

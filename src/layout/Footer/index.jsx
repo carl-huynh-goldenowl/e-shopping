@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react"
 import { FiSend } from "react-icons/fi"
 
-const Header = () => {
+const Footer = () => {
   return (
     <Box bg="teal.200">
       <Container maxW="container.xl" py={4}>
@@ -99,4 +99,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default Footer

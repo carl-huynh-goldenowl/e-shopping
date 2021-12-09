@@ -11,77 +11,77 @@ import { Box, Image, GridItem, Text, VStack } from "@chakra-ui/react"
 // install Swiper modules
 SwiperCore.use([Navigation])
 
-const productList = [
-  {
-    id: 1,
-    name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
-              inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
-    img: "https://cf.shopee.vn/file/d1fae5bae7153be96056fa2b7e59d650",
-    discountPrice: "12.290.000",
-  },
-  {
-    id: 2,
-    name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
-              inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
-    img: "https://cf.shopee.vn/file/6b8eba44e45c1a838a4853c5e559ad7e",
-    discountPrice: "12.290.000",
-  },
-  {
-    id: 3,
-    name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
-              inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
-    img: "https://cf.shopee.vn/file/2efabc78210e68b2cf0ef30a2e60d305",
-    discountPrice: "12.290.000",
-  },
-  {
-    id: 1,
-    name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
-              inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
-    img: "https://cf.shopee.vn/file/d1fae5bae7153be96056fa2b7e59d650",
-    discountPrice: "12.290.000",
-  },
-  {
-    id: 2,
-    name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
-              inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
-    img: "https://cf.shopee.vn/file/6b8eba44e45c1a838a4853c5e559ad7e",
-    discountPrice: "12.290.000",
-  },
-  {
-    id: 3,
-    name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
-              inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
-    img: "https://cf.shopee.vn/file/2efabc78210e68b2cf0ef30a2e60d305",
-    discountPrice: "12.290.000",
-  },
-  {
-    id: 1,
-    name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
-              inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
-    img: "https://cf.shopee.vn/file/d1fae5bae7153be96056fa2b7e59d650",
-    discountPrice: "12.290.000",
-  },
-  {
-    id: 2,
-    name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
-              inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
-    img: "https://cf.shopee.vn/file/6b8eba44e45c1a838a4853c5e559ad7e",
-    discountPrice: "12.290.000",
-  },
-  {
-    id: 3,
-    name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
-              inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
-    img: "https://cf.shopee.vn/file/2efabc78210e68b2cf0ef30a2e60d305",
-    discountPrice: "12.290.000",
-  },
-]
+// const productList = [
+//   {
+//     id: 1,
+//     name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
+//               inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
+//     img: "https://cf.shopee.vn/file/d1fae5bae7153be96056fa2b7e59d650",
+//     discountPrice: "12.290.000",
+//   },
+//   {
+//     id: 2,
+//     name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
+//               inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
+//     img: "https://cf.shopee.vn/file/6b8eba44e45c1a838a4853c5e559ad7e",
+//     discountPrice: "12.290.000",
+//   },
+//   {
+//     id: 3,
+//     name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
+//               inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
+//     img: "https://cf.shopee.vn/file/2efabc78210e68b2cf0ef30a2e60d305",
+//     discountPrice: "12.290.000",
+//   },
+//   {
+//     id: 1,
+//     name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
+//               inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
+//     img: "https://cf.shopee.vn/file/d1fae5bae7153be96056fa2b7e59d650",
+//     discountPrice: "12.290.000",
+//   },
+//   {
+//     id: 2,
+//     name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
+//               inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
+//     img: "https://cf.shopee.vn/file/6b8eba44e45c1a838a4853c5e559ad7e",
+//     discountPrice: "12.290.000",
+//   },
+//   {
+//     id: 3,
+//     name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
+//               inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
+//     img: "https://cf.shopee.vn/file/2efabc78210e68b2cf0ef30a2e60d305",
+//     discountPrice: "12.290.000",
+//   },
+//   {
+//     id: 1,
+//     name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
+//               inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
+//     img: "https://cf.shopee.vn/file/d1fae5bae7153be96056fa2b7e59d650",
+//     discountPrice: "12.290.000",
+//   },
+//   {
+//     id: 2,
+//     name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
+//               inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
+//     img: "https://cf.shopee.vn/file/6b8eba44e45c1a838a4853c5e559ad7e",
+//     discountPrice: "12.290.000",
+//   },
+//   {
+//     id: 3,
+//     name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
+//               inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
+//     img: "https://cf.shopee.vn/file/2efabc78210e68b2cf0ef30a2e60d305",
+//     discountPrice: "12.290.000",
+//   },
+// ]
 
 const Product = ({ name, img, discountPrice }) => {
   return (
     <GridItem bg="white" p="1rem" textAlign="left">
       <Box>
-        <Image objectFit="cover" width="50%" src={img} alt={name} />
+        <Image objectFit="cover" src={img} alt={name} />
       </Box>
       <Text fontSize="sm" noOfLines={2}>
         {name}
@@ -93,7 +93,7 @@ const Product = ({ name, img, discountPrice }) => {
   )
 }
 
-export default function SimilarProductsSlider() {
+export default function SimilarProductsSlider({ productList }) {
   return (
     <VStack>
       <Text w="100%">SẢN PHẨM TƯƠNG TỰ</Text>
@@ -109,7 +109,7 @@ export default function SimilarProductsSlider() {
             <Product
               key={index}
               name={product.name}
-              img={product.img}
+              img={product.pictureUrl}
               discountPrice={product.discountPrice}
             />
           </SwiperSlide>

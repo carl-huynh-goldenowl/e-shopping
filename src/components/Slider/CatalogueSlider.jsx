@@ -14,20 +14,7 @@ import { Link } from "react-router-dom"
 // install Swiper modules
 SwiperCore.use([Navigation])
 
-const catalogue = [
-  "item",
-  "item",
-  "item",
-  "item",
-  "item",
-  "item",
-  "item",
-  "item",
-  "item",
-  "item",
-]
-
-export default function CatalogueSlider() {
+export default function CatalogueSlider({ catalogue }) {
   return (
     <>
       <Swiper navigation={true} className="mySwiper">
@@ -35,16 +22,7 @@ export default function CatalogueSlider() {
           <HStack spacing={12}>
             {catalogue.map((item, index) => (
               <div key={item + index}>
-                <Link to={`/products/${item + index}`}>{item + index}</Link>
-              </div>
-            ))}
-          </HStack>
-        </SwiperSlide>
-        <SwiperSlide>
-          <HStack spacing={12}>
-            {catalogue.map((item, index) => (
-              <div key={item + index}>
-                <Link to={`/products/${item + index}`}>{item + index}</Link>
+                <Link to={`/products/${item.type}`}>{item.type}</Link>
               </div>
             ))}
           </HStack>

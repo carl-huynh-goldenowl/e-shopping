@@ -29,7 +29,7 @@ export default function ProductItem({ product }) {
           <Image
             objectFit="cover"
             width="100%"
-            src={product.img}
+            src={product.pictureUrl}
             alt={product.name}
           />
         </Box>

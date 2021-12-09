@@ -1,16 +1,10 @@
 import React, { useState } from "react"
 import { GridItem, SimpleGrid } from "@chakra-ui/layout"
-
+import { useQuery } from "react-query"
 import PaginatedItems from "../components/PaginatedItems"
 import ProductItem from "../components/PaginatedItems/ProductItem"
-
-let productList = Array(108).fill({
-  id: "1",
-  name: `Laptop Asus VivoBook F512J - I3 1005G1/ RAM 4GB/SSD 128 GB/15.6
-              inch/Cảm ứng/Win10/Màu đen- Nhập khẩu chính hãng -BH 12T`,
-  img: "https://cf.shopee.vn/file/d1fae5bae7153be96056fa2b7e59d650",
-  discountPrice: "12.290.000",
-})
+import ProductListSkeleton from "../components/Skeleton/ProductListSkeleton"
+import { getProductList } from "../services/api"
 
 function ProductList({ currentItems }) {
   return (
@@ -25,6 +19,20 @@ function ProductList({ currentItems }) {
 
 export default function Homepage() {
   const [currentItems, setCurrentItems] = useState(null)
+  const { isLoading, error, data } = useQuery("productList", getProductList)
+
+  if (isLoading) {
+    return (
+      <ProductListSkeleton
+        productTotal={36}
+        colTotal={12}
+        mergedColNum={2}
+        pictureHeight={9}
+      />
+    )
+  }
+
+  if (error) return "An error has occurred: " + error.message
 
   return (
     <>
@@ -33,7 +41,7 @@ export default function Homepage() {
         <GridItem colSpan={12} justifyContent="center">
           <PaginatedItems
             itemsPerPage={36}
-            productList={productList}
+            productList={data}
             setCurrentItems={setCurrentItems}
           />
         </GridItem>
