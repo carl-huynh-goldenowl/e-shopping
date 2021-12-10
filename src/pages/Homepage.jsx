@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { GridItem, SimpleGrid } from "@chakra-ui/layout"
 import { useQuery } from "react-query"
 import PaginatedItems from "../components/PaginatedItems"
@@ -18,7 +18,6 @@ function ProductList({ currentItems }) {
 }
 
 export default function Homepage() {
-  const [currentItems, setCurrentItems] = useState(null)
   const { isLoading, error, data } = useQuery("productList", getProductList)
 
   if (isLoading) {
@@ -34,15 +33,17 @@ export default function Homepage() {
 
   if (error) return "An error has occurred: " + error.message
 
+  const handleChangePage = () => {}
+
   return (
     <>
       <SimpleGrid columns={12} spacing={3}>
-        <ProductList currentItems={currentItems} />
+        <ProductList currentItems={data} />
         <GridItem colSpan={12} justifyContent="center">
           <PaginatedItems
-            itemsPerPage={36}
-            productList={data}
-            setCurrentItems={setCurrentItems}
+            itemsPerPage={50}
+            total={200}
+            handleChangePage={() => () => handleChangePage}
           />
         </GridItem>
       </SimpleGrid>

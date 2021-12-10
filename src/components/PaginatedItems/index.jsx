@@ -10,23 +10,17 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons"
  */
 export default function PaginatedItems({
   itemsPerPage,
-  productList,
-  setCurrentItems,
+  total,
+  handleChangePage,
 }) {
   const [pageCount, setPageCount] = useState(0)
-  const [itemOffset, setItemOffset] = useState(0)
 
   useEffect(() => {
-    const endOffset = itemOffset + itemsPerPage
-    if (productList) {
-      setCurrentItems(productList.slice(itemOffset, endOffset))
-      setPageCount(Math.ceil(productList.length / itemsPerPage))
-    }
-  }, [itemOffset, itemsPerPage])
+    setPageCount(Math.ceil(total / itemsPerPage))
+  }, [total, itemsPerPage])
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % productList.length
-    setItemOffset(newOffset)
+    handleChangePage(event.selected)
   }
 
   return (

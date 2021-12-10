@@ -1,4 +1,4 @@
-//import instance from "./axiosConfig"
+import instance from "./axiosConfig"
 
 const catalogue = [
   {
@@ -52,9 +52,9 @@ export const getCatalogue = async () => {
 }
 
 export const getProductList = async () => {
-  //const res = await instance.get("products")
-  //return res.data
-  return product
+  const res = await instance.get("products")
+  return res.data
+  //return product
 }
 
 export const getProductDetail = async () => {
