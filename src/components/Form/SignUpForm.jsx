@@ -26,7 +26,7 @@ export default function SignUpForm() {
               <Input
                 placeholder="Email"
                 type="email"
-                focusBorderColor="teal.500"
+                focusBorderColor="teal.400"
                 {...field}
               />
             )}
@@ -39,7 +39,7 @@ export default function SignUpForm() {
               <Input
                 placeholder="Password"
                 type="Password"
-                focusBorderColor="teal.500"
+                focusBorderColor="teal.400"
                 {...field}
               />
             )}

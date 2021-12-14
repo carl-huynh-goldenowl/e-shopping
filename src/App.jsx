@@ -6,6 +6,9 @@ import { Container, Box } from "@chakra-ui/layout"
 import { Routes, Route } from "react-router-dom"
 import ProductDetailPage from "./pages/ProductDetailPage"
 import Homepage from "./pages/Homepage"
+import AdminPage from "./pages/AdminPage"
+import AddNewProductForm from "./containers/AddNewProductForm"
+import ProductListManagement from "./containers/ProductListManagement"
 
 import { QueryClient, QueryClientProvider } from "react-query"
 
@@ -18,6 +21,10 @@ function App() {
         <Header />
         <Container maxW="container.xl" py={6}>
           <Routes>
+            <Route exact path="/admin" element={<AdminPage />}>
+              <Route path="products/add" element={<AddNewProductForm />} />
+              <Route path="products" element={<ProductListManagement />} />
+            </Route>
             <Route exact path="/products/*" element={<ProductDetailPage />} />
             <Route exact path="/" element={<Homepage />} />
           </Routes>
