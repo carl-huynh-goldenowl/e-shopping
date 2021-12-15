@@ -13,6 +13,8 @@ export default function AdminPage() {
         rounded={"md"}
         shadow={"xl"}
         p={3}
+        position={"sticky"}
+        top={6}
       >
         <ProductsManagementMenu />
       </GridItem>

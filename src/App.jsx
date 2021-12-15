@@ -22,7 +22,7 @@ function App() {
         <Container maxW="container.xl" py={6}>
           <Routes>
             <Route exact path="/admin" element={<AdminPage />}>
-              <Route path="products/add" element={<AddNewProductForm />} />
+              <Route path="products/*" element={<AddNewProductForm />} />
               <Route path="products" element={<ProductListManagement />} />
             </Route>
             <Route exact path="/products/*" element={<ProductDetailPage />} />
