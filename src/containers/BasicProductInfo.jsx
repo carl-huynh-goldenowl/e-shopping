@@ -1,7 +1,7 @@
 import React from "react"
 import { SimpleGrid, GridItem, Text, Heading } from "@chakra-ui/react"
-import ProductPicInputList from "../components/Input/ProductPicInputList"
-import ProductDescriptionTextarea from "../components/Input/ProductDescriptionTextarea"
+import ProductPicInputList from "components/Input/ProductPicInputList"
+import ProductDescriptionTextarea from "components/Input/ProductDescriptionTextarea"
 
 export default function BasicProductInfo() {
   return (

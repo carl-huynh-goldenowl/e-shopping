@@ -8,8 +8,8 @@ import {
   Tab,
   TabPanel,
 } from "@chakra-ui/react"
-import AllProductsTabPanel from "../components/TabPanel/AllProductsTabPanel"
-import FindProductForm from "../components/Form/FindProductForm/FindProductForm"
+import FindProductForm from "forms/FindProductForm"
+import AllProductsTabPanel from "components/TabPanel/AllProductsTabPanel"
 
 export default function ProductListManagement() {
   return (

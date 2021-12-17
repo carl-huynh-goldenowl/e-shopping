@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react"
 import React from "react"
 import { useForm } from "react-hook-form"
-import schema from "./validate"
+import schema from "./validation"
 import { yupResolver } from "@hookform/resolvers/yup"
 
 export default function FindProductForm() {

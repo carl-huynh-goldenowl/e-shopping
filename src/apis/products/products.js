@@ -1,4 +1,4 @@
-import instance from "./axiosConfig"
+import instance from "../axios"
 
 const catalogue = [
   {

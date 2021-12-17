@@ -1,6 +1,6 @@
 import React from "react"
 import { Box, Center, SimpleGrid, GridItem, Image } from "@chakra-ui/react"
-import LoginForm from "../components/Form/LoginForm"
+import LoginForm from "components/LoginForm"
 
 export default function SignUpPage() {
   return (

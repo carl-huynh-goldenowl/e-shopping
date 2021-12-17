@@ -1,7 +1,6 @@
 import React from "react"
 import { SimpleGrid } from "@chakra-ui/react"
-
-import ProductSkeleton from "./ProductSkeleton"
+import ProductSkeleton from "../ProductSkeleton"
 
 export default function ProductListSkeleton({
   productTotal,

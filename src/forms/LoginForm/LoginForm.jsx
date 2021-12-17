@@ -1,7 +1,7 @@
 import React from "react"
 import { useForm, Controller } from "react-hook-form"
 import { Heading, Input, VStack, Button } from "@chakra-ui/react"
-import PasswordInput from "../Input/PasswordInput"
+import PasswordInput from "components/Input/PasswordInput"
 
 export default function SignUpForm() {
   const { control, handleSubmit } = useForm({

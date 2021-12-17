@@ -1,8 +1,9 @@
 import React from "react"
 import { SimpleGrid, GridItem, Text, Heading } from "@chakra-ui/react"
-import PreOrderRadioGroup from "../components/Input/PreOrderRadioGroup"
-import ProductStatusSelect from "../components/Select/ProductStatusSelect"
-import ProductSKUInput from "../components/Input/ProductSKUInput"
+import PreOrderRadioGroup from "components/Input/PreOrderRadioGroup"
+import ProductStatusSelect from "components/Select/ProductStatusSelect"
+import ProductSKUInput from "components/Input/ProductSKUInput"
+
 export default function OtherInfo() {
   return (
     <>

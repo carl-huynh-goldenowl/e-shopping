@@ -1,7 +1,9 @@
 import axios from "axios"
 
+const API_URL = process.env.REACT_APP_API_URL
+
 const instance = axios.create({
-  baseURL: "https://61b213afc8d4640017aaf1b1.mockapi.io/",
+  baseURL: API_URL,
   timeout: 1000,
 })
 

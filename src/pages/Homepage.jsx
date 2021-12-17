@@ -1,10 +1,10 @@
 import React from "react"
 import { GridItem, SimpleGrid } from "@chakra-ui/layout"
 import { useQuery } from "react-query"
-import PaginatedItems from "../components/PaginatedItems"
-import ProductItem from "../components/PaginatedItems/ProductItem"
-import ProductListSkeleton from "../components/Skeleton/ProductListSkeleton"
-import { getProductList } from "../services/api"
+import { getProductList } from "apis/products"
+import ProductListSkeleton from "components/Skeleton/ProductListSkeleton"
+import ProductItem from "components/PaginatedItems/ProductItem"
+import PaginatedItems from "components/PaginatedItems/Pagination"
 
 function ProductList({ currentItems }) {
   return (

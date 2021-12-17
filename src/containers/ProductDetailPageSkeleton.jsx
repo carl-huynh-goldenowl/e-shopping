@@ -1,9 +1,8 @@
 import React from "react"
 import { GridItem, SimpleGrid } from "@chakra-ui/layout"
-
-import ProductDetailSkeleton from "../components/Skeleton/ProductDetailSkeleon"
-import ProductListSkeleton from "../components/Skeleton/ProductListSkeleton"
 import { SkeletonText } from "@chakra-ui/skeleton"
+import ProductListSkeleton from "components/Skeleton/ProductListSkeleton"
+import ProductDetailSkeleton from "components/Skeleton/ProductDetailSkeleton"
 
 const ProductDetailPageSkeleton = () => {
   return (

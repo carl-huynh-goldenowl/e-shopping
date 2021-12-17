@@ -12,9 +12,9 @@ import {
 import SearchBar from "./SearchBar"
 import { Image } from "@chakra-ui/react"
 import { MdOutlineShoppingCart, MdOutlineAccountCircle } from "react-icons/md"
-import CatalogueSlider from "../../components/Slider/CatalogueSlider"
+import CatalogueSlider from "components/Slider"
 import { useQuery } from "react-query"
-import { getCatalogue } from "../../services/api"
+import { getCatalogue } from "apis/products"
 
 const Header = () => {
   const {

@@ -10,9 +10,9 @@ import {
 } from "@chakra-ui/react"
 import React, { useState } from "react"
 import { AddIcon, EditIcon } from "@chakra-ui/icons"
-import SortButton from "../Button/SortButton"
 import { useNavigate } from "react-router-dom"
-import PaginatedItems from "../PaginatedItems"
+import SortButton from "components/Button/SortButton"
+import PaginatedItems from "components/PaginatedItems/Pagination/Pagination"
 
 const product = {
   id: "111",
@@ -137,7 +137,7 @@ export default function AllProductsTabPanel() {
       <SimpleGrid columns={12} alignItems={"center"} pt={10} spacing={3}>
         <ProductItem />
       </SimpleGrid>
-      <PaginatedItems />
+      <PaginatedItems itemsPerPage={36} total={1} />
     </>
   )
 }

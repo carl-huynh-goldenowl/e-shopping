@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Input, Text, InputGroup, InputRightAddon } from "@chakra-ui/react"
 import { useFormContext } from "react-hook-form"
-import { MAX_LENGTH_PRODUCT_NAME } from "../../constants/formConstant"
+import { MAX_LENGTH_PRODUCT_NAME } from "./constants"
 
 export default function ProductNameInput() {
   const {

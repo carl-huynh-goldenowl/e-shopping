@@ -1,16 +1,14 @@
 import React from "react"
-
-import Header from "./layout/Header"
-import Footer from "./layout/Footer"
+import Footer from "layout/common/components/Footer"
+import Header from "layout/common/components/Header"
 import { Container, Box } from "@chakra-ui/layout"
 import { Routes, Route } from "react-router-dom"
-import ProductDetailPage from "./pages/ProductDetailPage"
-import Homepage from "./pages/Homepage"
-import AdminPage from "./pages/AdminPage"
-import AddNewProductForm from "./containers/AddNewProductForm"
-import ProductListManagement from "./containers/ProductListManagement"
-
+import ProductListManagement from "containers/ProductListManagement"
 import { QueryClient, QueryClientProvider } from "react-query"
+import AdminPage from "pages/AdminPage"
+import AddNewProductForm from "forms/AddNewProductForm"
+import ProductDetailPageSkeleton from "containers/ProductDetailPageSkeleton"
+import Homepage from "pages/Homepage"
 
 const queryClient = new QueryClient()
 
@@ -25,7 +23,11 @@ function App() {
               <Route path="products/*" element={<AddNewProductForm />} />
               <Route path="products" element={<ProductListManagement />} />
             </Route>
-            <Route exact path="/products/*" element={<ProductDetailPage />} />
+            <Route
+              exact
+              path="/products/*"
+              element={<ProductDetailPageSkeleton />}
+            />
             <Route exact path="/" element={<Homepage />} />
           </Routes>
         </Container>

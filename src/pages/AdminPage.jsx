@@ -1,6 +1,6 @@
 import React from "react"
 import { GridItem, SimpleGrid } from "@chakra-ui/react"
-import ProductsManagementMenu from "../containers/ProductsManagementMenu"
+import ProductsManagementMenu from "containers/ProductsManagementMenu"
 import { Outlet } from "react-router-dom"
 // import AddNewProduct from "../containers/AddNewProduct"
 

@@ -13,23 +13,22 @@ import { Button } from "@chakra-ui/button"
 import { Tag } from "@chakra-ui/tag"
 import { useQuery } from "react-query"
 import { SkeletonText } from "@chakra-ui/react"
-
-import Rating from "../components/Rating"
-import QuantityInput from "../components/Input/QuantityInput"
-import ProductDetailImgsSlider from "../components/Slider/ProductDetailImgsSlider"
-import ProductDetail from "../containers/ProductDetail"
-import BestSeller from "../containers/BestSeller"
-import SimilarProductSlider from "../components/Slider/SimilarProductSlider"
-import RecommendedProductsSlider from "../components/Slider/RecommendedProductsSlider"
-import ShippingFeeSelect from "../components/Select/ShippingFeeSelect"
+import ProductDetailSkeleton from "components/Skeleton/ProductDetailSkeleton/ProductDetailSkeleton"
+import { ProductDetailImgsSlider } from "components/Slider"
+import Rating from "components/Rating"
+import ShippingFeeSelect from "components/Select/ShippingFeeSelect"
+import QuantityInput from "components/Input/QuantityInput"
+import ProductDetail from "containers/ProductDetail"
+import ProductListSkeleton from "components/Skeleton/ProductListSkeleton/ProductListSkeleton"
+import SimilarProductsSlider from "components/Slider/SimilarProductSlider"
+import RecommendedProductsSlider from "components/Slider/RecommendedProductsSlider"
+import BestSeller from "containers/BestSeller"
 import {
   getProductDetail,
   getSimilarProducts,
   getRecommendedProducts,
   getBestSellingProducts,
-} from "../services/api"
-import ProductDetailSkeleton from "../components/Skeleton/ProductDetailSkeleton"
-import ProductListSkeleton from "../components/Skeleton/ProductListSkeleton"
+} from "apis/products"
 
 const ProductDetailPage = () => {
   const [mainImg, setMainImg] = useState("")
@@ -191,7 +190,7 @@ const ProductDetailPage = () => {
                   pictureHeight={8}
                 />
               ) : (
-                <SimilarProductSlider productList={similarProduct} />
+                <SimilarProductsSlider productList={similarProduct} />
               )}
             </GridItem>
             <GridItem>

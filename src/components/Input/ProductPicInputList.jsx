@@ -20,7 +20,7 @@ import {
 import { useDropzone } from "react-dropzone"
 
 import { AiOutlineLine } from "react-icons/ai"
-import CropImageModal from "../Modal/CropImageModal"
+import CropImageModal from "containers/Modal/CropImageModal"
 
 export function ProductPicInput({ title, inputId }) {
   const [productImg, setProductImg] = useState(null)

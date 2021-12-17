@@ -1,5 +1,5 @@
 {
-  "name": "reactjs-project",
+  "name": "e-shopping",
   "version": "1.0",
   "private": true,
   "dependencies": {
@@ -58,7 +58,6 @@
     ]
   },
   "devDependencies": {
-    "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "7.28.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.3",

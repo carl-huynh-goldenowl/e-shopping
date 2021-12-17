@@ -23,7 +23,6 @@ export default function BasicUsage({
   handleUpdateImg,
 }) {
   const imgRef = useRef(null)
-  const previewCanvasRef = useRef(null)
   const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 1 / 1 })
   const [completedCrop, setCompletedCrop] = useState(null)
   const [croppedImgUrl, setCroppedImgUrl] = useState("")
@@ -33,12 +32,12 @@ export default function BasicUsage({
   }, [])
 
   useEffect(() => {
-    if (!completedCrop || !previewCanvasRef.current || !imgRef.current) {
+    if (!completedCrop || !imgRef.current) {
       return
     }
 
     const image = imgRef.current
-    const canvas = previewCanvasRef.current
+    const canvas = document.createElement("canvas")
     const crop = completedCrop
 
     const scaleX = image.naturalWidth / image.width
@@ -100,15 +99,6 @@ export default function BasicUsage({
               <GridItem colSpan={4}>
                 <Text textAlign={"center"}>Xem trước</Text>
                 <Image src={croppedImgUrl} />
-                <div h="6rem" w="6rem" style={{ display: "none" }}>
-                  <canvas
-                    ref={previewCanvasRef}
-                    style={{
-                      width: Math.round(completedCrop?.width ?? 0),
-                      height: Math.round(completedCrop?.height ?? 0),
-                    }}
-                  />
-                </div>
               </GridItem>
             </SimpleGrid>
           </ModalBody>
