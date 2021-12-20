@@ -31,7 +31,7 @@ export default function FindProductForm() {
         <GridItem colSpan={6}>
           <InputGroup>
             <InputLeftAddon>
-              <Select border="none" _focus={"none"} {...register("field")}>
+              <Select border="none" {...register("field")}>
                 <option value="option1">Option 1</option>
                 <option value="option2">Option 2</option>
                 <option value="option3">Option 3</option>

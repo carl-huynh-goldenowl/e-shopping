@@ -1,9 +1,10 @@
 import React from "react"
-import { useForm, Controller } from "react-hook-form"
+import { useFormContext } from "react-hook-form"
 import { Heading, Input, VStack, Button } from "@chakra-ui/react"
+import PasswordInput from "components/Input/PasswordInput"
 
 export default function SignUpForm() {
-  const { control, handleSubmit } = useForm({
+  const { register, handleSubmit } = useFormContext({
     defaultValues: {
       email: "",
     },
@@ -18,32 +19,29 @@ export default function SignUpForm() {
           <Heading as="h3" size="lg" pb="1rem">
             Sign up
           </Heading>
-          <Controller
-            name="email"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <Input
-                placeholder="Email"
-                type="email"
-                focusBorderColor="teal.400"
-                {...field}
-              />
-            )}
+
+          <Input
+            placeholder="Email"
+            {...register("email", { required: true })}
+            type="email"
+            focusBorderColor="teal.400"
           />
-          <Controller
+
+          <PasswordInput focusBorderColor="teal.400" />
+          {/* <Controller
             name="password"
             control={control}
             rules={{ required: true }}
             render={({ field }) => (
               <Input
                 placeholder="Password"
-                type="Password"
+                type="password"
                 focusBorderColor="teal.400"
                 {...field}
               />
             )}
-          />
+          /> */}
+
           <Button type="submit" colorScheme={"teal"} w="100%">
             Sign up
           </Button>

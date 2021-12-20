@@ -1,51 +1,41 @@
-import React from "react"
-import { useForm, Controller } from "react-hook-form"
+import React, { useCallback, useContext, useEffect } from "react"
+import { useFormContext } from "react-hook-form"
 import { Heading, Input, VStack, Button } from "@chakra-ui/react"
 import PasswordInput from "components/Input/PasswordInput"
+import { AuthContext } from "context/authContext"
+import { useNavigate } from "react-router-dom"
+import { Routes } from "routes/Routes"
 
 export default function SignUpForm() {
-  const { control, handleSubmit } = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  })
+  const { register, handleSubmit } = useFormContext()
+  const { authState, authDispatch } = useContext(AuthContext)
+  const navigate = useNavigate()
 
-  // const onSubmit = (data) => console.log(data)
+  const onSubmit = useCallback(() => {
+    authDispatch({ type: "signInAsAdmin", isAuth: true, isAdmin: true })
+  }, [authDispatch])
+
+  useEffect(() => {
+    if (authState.isAdmin) {
+      navigate(Routes.admin.path, { replace: true })
+    } else if (authState.isAuth) {
+      navigate(Routes.home.path, { replace: true })
+    }
+  }, [authState, navigate])
 
   return (
     <>
-      <form onSubmit={handleSubmit()}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <VStack spacing={6} p="3rem">
           <Heading as="h3" size="lg" pb="1rem">
             Login
           </Heading>
-          <Controller
-            name="email"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <Input
-                placeholder="Email"
-                type="email"
-                focusBorderColor="teal.400"
-                {...field}
-              />
-            )}
+          <Input
+            {...register("email", { require: true })}
+            placeholder="Email"
+            type="email"
           />
-          <Controller
-            name="password"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <PasswordInput
-                placeholder="Password"
-                type="Password"
-                focusBorderColor="teal.400"
-                {...field}
-              />
-            )}
-          />
+          <PasswordInput focusBorderColor="teal.400" />
           <Button type="submit" colorScheme={"teal"} w="100%">
             Login
           </Button>

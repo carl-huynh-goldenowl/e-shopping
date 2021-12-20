@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Input, Text, InputGroup, InputRightAddon } from "@chakra-ui/react"
+import { Input, InputGroup, InputRightAddon, Text } from "@chakra-ui/react"
 import { useFormContext } from "react-hook-form"
 import { MAX_LENGTH_PRODUCT_NAME } from "./constants"
 
@@ -32,6 +32,7 @@ export default function ProductNameInput() {
             onChange: (e) => handleChangeName(e),
           })}
         />
+
         <InputRightAddon>
           {nameLength}/{MAX_LENGTH_PRODUCT_NAME}
         </InputRightAddon>

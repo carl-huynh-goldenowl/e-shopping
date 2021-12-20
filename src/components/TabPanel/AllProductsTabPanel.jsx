@@ -13,6 +13,7 @@ import { AddIcon, EditIcon } from "@chakra-ui/icons"
 import { useNavigate } from "react-router-dom"
 import SortButton from "components/Button/SortButton"
 import PaginatedItems from "components/PaginatedItems/Pagination/Pagination"
+import { Routes } from "routes/Routes"
 
 const product = {
   id: "111",
@@ -86,7 +87,7 @@ export default function AllProductsTabPanel() {
   }
 
   const handleClickAddProduct = () => {
-    navigate("add")
+    navigate(Routes.admin.path + "/" + Routes.admin.routes.addProduct.path)
   }
 
   return (

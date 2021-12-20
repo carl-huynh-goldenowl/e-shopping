@@ -7,7 +7,13 @@ export default function CustomActiveLink({ children, to, ...props }) {
 
   return (
     <div>
-      <Link style={{ color: match ? "teal.400" : "none" }} to={to} {...props}>
+      <Link
+        style={{
+          color: match ? "teal" : "black",
+        }}
+        to={to}
+        {...props}
+      >
         {children}
       </Link>
     </div>

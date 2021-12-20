@@ -1,14 +1,23 @@
 import React from "react"
 import { Box, Center, SimpleGrid, GridItem, Image } from "@chakra-ui/react"
-import SignUpForm from "forms/SignUpForm/SignUpForm"
+import LoginForm from "forms/LoginForm"
 import { FormProvider, useForm } from "react-hook-form"
+import { yupResolver } from "@hookform/resolvers/yup"
+import schema from "forms/LoginForm/validation"
 
 export default function SignUpPage() {
-  const methods = useForm()
+  const methods = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: yupResolver(schema),
+  })
+
   return (
     <Box>
       <Center>
-        <SimpleGrid spacing={6} pos={"absolute"} top="25%">
+        <SimpleGrid spacing={6} pos="absolute" top="20%">
           <GridItem>
             <Box>
               <Image
@@ -21,7 +30,7 @@ export default function SignUpPage() {
           </GridItem>
           <GridItem bg="white" rounded={"md"} shadow={"xl"}>
             <FormProvider {...methods}>
-              <SignUpForm />
+              <LoginForm />
             </FormProvider>
           </GridItem>
         </SimpleGrid>

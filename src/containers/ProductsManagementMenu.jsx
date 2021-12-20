@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Heading, Link, Menu, MenuItem, Box } from "@chakra-ui/react"
-import { Link as ReactLink } from "react-router-dom"
+import CustomActiveLink from "components/Link/CustomActiveLink"
 
 export default function ProductsManagementMenu() {
   const [isSelected, setIsSelected] = useState([true, false, false, false])
@@ -10,29 +10,29 @@ export default function ProductsManagementMenu() {
         Quản lý sản phẩm
       </Heading>
       <Menu>
-        <Link
-          as={ReactLink}
-          w={"100%"}
-          to="/admin/products"
-          _hover={{
-            textDecoration: "none",
-            color: "teal.400",
-            fontWeight: "bold",
-          }}
-        >
-          <MenuItem>Tất cả sản phẩm</MenuItem>
-        </Link>
-        <Link
-          as={ReactLink}
-          to="/admin/products/add"
-          _hover={{
-            textDecoration: "none",
-            color: "teal.400",
-            fontWeight: "bold",
-          }}
-        >
-          <MenuItem>Thêm sản phẩm</MenuItem>
-        </Link>
+        <CustomActiveLink to="/admin/products">
+          <MenuItem
+            _hover={{
+              textDecoration: "none",
+              color: "teal.400",
+              fontWeight: "bold",
+            }}
+          >
+            Tất cả sản phẩm
+          </MenuItem>
+        </CustomActiveLink>
+
+        <CustomActiveLink to="/admin/add-product">
+          <MenuItem
+            _hover={{
+              textDecoration: "none",
+              color: "teal.400",
+              fontWeight: "bold",
+            }}
+          >
+            Thêm sản phẩm
+          </MenuItem>
+        </CustomActiveLink>
       </Menu>
       <Box ml={6} borderLeft="1px solid gray">
         <Menu>
