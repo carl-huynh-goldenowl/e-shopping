@@ -1,9 +1,10 @@
-import { GridItem, SimpleGrid, useQuery } from "@chakra-ui/react"
+import { GridItem, SimpleGrid } from "@chakra-ui/react"
 import { getProductList } from "apis/products"
 import PaginatedItems from "components/PaginatedItems/Pagination/Pagination"
 import ProductItem from "components/PaginatedItems/ProductItem"
 import ProductListSkeleton from "components/Skeleton/ProductListSkeleton/ProductListSkeleton"
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { useQuery, useQueryClient } from "react-query"
 
 function ProductList({ currentItems }) {
   return (
@@ -17,11 +18,31 @@ function ProductList({ currentItems }) {
 }
 
 export default function ProductListPage() {
-  const { isLoading, error, data } = useQuery("productList", getProductList)
+  const queryClient = useQueryClient()
+  const [page, setPage] = useState(0)
+  const {
+    isLoading,
+    error,
+    data: response,
+    isFetching,
+  } = useQuery(["productList", page], () => getProductList(page))
 
-  const handleChangePage = () => {}
+  const handleChangePage = (data) => {
+    setPage(data)
+  }
 
-  if (isLoading) {
+  // Prefetch the next page!
+  useEffect(() => {
+    if (response?.hasMore) {
+      queryClient.prefetchQuery(["productList", page + 1], () =>
+        getProductList(page + 1)
+      )
+    }
+
+    window.scrollTo(0, 0)
+  }, [response, page, queryClient])
+
+  if (isLoading || isFetching) {
     return (
       <ProductListSkeleton
         productTotal={36}
@@ -36,12 +57,13 @@ export default function ProductListPage() {
 
   return (
     <SimpleGrid columns={12} spacing={3}>
-      <ProductList currentItems={data} />
+      <ProductList currentItems={response.data?.productList} />
       <GridItem colSpan={12} justifyContent="center">
         <PaginatedItems
-          itemsPerPage={50}
-          total={200}
-          handleChangePage={() => () => handleChangePage}
+          itemsPerPage={response.data?.itemsPerPage}
+          total={response.data.total}
+          handleChangePage={handleChangePage}
+          initPage={page}
         />
       </GridItem>
     </SimpleGrid>

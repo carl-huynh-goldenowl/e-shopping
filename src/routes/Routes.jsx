@@ -1,6 +1,5 @@
-import { AuthContext } from "context/authContext"
 import AddNewProductPage from "pages/AddNewProductPage"
-import React, { useContext } from "react"
+import React from "react"
 import { Navigate, Route, useLocation } from "react-router-dom"
 
 import {
@@ -10,10 +9,11 @@ import {
   ProductDetailPage,
   SignUpPage,
   ProductListPage,
+  ForgetPasswordPage,
 } from "pages"
 import AdminPage from "pages/AdminPage"
-
 import LoadingSpinner from "components/LoadingSpinner/LoadingSpinner"
+import { useSelector } from "react-redux"
 
 const DefaultComponent = () => {
   return <Navigate to={Routes.home.path} />
@@ -27,6 +27,10 @@ export const Routes = {
   signUp: {
     path: "/sign-up",
     element: SignUpPage,
+  },
+  forgetPassword: {
+    path: "/forget-password",
+    element: ForgetPasswordPage,
   },
   admin: {
     path: "/admin",
@@ -61,7 +65,7 @@ export const Routes = {
         element: ProductListPage,
       },
       productDetail: {
-        path: "products/*",
+        path: "products/:id",
         element: ProductDetailPage,
       },
       default: {
@@ -81,15 +85,15 @@ export function AppLoading(props) {
 }
 
 export function RouteComponentWrapper(route, key) {
-  const { authState } = useContext(AuthContext)
+  const user = useSelector((state) => state.user)
   let location = useLocation()
 
-  if (!authState.initialized)
-    return (
-      <Route key={key} path={location.pathname} element={<LoadingSpinner />} />
-    )
+  // if (!user.initialized)
+  //   return (
+  //     <Route key={key} path={location.pathname} element={<LoadingSpinner />} />
+  //   )
 
-  if (!authState.isAuth && route.isAuth)
+  if (!user.isAuth && route.isAuth)
     return (
       <Route
         key={key}
@@ -100,8 +104,8 @@ export function RouteComponentWrapper(route, key) {
       />
     )
 
-  if (!authState.isAdmin && route.isAdmin) {
-    if (authState.isAuth) {
+  if (!user.isAdmin && route.isAdmin) {
+    if (user.isAuth) {
       return (
         <Route
           key={key}

@@ -4,7 +4,14 @@ import { Swiper, SwiperSlide } from "swiper/react/swiper-react"
 
 // import Swiper core and required modules
 import SwiperCore, { Navigation } from "swiper"
-import { Box, Image, GridItem, Text, VStack } from "@chakra-ui/react"
+import {
+  Box,
+  Image,
+  GridItem,
+  Text,
+  VStack,
+  SimpleGrid,
+} from "@chakra-ui/react"
 
 // install Swiper modules
 SwiperCore.use([Navigation])
@@ -37,12 +44,14 @@ export default function RecommendedProductsSlider({ productList }) {
       >
         {productList.map((product, index) => (
           <SwiperSlide key={index}>
-            <Product
-              key={index}
-              name={product.name}
-              img={product.img}
-              discountPrice={product.discountPrice}
-            />
+            <SimpleGrid>
+              <Product
+                key={index}
+                name={product.name}
+                img={product.pictureUrl}
+                discountPrice={product.discountPrice}
+              />
+            </SimpleGrid>
           </SwiperSlide>
         ))}
       </Swiper>

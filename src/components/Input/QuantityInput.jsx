@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useCallback, useState } from "react"
 import {
   Input,
   InputGroup,
@@ -10,20 +10,20 @@ import { AddIcon, MinusIcon } from "@chakra-ui/icons"
 export default function QuantityInput() {
   const [quantity, setQuantity] = useState(1)
 
-  const handleClickAddIcon = () => {
+  const handleClickAddIcon = useCallback(() => {
     setQuantity(quantity + 1)
-  }
+  }, [setQuantity])
 
-  const handleClickMinusIcon = () => {
+  const handleClickMinusIcon = useCallback(() => {
     setQuantity((preState) => {
       if (preState === 1) return preState
       else return preState - 1
     })
-  }
+  }, [setQuantity])
 
-  const handleChangeQuantity = (e) => {
+  const handleChangeQuantity = useCallback((e) => {
     setQuantity(e.target.value >= 1 ? e.target.value : 1)
-  }
+  }, [])
 
   return (
     <InputGroup size="sm" borderColor="gray.300">

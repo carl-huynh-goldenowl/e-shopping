@@ -1,7 +1,17 @@
 import React from "react"
 import { useFormContext } from "react-hook-form"
-import { Heading, Input, VStack, Button } from "@chakra-ui/react"
+import {
+  Heading,
+  Input,
+  VStack,
+  Button,
+  SimpleGrid,
+  GridItem,
+  Link,
+} from "@chakra-ui/react"
 import PasswordInput from "components/Input/PasswordInput"
+import { Link as ReactLink } from "react-router-dom"
+import { Routes } from "routes/Routes"
 
 export default function SignUpForm() {
   const { register, handleSubmit } = useFormContext({
@@ -45,6 +55,13 @@ export default function SignUpForm() {
           <Button type="submit" colorScheme={"teal"} w="100%">
             Sign up
           </Button>
+          <SimpleGrid>
+            <GridItem>
+              <Link as={ReactLink} to={Routes.signIn.path}>
+                Đã có tài khoản?
+              </Link>
+            </GridItem>
+          </SimpleGrid>
         </VStack>
       </form>
     </>

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useCallback } from "react"
 import { SimpleGrid, GridItem, Text, Button } from "@chakra-ui/react"
 import BasicProductInfo from "containers/BasicProductInfo"
 import { useNavigate } from "react-router-dom"
@@ -6,14 +6,15 @@ import CategorySelect from "components/Select/CategorySelect"
 import OtherInfo from "containers/OtherInfo"
 import ProductNameInput from "components/Input/ProductNameInput"
 import { useFormContext } from "react-hook-form"
+import { Routes } from "routes/Routes"
 
 export default function AddNewProductForm() {
   let navigate = useNavigate()
   const onSubmit = () => {}
 
-  const hanleCancelForm = () => {
-    navigate("/admin/products")
-  }
+  const hanleCancelForm = useCallback(() => {
+    navigate(Routes.admin.productList.path, { replace: true })
+  }, [navigate])
 
   const { handleSubmit } = useFormContext()
 

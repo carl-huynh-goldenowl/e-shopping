@@ -11,24 +11,9 @@ export default function AddNewProductPage() {
     mode: "onBlur",
   })
 
-  //const hanleCancelForm = () => {}
-
-  //const onSubmit = (data) => console.log(data)
   return (
     <FormProvider {...methods}>
-      {/* <form onSubmit={methods.handleSubmit(onSubmit)}> */}
       <AddNewProductForm />
-      {/* <GridItem colStart={9} colSpan={2}>
-          <Button bg="white" w="100%" onClick={hanleCancelForm}>
-            Hủy
-          </Button>
-        </GridItem>
-        <GridItem colStart={11} colSpan={2}>
-          <Button type="submit" colorScheme={"teal"} w="100%">
-            Lưu
-          </Button>
-        </GridItem> */}
-      {/* </form> */}
     </FormProvider>
   )
 }

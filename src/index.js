@@ -4,18 +4,26 @@ import App from "./App"
 import reportWebVitals from "./reportWebVitals"
 import { ChakraProvider } from "@chakra-ui/react"
 import { BrowserRouter } from "react-router-dom"
-import { AuthProvider } from "./context/authContext"
 import "./index.css"
+import { Provider as ReduxProvider } from "react-redux"
+import { PersistGate } from "redux-persist/integration/react"
+import LoadingSpinner from "components/LoadingSpinner/LoadingSpinner"
+import { store } from "store/store"
+import { persistStore } from "redux-persist"
+
+let persistor = persistStore(store)
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthProvider>
-      <ChakraProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ChakraProvider>
-    </AuthProvider>
+    <ReduxProvider store={store}>
+      <PersistGate loading={<LoadingSpinner />} persistor={persistor}>
+        <ChakraProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ChakraProvider>
+      </PersistGate>
+    </ReduxProvider>
   </React.StrictMode>,
   document.getElementById("root")
 )

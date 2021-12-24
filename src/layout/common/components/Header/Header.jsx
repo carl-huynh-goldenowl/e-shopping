@@ -1,27 +1,39 @@
-import React from "react"
-//import { useState, useRef } from "react"
-import { Container, Box } from "@chakra-ui/react"
+import React, { useCallback } from "react"
+import { Container, Box, Button } from "@chakra-ui/react"
 import {
   SimpleGrid,
   GridItem,
   IconButton,
   Icon,
-  Text,
   HStack,
 } from "@chakra-ui/react"
 import SearchBar from "./SearchBar"
 import { Image } from "@chakra-ui/react"
-import { MdOutlineShoppingCart, MdOutlineAccountCircle } from "react-icons/md"
-import CatalogueSlider from "components/Slider"
-import { useQuery } from "react-query"
-import { getCatalogue } from "apis/products"
+import { MdOutlineShoppingCart } from "react-icons/md"
+import { getCategory } from "apis/products"
+import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { Routes } from "routes/Routes"
+import AccountDropDownMenu from "components/Menu/AccountDropDownMenu"
+import useCategory from "./hooks/apiHooks/useCategory"
+import { CatalogueSlider } from "components/Slider"
 
 const Header = () => {
   const {
     isLoading,
     error,
-    data: catalogue,
-  } = useQuery("catalogue", getCatalogue)
+    data: category,
+  } = useCategory("category", getCategory)
+  const user = useSelector((state) => state.user)
+  const navigate = useNavigate()
+
+  const handleSignIn = useCallback(() => {
+    navigate(Routes.signIn.path, { replace: true })
+  }, [navigate])
+
+  const hanleSignUp = useCallback(() => {
+    navigate(Routes.signUp.path)
+  }, [navigate])
 
   if (isLoading) return <h6>Loading...</h6>
 
@@ -38,22 +50,18 @@ const Header = () => {
             <SearchBar />
           </GridItem>
           <GridItem colSpan={{ md: 2, sm: 1 }}>
-            <HStack
-              _hover={{
-                background: "teal.500",
-              }}
-            >
-              <Icon
-                w="3rem"
-                h="3rem"
-                color="white"
-                as={MdOutlineAccountCircle}
-              />
-
-              <Text fontSize="lg" isTruncated color="white">
-                Carl Huynh
-              </Text>
-            </HStack>
+            {user.isAuth ? (
+              <AccountDropDownMenu email={user.userInfo.email} />
+            ) : (
+              <HStack>
+                <Button variant="ghost" color={"white"} onClick={handleSignIn}>
+                  Đăng nhập
+                </Button>
+                <Button variant="outline" color={"white"} onClick={hanleSignUp}>
+                  Đăng ký
+                </Button>
+              </HStack>
+            )}
           </GridItem>
 
           <GridItem colSpan={{ md: 1, sm: 1 }} textAlign="right">
@@ -68,7 +76,7 @@ const Header = () => {
       </Container>
       <Box bg="white" py={1}>
         <Container maxW="container.xl" h="3rem">
-          <CatalogueSlider catalogue={catalogue} />
+          <CatalogueSlider category={category.data} />
         </Container>
       </Box>
     </Box>

@@ -12,6 +12,7 @@ export default function PaginatedItems({
   itemsPerPage,
   total,
   handleChangePage,
+  initPage,
 }) {
   const [pageCount, setPageCount] = useState(0)
 
@@ -26,6 +27,7 @@ export default function PaginatedItems({
   return (
     <div className="chakra-ui-pagination">
       <ReactPaginate
+        forcePage={initPage}
         nextLabel={<ChevronRightIcon />}
         onPageChange={handlePageClick}
         pageRangeDisplayed={3}

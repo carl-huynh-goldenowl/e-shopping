@@ -14,13 +14,19 @@ import { Link } from "react-router-dom"
 // install Swiper modules
 SwiperCore.use([Navigation])
 
-export default function CatalogueSlider({ catalogue }) {
+export default function CatalogueSlider({ category }) {
   return (
     <>
-      <Swiper navigation={true} className="mySwiper">
+      <Swiper
+        navigation={true}
+        slidesPerView={10}
+        slidesPerGroup={10}
+        spaceBetween={16}
+        style={{ zIndex: 0 }}
+      >
         <SwiperSlide>
           <HStack spacing={12}>
-            {catalogue.map((item, index) => (
+            {category?.map((item, index) => (
               <div key={item + index}>
                 <Link to={`/products/${item.type}`}>{item.type}</Link>
               </div>

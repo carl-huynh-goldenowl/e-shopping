@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useCallback, useState } from "react"
 import {
   InputGroup,
   Input,
@@ -10,7 +10,7 @@ import { useFormContext } from "react-hook-form"
 
 export default function PasswordInput() {
   const [show, setShow] = useState(false)
-  const handleClick = () => setShow(!show)
+  const handleClick = useCallback(() => setShow(!show), [setShow])
   const { register } = useFormContext()
 
   return (

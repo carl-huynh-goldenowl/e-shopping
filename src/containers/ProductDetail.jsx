@@ -13,31 +13,31 @@ const ProductDetail = ({ productDetail, description }) => {
           <Tbody>
             <Tr>
               <Td>Thương hiệu</Td>
-              <Td>{productDetail.trademark}</Td>
+              <Td>{productDetail?.trademark}</Td>
             </Tr>
             <Tr>
               <Td>Hạn bảo hành</Td>
-              <Td>{productDetail.warrantyPeriod}</Td>
+              <Td>{productDetail?.warrantyPeriod}</Td>
             </Tr>
             <Tr>
               <Td>Loại bảo hành</Td>
-              <Td>{productDetail.warrantyType}</Td>
+              <Td>{productDetail?.warrantyType}</Td>
             </Tr>
             <Tr>
               <Td>Loại laptop</Td>
-              <Td>{productDetail.laptopType}</Td>
+              <Td>{productDetail?.laptopType}</Td>
             </Tr>
             <Tr>
               <Td>Tình trạng</Td>
-              <Td>{productDetail.status}</Td>
+              <Td>{productDetail?.status}</Td>
             </Tr>
             <Tr>
               <Td>Kho hàng</Td>
-              <Td>{productDetail.quantity}</Td>
+              <Td>{productDetail?.quantity}</Td>
             </Tr>
             <Tr>
               <Td>Gửi từ</Td>
-              <Td>{productDetail.sendFrom}</Td>
+              <Td>{productDetail?.sendFrom}</Td>
             </Tr>
           </Tbody>
         </Table>

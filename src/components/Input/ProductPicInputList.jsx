@@ -44,15 +44,18 @@ export function ProductPicInput({ title, inputId }) {
   const [isDisplayed, setIsDisplayed] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const handleUpdateImg = (croppedImgUrl) => {
-    setProductImg(croppedImgUrl)
-  }
+  const handleUpdateImg = useCallback(
+    (croppedImgUrl) => {
+      setProductImg(croppedImgUrl)
+    },
+    [setProductImg]
+  )
 
-  const handleDeleteImgFile = () => {
+  const handleDeleteImgFile = useCallback(() => {
     acceptedFiles.pop()
     setProductImg(null)
     setValue(inputId, null)
-  }
+  }, [setProductImg, setValue])
 
   useEffect(() => {
     if (acceptedFiles.length > 0) {

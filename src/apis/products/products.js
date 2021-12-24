@@ -1,90 +1,83 @@
-import instance from "../axios"
+//import instance from "../axios"
+//import { DEFAULT_ITEM_PER_PAGE } from "./constant"
+import { category, productDetail, productList } from "./mockData"
 
-const catalogue = [
-  {
-    id: "",
-    type: "",
-  },
-]
-
-// For product of product list, similar products, recommended products and best-selling products
-
-const product = [
-  {
-    id: "",
-    name: "",
-    pictureUrl: "",
-    discountPrice: "",
-    type: "",
-  },
-]
-
-const productDetail = {
-  id: "",
-  name: "",
-  pictureUrl: "",
-  detailPicsUrl: [],
-  price: "",
-  discountPrice: "",
-  rating: "",
-  review: "",
-  sold: "",
-  detail: {
-    trademark: "",
-    warrantyPeriod: "",
-    warrantyType: "",
-    laptopType: "",
-    status: "",
-    quantity: "",
-    sendFrom: "",
-  },
-  description: "",
-  type: "",
+export const getCategory = async () => {
+  const response = {
+    config: {},
+    status: 200,
+    statusText: "OK",
+    data: category,
+    headers: { "content-type": "application/json" },
+  }
+  return Promise.resolve(response)
 }
 
-export const getCatalogue = async () => {
-  // const res = await instance.get(
-  //   "catalogue"
-  // )
+export const getProductList = async (page = 0) => {
+  //  Todo
+  // const url = qs.stringifyUrl({
+  //   url: '/',
+  // });
 
-  // return res.data
-  return catalogue
+  // return instance.get(url, {
+  //   keyword,
+  //   to: dateUtils.getFullTimeString(to),
+  //   from: dateUtils.getFullTimeString(from),
+  // });
+
+  const response = {
+    config: {},
+    status: 200,
+    statusText: "OK",
+    data: productList[page],
+    headers: { "content-type": "application/json" },
+  }
+  return Promise.resolve(response)
 }
 
-export const getProductList = async () => {
-  const res = await instance.get("products")
-  return res.data
-  //return product
-}
-
-export const getProductDetail = async () => {
-  // const res = await instance.get(
-  //   `products/${id}`
-  // )
-  // return res.data
-  return productDetail
+export const getProductDetail = async (productId) => {
+  const response = {
+    config: {},
+    status: 200,
+    statusText: "OK",
+    data: productDetail[productId],
+    headers: { "content-type": "application/json" },
+  }
+  return Promise.resolve(response)
 }
 
 export const getSimilarProducts = async () => {
-  // const res = await instance.get(
-  //   `products/${id}/similar-products`
-  // )
-  // return res.data
-  return product
+  //const url = `/products/${productId}/similar-products`
+  const response = {
+    config: {},
+    status: 200,
+    statusText: "OK",
+    data: productDetail,
+    headers: { "content-type": "application/json" },
+  }
+  return Promise.resolve(response)
 }
 
 export const getRecommendedProducts = async () => {
-  // const res = await instance.get(
-  //   `products/${id}/recommended-products`
-  // )
-  // return res.data
-  return product
+  //const url = `/products/${productId}/recommended-products`
+  const response = {
+    config: {},
+    status: 200,
+    statusText: "OK",
+    data: productDetail,
+    headers: { "content-type": "application/json" },
+  }
+  return Promise.resolve(response)
 }
 
 export const getBestSellingProducts = async () => {
-  // const res = await instance.get(
-  //   `products/${type}/best-selling-products`
-  // )
-  // return res.data
-  return product
+  //const url = `/products/${type}/best-selling-products`
+  const response = {
+    config: {},
+    status: 200,
+    statusText: "OK",
+    data: productDetail,
+    headers: { "content-type": "application/json" },
+  }
+  return Promise.resolve(response)
 }
