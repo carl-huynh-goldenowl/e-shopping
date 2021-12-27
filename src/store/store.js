@@ -3,6 +3,7 @@ import { cartReducer, userReducer } from "store/slices"
 //import { combineReducers } from "redux"
 import storage from "redux-persist/lib/storage"
 import { persistReducer, createMigrate } from "redux-persist"
+import thunk from "redux-thunk"
 
 const migrations = {
   0: (state) => {
@@ -29,4 +30,5 @@ export const store = configureStore({
     user: persistReducer(persistConfig, userReducer),
     cart: cartReducer,
   },
+  middleware: [thunk],
 })

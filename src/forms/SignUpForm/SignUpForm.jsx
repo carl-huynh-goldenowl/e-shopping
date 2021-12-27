@@ -14,22 +14,28 @@ import { Link as ReactLink } from "react-router-dom"
 import { Routes } from "routes/Routes"
 
 export default function SignUpForm() {
-  const { register, handleSubmit } = useFormContext({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useFormContext({
     defaultValues: {
       email: "",
     },
   })
 
-  // const onSubmit = (data) => console.log(data)
+  const onSubmit = () => {}
 
   return (
     <>
-      <form onSubmit={handleSubmit()}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <VStack spacing={6} p="3rem">
           <Heading as="h3" size="lg" pb="1rem">
-            Sign up
+            Đăng ký
           </Heading>
-
+          {errors.passwordConfirmation && (
+            <p color="#fff000">{errors.passwordConfirmation?.message}</p>
+          )}
           <Input
             placeholder="Email"
             {...register("email", { required: true })}
@@ -37,23 +43,20 @@ export default function SignUpForm() {
             focusBorderColor="teal.400"
           />
 
-          <PasswordInput focusBorderColor="teal.400" />
-          {/* <Controller
-            name="password"
-            control={control}
-            rules={{ required: true }}
-            render={({ field }) => (
-              <Input
-                placeholder="Password"
-                type="password"
-                focusBorderColor="teal.400"
-                {...field}
-              />
-            )}
-          /> */}
+          <PasswordInput
+            placeholderContent="Enter password"
+            registerName="password"
+            focusBorderColor="teal.400"
+          />
+
+          <PasswordInput
+            placeholderContent="Confirm password"
+            registerName="passwordConfirmation"
+            focusBorderColor="teal.400"
+          />
 
           <Button type="submit" colorScheme={"teal"} w="100%">
-            Sign up
+            Đăng ký
           </Button>
           <SimpleGrid>
             <GridItem>

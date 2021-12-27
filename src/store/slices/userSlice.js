@@ -15,7 +15,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     signIn: (state, action) => {
-      state.userInfo = action.payload.userInfo
+      state.userInfo.email = action.payload.userInfo.email
       state.token = action.payload.token
       state.isAuth = true
     },
@@ -28,9 +28,11 @@ export const userSlice = createSlice({
     signOut: () => {
       return initialState
     },
+    forgetPassword: () => {},
   },
 })
 
-export const { signIn, signInAsAdmin, signOut } = userSlice.actions
+export const { signIn, signInAsAdmin, signOut, forgetPassword } =
+  userSlice.actions
 
 export default userSlice.reducer

@@ -14,7 +14,7 @@ export default function PaginatedItems({
   handleChangePage,
   initPage,
 }) {
-  const [pageCount, setPageCount] = useState(0)
+  const [pageCount, setPageCount] = useState(initPage + 1)
 
   useEffect(() => {
     setPageCount(Math.ceil(total / itemsPerPage))

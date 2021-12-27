@@ -8,12 +8,13 @@ import {
   Text,
   Box,
 } from "@chakra-ui/react"
-import React, { useState } from "react"
+import React, { useCallback, useState } from "react"
 import { AddIcon, EditIcon } from "@chakra-ui/icons"
 import { useNavigate } from "react-router-dom"
 import SortButton from "components/Button/SortButton"
 import PaginatedItems from "components/PaginatedItems/Pagination/Pagination"
 import { Routes } from "routes/Routes"
+import replacePathFmt from "./AllProductsTabPanel/helpers"
 
 const product = {
   id: "111",
@@ -27,9 +28,12 @@ const product = {
 const ProductItem = () => {
   const navigate = useNavigate()
 
-  const handleClickEditProduct = (id) => {
-    navigate(id)
-  }
+  const handleEditProduct = useCallback(
+    (id) => () => {
+      navigate(replacePathFmt(Routes.admin.routes.editProduct.path, id))
+    },
+    [navigate]
+  )
 
   return (
     <GridItem
@@ -53,7 +57,7 @@ const ProductItem = () => {
         <Text fontSize="sm">Kho hàng: {product.stock}</Text>
         <Text fontSize="sm">Đã bán: {product.sold}</Text>
       </Box>
-      <Button w="100%" onClick={() => handleClickEditProduct(product.id)}>
+      <Button w="100%" onClick={handleEditProduct(product.id)}>
         <EditIcon />
       </Button>
     </GridItem>
@@ -86,7 +90,7 @@ export default function AllProductsTabPanel() {
     }
   }
 
-  const handleClickAddProduct = () => {
+  const handleAddProduct = () => {
     navigate(Routes.admin.path + "/" + Routes.admin.routes.addProduct.path)
   }
 
@@ -129,7 +133,7 @@ export default function AllProductsTabPanel() {
             colorScheme="teal"
             variant="solid"
             w="100%"
-            onClick={handleClickAddProduct}
+            onClick={handleAddProduct}
           >
             Thêm 1 sản phẩm mới
           </Button>

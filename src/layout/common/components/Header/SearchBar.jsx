@@ -13,7 +13,7 @@ const SearchBar = () => {
         <InputGroup spacing={0}>
           <Input
             variant="filled"
-            placeholder="Search..."
+            placeholder="Tìm kiếm..."
             borderTopRightRadius="0"
             borderBottomRightRadius="0"
             _focus={{

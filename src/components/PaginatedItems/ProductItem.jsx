@@ -2,12 +2,12 @@ import React from "react"
 import { Box, GridItem, Text } from "@chakra-ui/layout"
 import { Image } from "@chakra-ui/image"
 import { Link as ReactLink } from "react-router-dom"
-import { Link } from "@chakra-ui/layout"
+//import { Link } from "@chakra-ui/layout"
 
 export default function ProductItem({ product }) {
   return (
     <GridItem
-      colSpan={2}
+      colSpan={[6, 4, 3, 2]}
       bg="white"
       rounded="md"
       shadow="xl"
@@ -18,30 +18,31 @@ export default function ProductItem({ product }) {
         textDecoration: "none",
       }}
     >
-      <Link
-        as={ReactLink}
-        to={`/products/${product.id}`}
+      <ReactLink
+        // as={ReactLink}
+        to={`products/${product.id}`}
         _hover={{
           textDecoration: "none",
         }}
       >
         <Box>
           <Image
-            objectFit="cover"
+            //objectFit="cover"
             width="100%"
+            h="11rem"
             src={product.pictureUrl}
             alt={product.name}
           />
         </Box>
 
-        <Text fontSize="sm" noOfLines={2}>
+        <Text fontSize="sm" noOfLines={2} style={{ minHeight: "2.5rem" }}>
           {product.name}
         </Text>
 
         <Text fontSize="lg" color="tomato">
           ₫{product.discountPrice}
         </Text>
-      </Link>
+      </ReactLink>
     </GridItem>
   )
 }

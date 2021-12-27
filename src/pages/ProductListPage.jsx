@@ -3,7 +3,7 @@ import { getProductList } from "apis/products"
 import PaginatedItems from "components/PaginatedItems/Pagination/Pagination"
 import ProductItem from "components/PaginatedItems/ProductItem"
 import ProductListSkeleton from "components/Skeleton/ProductListSkeleton/ProductListSkeleton"
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { useQuery, useQueryClient } from "react-query"
 
 function ProductList({ currentItems }) {
@@ -27,9 +27,12 @@ export default function ProductListPage() {
     isFetching,
   } = useQuery(["productList", page], () => getProductList(page))
 
-  const handleChangePage = (data) => {
-    setPage(data)
-  }
+  const handleChangePage = useCallback(
+    (data) => {
+      setPage(data)
+    },
+    [setPage]
+  )
 
   // Prefetch the next page!
   useEffect(() => {

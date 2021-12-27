@@ -49,6 +49,11 @@ export const Routes = {
         element: AddNewProductPage,
         isAuth: true,
       },
+      editProduct: {
+        path: "edit-product/:id",
+        element: AddNewProductPage,
+        isAuth: true,
+      },
       default: {
         path: "*",
         element: DefaultComponent,

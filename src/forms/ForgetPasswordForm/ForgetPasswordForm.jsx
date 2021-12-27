@@ -1,21 +1,12 @@
-import React, { useCallback, useEffect } from "react"
+import React, { useEffect, useCallback } from "react"
 import { useFormContext } from "react-hook-form"
-import {
-  Heading,
-  Input,
-  VStack,
-  Button,
-  SimpleGrid,
-  GridItem,
-  Link,
-} from "@chakra-ui/react"
-import PasswordInput from "components/Input/PasswordInput"
-import { Link as ReactLink, useNavigate } from "react-router-dom"
+import { Heading, Input, VStack, Button } from "@chakra-ui/react"
+import { useNavigate } from "react-router-dom"
 import { Routes } from "routes/Routes"
 import { useDispatch, useSelector } from "react-redux"
-import { signIn } from "store/slices/userSlice"
+import { forgetPassword } from "store/slices/userSlice"
 
-export default function SignUpForm() {
+export default function ForgetPasswordForm() {
   const { register, handleSubmit } = useFormContext()
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -23,13 +14,7 @@ export default function SignUpForm() {
 
   const onSubmit = useCallback(
     (data) => {
-      dispatch(
-        signIn({
-          userInfo: {
-            email: data.email,
-          },
-        })
-      )
+      dispatch(forgetPassword(data))
     },
     [dispatch]
   )
@@ -47,28 +32,16 @@ export default function SignUpForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <VStack spacing={6} p="3rem">
           <Heading as="h3" size="lg" pb="1rem">
-            Đăng nhập
+            Quên mật khẩu
           </Heading>
           <Input
             {...register("email", { require: true })}
             placeholder="Email"
             type="email"
           />
-          <PasswordInput
-            placeholderContent="Enter password"
-            registerName="password"
-            focusBorderColor="teal.400"
-          />
           <Button type="submit" colorScheme={"teal"} w="100%">
-            Đăng nhập
+            Lấy lại mật khẩu
           </Button>
-          <SimpleGrid>
-            <GridItem>
-              <Link as={ReactLink} to={Routes.forgetPassword.path}>
-                Quên mật khẩu?
-              </Link>
-            </GridItem>
-          </SimpleGrid>
         </VStack>
       </form>
     </>

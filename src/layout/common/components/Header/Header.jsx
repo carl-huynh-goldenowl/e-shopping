@@ -31,7 +31,7 @@ const Header = () => {
     navigate(Routes.signIn.path, { replace: true })
   }, [navigate])
 
-  const hanleSignUp = useCallback(() => {
+  const handleSignUp = useCallback(() => {
     navigate(Routes.signUp.path)
   }, [navigate])
 
@@ -57,7 +57,11 @@ const Header = () => {
                 <Button variant="ghost" color={"white"} onClick={handleSignIn}>
                   Đăng nhập
                 </Button>
-                <Button variant="outline" color={"white"} onClick={hanleSignUp}>
+                <Button
+                  variant="outline"
+                  color={"white"}
+                  onClick={handleSignUp}
+                >
                   Đăng ký
                 </Button>
               </HStack>
