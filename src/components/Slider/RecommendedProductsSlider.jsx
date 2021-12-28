@@ -22,7 +22,7 @@ const Product = ({ name, img, discountPrice }) => {
       <Box>
         <Image objectFit="cover" width="50%" src={img} alt={name} />
       </Box>
-      <Text fontSize="sm" noOfLines={2}>
+      <Text fontSize="sm" noOfLines={2} height={"2.5rem"}>
         {name}
       </Text>
       <Text fontSize="lg" color="tomato">

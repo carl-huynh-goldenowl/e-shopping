@@ -1,7 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit"
+import _ from "lodash"
 
 const initialState = {
-  cart: [],
+  cart: [
+    // {
+    //   id: 1,
+    //   name: "a",
+    //   qty: 0,
+    // },
+    // {
+    //   id: 2,
+    //   name: "b",
+    //   qty: 0,
+    // },
+  ],
 }
 
 export const cartSlice = createSlice({
@@ -9,26 +21,31 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addProduct: (state, action) => {
-      state.userInfo = action.payload.userInfo
-      state.token = action.payload.token
-      state.isAuth = true
+      const index = _.findIndex(state.cart, { id: action.payload.product.id })
+
+      if (index > -1) {
+        state.cart[index].qty += action.payload.qty
+      } else {
+        state.cart = _.concat(
+          state.cart,
+          _.assign(action.payload.product, { qty: action.payload.qty })
+        )
+      }
     },
-    removeProduct: () => {
-      return initialState
+    removeProduct: (state, action) => {
+      _.remove(state.cart, (item) => item.id === action.payload.id)
     },
-    increment: (state) => {
-      state.value += 1
+    updateQuantity: (state, action) => {
+      const index = _.findIndex(state.cart, { id: action.payload.productId })
+      state.cart[index].qty = action.payload.qty
     },
-    decrement: (state) => {
-      state.value -= 1
-    },
-    clearCart: () => {
+    deleteCart: () => {
       return initialState
     },
   },
 })
 
-export const { addProduct, removeProduct, increment, decrement, signOut } =
+export const { addProduct, removeProduct, updateQuantity, deleteCart } =
   cartSlice.actions
 
 export default cartSlice.reducer

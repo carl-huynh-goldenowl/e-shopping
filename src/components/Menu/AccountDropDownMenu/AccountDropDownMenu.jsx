@@ -7,20 +7,22 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react"
-import React, { useCallback, useEffect } from "react"
+import React, { useCallback } from "react"
 import { MdOutlineAccountCircle } from "react-icons/md"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { Routes } from "routes/Routes"
+import { deleteCart } from "store/slices/cartSlice"
 import { signOut } from "store/slices/userSlice"
 
-export default function AccountDropDownMenu({ email }) {
+export default function AccountDropDownMenu({ email, color }) {
   const dispatch = useDispatch()
   let navigate = useNavigate()
   const user = useSelector((state) => state.user)
 
   const handleSignOut = useCallback(() => {
     dispatch(signOut())
+    dispatch(deleteCart())
   }, [dispatch])
 
   const handleRedirectAdminPage = useCallback(() => {
@@ -29,20 +31,19 @@ export default function AccountDropDownMenu({ email }) {
     }
   }, [navigate])
 
-  useEffect(() => {
-    if (!user.isAdmin) {
-      navigate(Routes.home.path, { replace: true })
-    }
-  }, [user, navigate])
-  console
+  // useEffect(() => {
+  //   if (!user.isAdmin) {
+  //     navigate(Routes.home.path, { replace: true })
+  //   }
+  // }, [user, navigate])
 
   return (
     <Menu>
       <HStack>
         <MenuButton>
-          <Icon w="3rem" h="3rem" color="white" as={MdOutlineAccountCircle} />
+          <Icon w="3rem" h="3rem" color={color} as={MdOutlineAccountCircle} />
         </MenuButton>
-        <Text fontSize="lg" isTruncated color="white">
+        <Text fontSize="lg" isTruncated color={color}>
           {email}
         </Text>
       </HStack>

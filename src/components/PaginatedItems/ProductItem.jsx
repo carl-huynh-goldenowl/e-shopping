@@ -12,10 +12,12 @@ export default function ProductItem({ product }) {
       rounded="md"
       shadow="xl"
       p="0.5rem"
+      m="0.5rem"
       _hover={{
         border: "0.2rem solid",
         borderColor: "teal.300",
         textDecoration: "none",
+        margin: "0.1",
       }}
     >
       <ReactLink

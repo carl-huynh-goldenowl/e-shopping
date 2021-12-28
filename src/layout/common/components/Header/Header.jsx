@@ -3,20 +3,21 @@ import { Container, Box, Button } from "@chakra-ui/react"
 import {
   SimpleGrid,
   GridItem,
-  IconButton,
-  Icon,
+  //IconButton,
+  //Icon,
   HStack,
 } from "@chakra-ui/react"
 import SearchBar from "./SearchBar"
 import { Image } from "@chakra-ui/react"
-import { MdOutlineShoppingCart } from "react-icons/md"
+//import { MdOutlineShoppingCart } from "react-icons/md"
 import { getCategory } from "apis/products"
 import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Routes } from "routes/Routes"
 import AccountDropDownMenu from "components/Menu/AccountDropDownMenu"
 import useCategory from "./hooks/apiHooks/useCategory"
 import { CatalogueSlider } from "components/Slider"
+import CartPopover from "containers/CartPopover/CartPopover"
 
 const Header = () => {
   const {
@@ -44,14 +45,19 @@ const Header = () => {
       <Container maxW="container.xl">
         <SimpleGrid columns={12} spacing={1} alignItems="center">
           <GridItem colSpan={{ md: 2, sm: 1 }}>
-            <Image src="/images/golden_owl.svg" alt="Golden Owl logo" />
+            <Link to={Routes.home.path}>
+              <Image src="/images/golden_owl.svg" alt="Golden Owl logo" />
+            </Link>
           </GridItem>
           <GridItem colSpan={{ md: 7, sm: 9 }} padding={6}>
             <SearchBar />
           </GridItem>
           <GridItem colSpan={{ md: 2, sm: 1 }}>
             {user.isAuth ? (
-              <AccountDropDownMenu email={user.userInfo.email} />
+              <AccountDropDownMenu
+                color={"white"}
+                email={user.userInfo.email}
+              />
             ) : (
               <HStack>
                 <Button variant="ghost" color={"white"} onClick={handleSignIn}>
@@ -69,12 +75,13 @@ const Header = () => {
           </GridItem>
 
           <GridItem colSpan={{ md: 1, sm: 1 }} textAlign="right">
-            <IconButton
+            {/* <IconButton
               padding="2rem 1rem"
               borderRadius="50%"
               aria-label="Shopping cart"
               icon={<Icon w="2rem" h="2rem" as={MdOutlineShoppingCart} />}
-            />
+            /> */}
+            <CartPopover />
           </GridItem>
         </SimpleGrid>
       </Container>

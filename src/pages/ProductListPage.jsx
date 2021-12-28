@@ -59,9 +59,9 @@ export default function ProductListPage() {
   if (error) return "An error has occurred: " + error.message
 
   return (
-    <SimpleGrid columns={12} spacing={3}>
+    <SimpleGrid columns={12} spacing={0}>
       <ProductList currentItems={response.data?.productList} />
-      <GridItem colSpan={12} justifyContent="center">
+      <GridItem colSpan={12} justifyContent="center" paddingTop={"1rem"}>
         <PaginatedItems
           itemsPerPage={response.data?.itemsPerPage}
           total={response.data.total}

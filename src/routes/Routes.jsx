@@ -10,6 +10,7 @@ import {
   SignUpPage,
   ProductListPage,
   ForgetPasswordPage,
+  ShoppingCartPage,
 } from "pages"
 import AdminPage from "pages/AdminPage"
 import LoadingSpinner from "components/LoadingSpinner/LoadingSpinner"
@@ -78,6 +79,12 @@ export const Routes = {
         element: DefaultComponent,
       },
     },
+  },
+  shoppingCart: {
+    path: "/cart",
+    isAuth: true,
+    element: ShoppingCartPage,
+    index: ProductListPage,
   },
   default: {
     path: "*",

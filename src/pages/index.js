@@ -19,3 +19,5 @@ export const ProductListManagement = loadable(() =>
 export const ProductListPage = loadable(() => import("./ProductListPage"))
 
 export const ForgetPasswordPage = loadable(() => import("./ForgetPasswordPage"))
+
+export const ShoppingCartPage = loadable(() => import("./ShoppingCartPage"))

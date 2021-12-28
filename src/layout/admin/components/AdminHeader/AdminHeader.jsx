@@ -7,7 +7,7 @@ import AccountDropDownMenu from "components/Menu/AccountDropDownMenu"
 import useCategory from "layout/common/components/Header/hooks/apiHooks/useCategory"
 import { getCategory } from "apis/products"
 import { useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Routes } from "routes/Routes"
 
 const AdminHeader = () => {
@@ -37,11 +37,16 @@ const AdminHeader = () => {
           columns={12}
         >
           <GridItem colSpan={2}>
-            <Image src="/images/golden_owl.svg" alt="Golden Owl logo" />
+            <Link to={Routes.home.path}>
+              <Image src="/images/golden_owl.svg" alt="Golden Owl logo" />
+            </Link>
           </GridItem>
           <GridItem colStart={10} colSpan={3}>
             {user.isAuth ? (
-              <AccountDropDownMenu email={user.userInfo.email} />
+              <AccountDropDownMenu
+                color={"white"}
+                email={user.userInfo.email}
+              />
             ) : (
               <HStack>
                 <Button variant="ghost" color={"white"} onClick={handleSignIn}>

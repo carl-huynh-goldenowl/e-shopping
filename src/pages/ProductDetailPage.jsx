@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useCallback, useState } from "react"
 import {
   GridItem,
   SimpleGrid,
@@ -31,11 +31,18 @@ import {
   getRecommendedProducts,
   getBestSellingProducts,
 } from "apis/products"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { addProduct } from "store/slices/cartSlice"
+import { Routes } from "routes/Routes"
 
 const ProductDetailPage = () => {
   const [mainImg, setMainImg] = useState("")
+  const [qty, setQty] = useState(1)
   let params = useParams()
+  const dispatch = useDispatch()
+  const user = useSelector((state) => state.user)
+  const navigate = useNavigate()
 
   const {
     isLoading: loadingProductDetail,
@@ -61,9 +68,20 @@ const ProductDetailPage = () => {
     data: bestSellingProducts,
   } = useQuery("bestSellingProducts", () => getBestSellingProducts("laptop"))
 
-  const handleChangeImg = (index) => {
-    setMainImg(productDetail.data?.detailPicsUrl[index])
-  }
+  const handleChangeImg = useCallback(
+    (index) => {
+      setMainImg(productDetail.data?.detailPicsUrl[index])
+    },
+    [setMainImg]
+  )
+
+  const handleAddToCart = useCallback(() => {
+    if (user.isAuth) {
+      dispatch(addProduct({ product: productDetail?.data, qty: qty }))
+    } else {
+      navigate(Routes.signIn.path, { replace: true })
+    }
+  }, [dispatch, productDetail, qty, navigate])
 
   if (errorProductDetail)
     return "An error has occurred: " + errorProductDetail.message
@@ -123,9 +141,9 @@ const ProductDetailPage = () => {
                   <HStack spacing={6}>
                     <Rating />
                     <span>|</span>
-                    <Box>{productDetail.data?.review} review</Box>
+                    <Box>{productDetail.data?.review} đánh giá</Box>
                     <span>|</span>
-                    <Box>{productDetail.data?.sold} sold</Box>
+                    <Box>{productDetail.data?.sold} đã bán</Box>
                   </HStack>
                 </GridItem>
                 <GridItem colSpan={4}>
@@ -152,20 +170,21 @@ const ProductDetailPage = () => {
                 </GridItem>
                 <GridItem colStart={1}>Số lượng</GridItem>
                 <GridItem>
-                  <QuantityInput />
+                  <QuantityInput handleChangeQty={setQty} />
                 </GridItem>
                 <GridItem colSpan={4} paddingTop={5}>
                   <HStack spacing={2}>
                     <Button
                       colorScheme="teal"
                       size="lg"
-                      w="10rem"
+                      w="13rem"
                       variant="outline"
+                      onClick={handleAddToCart}
                     >
-                      Add to cart
+                      Thêm vào giỏ hàng
                     </Button>
                     <Button colorScheme="teal" size="lg" w="10rem">
-                      Buy
+                      Mua ngay
                     </Button>
                   </HStack>
                 </GridItem>

@@ -10,6 +10,7 @@ import { PersistGate } from "redux-persist/integration/react"
 import LoadingSpinner from "components/LoadingSpinner/LoadingSpinner"
 import { store } from "store/store"
 import { persistStore } from "redux-persist"
+import theme from "./theme"
 
 let persistor = persistStore(store)
 
@@ -17,7 +18,7 @@ ReactDOM.render(
   <React.StrictMode>
     <ReduxProvider store={store}>
       <PersistGate loading={<LoadingSpinner />} persistor={persistor}>
-        <ChakraProvider>
+        <ChakraProvider theme={theme}>
           <BrowserRouter>
             <App />
           </BrowserRouter>
