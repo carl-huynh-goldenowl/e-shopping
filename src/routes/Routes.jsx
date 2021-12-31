@@ -84,7 +84,13 @@ export const Routes = {
     path: "/cart",
     isAuth: true,
     element: ShoppingCartPage,
-    index: ProductListPage,
+    index: ShoppingCartPage,
+    // routes: {
+    //   default: {
+    //     path: "*",
+    //     element: ShoppingCartPage,
+    //   },
+    // },
   },
   default: {
     path: "*",
@@ -99,6 +105,8 @@ export function AppLoading(props) {
 export function RouteComponentWrapper(route, key) {
   const user = useSelector((state) => state.user)
   let location = useLocation()
+
+  //console.log(route.path, user.isAuth, user.isAdmin)
 
   // if (!user.initialized)
   //   return (
@@ -139,6 +147,16 @@ export function RouteComponentWrapper(route, key) {
       )
     }
   }
+
+  // if (user.isAuth && user.isAdmin && !route.isAuth) {
+  //   return (
+  //     <Route
+  //       key={key}
+  //       path={route.path}
+  //       element={<Navigate to={Routes.admin.path} state={{ from: location }} />}
+  //     />
+  //   )
+  // }
   return (
     <Route path={route.path} element={<route.element />} key={key}>
       {route.index ? <Route index element={<route.index />} /> : undefined}

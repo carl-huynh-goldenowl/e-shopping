@@ -10,7 +10,7 @@ import {
   Link,
 } from "@chakra-ui/react"
 import PasswordInput from "components/Input/PasswordInput"
-import { Link as ReactLink, useNavigate } from "react-router-dom"
+import { Link as ReactLink, useLocation, useNavigate } from "react-router-dom"
 import { Routes } from "routes/Routes"
 import { useDispatch, useSelector } from "react-redux"
 import { signIn } from "store/slices/userSlice"
@@ -20,6 +20,7 @@ export default function SignUpForm() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
+  const { state } = useLocation()
 
   const onSubmit = useCallback(
     (data) => {
@@ -34,13 +35,31 @@ export default function SignUpForm() {
     [dispatch]
   )
 
+  // const onSubmit = (data) => {
+  //   console.log(state)
+  //   dispatch(
+  //     signIn({
+  //       userInfo: {
+  //         email: data.email,
+  //       },
+  //     })
+  //   )
+  // }
+
   useEffect(() => {
     if (user.isAdmin) {
       navigate(Routes.admin.path, { replace: true })
     } else if (user.isAuth) {
-      navigate(Routes.home.path, { replace: true })
+      navigate(state?.from?.pathname || Routes.home.path, {
+        replace: true,
+      })
     }
-  }, [user, navigate])
+  }, [user.isAdmin, user.isAuth, navigate])
+
+  // useEffect(() => {
+  //   console.log("admin")
+  //   if (user.isAdmin) navigate("/aaaaa")
+  // }, [user.isAdmin])
 
   return (
     <>
@@ -62,7 +81,17 @@ export default function SignUpForm() {
           <Button type="submit" colorScheme={"teal"} w="100%">
             Đăng nhập
           </Button>
-          <SimpleGrid>
+          <SimpleGrid
+            pt="1rem"
+            spacingX={"5rem"}
+            columns={2}
+            justifyContent={"space-between"}
+          >
+            <GridItem>
+              <Link as={ReactLink} to={Routes.home.path}>
+                Về trang chủ
+              </Link>
+            </GridItem>
             <GridItem>
               <Link as={ReactLink} to={Routes.forgetPassword.path}>
                 Quên mật khẩu?

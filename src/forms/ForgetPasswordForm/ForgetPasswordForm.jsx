@@ -1,16 +1,16 @@
-import React, { useEffect, useCallback } from "react"
+import React, { useCallback } from "react"
 import { useFormContext } from "react-hook-form"
 import { Heading, Input, VStack, Button } from "@chakra-ui/react"
-import { useNavigate } from "react-router-dom"
-import { Routes } from "routes/Routes"
-import { useDispatch, useSelector } from "react-redux"
+//import { useNavigate } from "react-router-dom"
+//import { Routes } from "routes/Routes"
+import { useDispatch } from "react-redux"
 import { forgetPassword } from "store/slices/userSlice"
 
 export default function ForgetPasswordForm() {
   const { register, handleSubmit } = useFormContext()
-  const navigate = useNavigate()
+  //const navigate = useNavigate()
   const dispatch = useDispatch()
-  const user = useSelector((state) => state.user)
+  //const user = useSelector((state) => state.user)
 
   const onSubmit = useCallback(
     (data) => {
@@ -19,13 +19,13 @@ export default function ForgetPasswordForm() {
     [dispatch]
   )
 
-  useEffect(() => {
-    if (user.isAdmin) {
-      navigate(Routes.admin.path, { replace: true })
-    } else if (user.isAuth) {
-      navigate(Routes.home.path, { replace: true })
-    }
-  }, [user, navigate])
+  // useEffect(() => {
+  //   if (user.isAdmin) {
+  //     navigate(Routes.admin.path, { replace: true })
+  //   } else if (user.isAuth) {
+  //     navigate(Routes.home.path, { replace: true })
+  //   }
+  // }, [user, navigate])
 
   return (
     <>

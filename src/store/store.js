@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit"
-import { cartReducer, userReducer } from "store/slices"
+import { cartReducer, deleteProductReducer, userReducer } from "store/slices"
 //import { combineReducers } from "redux"
 import storage from "redux-persist/lib/storage"
 import { persistReducer, createMigrate } from "redux-persist"
@@ -29,6 +29,7 @@ export const store = configureStore({
   reducer: {
     user: persistReducer(persistConfig, userReducer),
     cart: cartReducer,
+    deleteProduct: deleteProductReducer,
   },
   middleware: [thunk],
 })

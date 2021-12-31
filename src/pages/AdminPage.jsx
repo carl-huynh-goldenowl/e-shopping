@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom"
 import AdminLayout from "layout/admin/AdminLayout"
 
 export default function AdminPage() {
+  console.log("render admin page")
   return (
     <AdminLayout>
       <SimpleGrid columns={10} spacing={6} alignItems={"flex-start "}>

@@ -31,12 +31,6 @@ export default function AccountDropDownMenu({ email, color }) {
     }
   }, [navigate])
 
-  // useEffect(() => {
-  //   if (!user.isAdmin) {
-  //     navigate(Routes.home.path, { replace: true })
-  //   }
-  // }, [user, navigate])
-
   return (
     <Menu>
       <HStack>
@@ -49,7 +43,7 @@ export default function AccountDropDownMenu({ email, color }) {
       </HStack>
 
       <MenuList>
-        {!user.isAdmin && (
+        {user.isAdmin && (
           <MenuItem onClick={handleRedirectAdminPage}>
             Sign in as Admin
           </MenuItem>

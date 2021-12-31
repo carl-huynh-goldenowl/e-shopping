@@ -12,7 +12,7 @@ import { Image } from "@chakra-ui/react"
 //import { MdOutlineShoppingCart } from "react-icons/md"
 import { getCategory } from "apis/products"
 import { useSelector } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { Routes } from "routes/Routes"
 import AccountDropDownMenu from "components/Menu/AccountDropDownMenu"
 import useCategory from "./hooks/apiHooks/useCategory"
@@ -27,9 +27,13 @@ const Header = () => {
   } = useCategory("category", getCategory)
   const user = useSelector((state) => state.user)
   const navigate = useNavigate()
+  let location = useLocation()
 
   const handleSignIn = useCallback(() => {
-    navigate(Routes.signIn.path, { replace: true })
+    navigate(Routes.signIn.path, {
+      replace: true,
+      state: { from: location },
+    })
   }, [navigate])
 
   const handleSignUp = useCallback(() => {

@@ -18,6 +18,7 @@ export const userSlice = createSlice({
       state.userInfo.email = action.payload.userInfo.email
       state.token = action.payload.token
       state.isAuth = true
+      //state.isAdmin = true
     },
     signInAsAdmin: (state, action) => {
       state.userInfo = action.payload.userInfo
@@ -26,6 +27,7 @@ export const userSlice = createSlice({
       state.isAdmin = true
     },
     signOut: () => {
+      //state.isAuth = false
       return initialState
     },
     forgetPassword: () => {},

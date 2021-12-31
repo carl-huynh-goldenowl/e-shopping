@@ -7,10 +7,14 @@ import {
   SimpleGrid,
   Text,
 } from "@chakra-ui/react"
-import QuantityInput from "components/Input/QuantityInput"
+import QuantityInputWithDialog from "components/Input/QuantityInputWithDialog"
 import React, { useCallback, useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
-import { updateQuantity, removeProduct } from "store/slices/cartSlice"
+import {
+  updateQuantity,
+  removeProduct,
+  addToCheckedProductList,
+} from "store/slices/cartSlice"
 import _ from "lodash"
 import { Link } from "react-router-dom"
 import replacePathFmt from "components/TabPanel/AllProductsTabPanel/helpers"
@@ -21,9 +25,11 @@ export default function AddedProduct({
   product,
   checked,
   onClickCheckBoxItem,
+  handleUpdateQty,
 }) {
   const [qty, setQty] = useState(product.qty)
   const dispatch = useDispatch()
+
   const handleDeleteProduct = useCallback(
     (productId) => () => {
       dispatch(removeProduct({ id: productId }))
@@ -31,8 +37,22 @@ export default function AddedProduct({
     [dispatch]
   )
 
+  const handleCheckBox = useCallback(
+    (e) => {
+      onClickCheckBoxItem(e, product.id)
+      dispatch(
+        addToCheckedProductList({
+          id: product.id,
+          isChecked: e.target.checked,
+        })
+      )
+    },
+    [onClickCheckBoxItem]
+  )
+
   useEffect(() => {
     dispatch(updateQuantity({ productId: product.id, qty: qty }))
+    handleUpdateQty(id, qty)
   }, [qty])
 
   return (
@@ -51,7 +71,7 @@ export default function AddedProduct({
             colorScheme={"teal"}
             name={String(id)}
             isChecked={checked}
-            onChange={onClickCheckBoxItem}
+            onChange={handleCheckBox}
           />
           <Image w="4rem" h="4rem" src={product.pictureUrl} />
           <Link
@@ -78,7 +98,11 @@ export default function AddedProduct({
         </HStack>
       </GridItem>
       <GridItem>
-        <QuantityInput handleChangeQty={setQty} defaultValue={qty} />
+        <QuantityInputWithDialog
+          handleChangeQty={setQty}
+          defaultValue={qty}
+          productId={product.id}
+        />
       </GridItem>
       <GridItem textAlign={"center"} color={"tomato"}>
         <Text>₫{_.ceil(product.discountPrice * product.qty, 2)}</Text>

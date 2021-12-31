@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import {
   GridItem,
   SimpleGrid,
@@ -31,10 +31,16 @@ import {
   getRecommendedProducts,
   getBestSellingProducts,
 } from "apis/products"
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
-import { addProduct } from "store/slices/cartSlice"
+import {
+  addProduct,
+  addTmpProduct,
+  addToCheckedProductList,
+  deleteTmpProduct,
+} from "store/slices/cartSlice"
 import { Routes } from "routes/Routes"
+import { useToast } from "@chakra-ui/react"
 
 const ProductDetailPage = () => {
   const [mainImg, setMainImg] = useState("")
@@ -43,6 +49,9 @@ const ProductDetailPage = () => {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
   const navigate = useNavigate()
+  const toast = useToast()
+  let location = useLocation()
+  const tmpProduct = useSelector((state) => state.cart.tmpProduct)
 
   const {
     isLoading: loadingProductDetail,
@@ -78,10 +87,49 @@ const ProductDetailPage = () => {
   const handleAddToCart = useCallback(() => {
     if (user.isAuth) {
       dispatch(addProduct({ product: productDetail?.data, qty: qty }))
+      toast({
+        title: "Sản phẩm đã được thêm vào giỏ hàng.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      })
     } else {
-      navigate(Routes.signIn.path, { replace: true })
+      dispatch(
+        addTmpProduct({
+          product: productDetail?.data,
+          qty: qty,
+        })
+      )
+      navigate(Routes.signIn.path, {
+        replace: true,
+        state: { from: location },
+      })
     }
-  }, [dispatch, productDetail, qty, navigate])
+  }, [dispatch, productDetail, qty, navigate, user.isAuth, location])
+
+  const handleBuy = useCallback(() => {
+    dispatch(addProduct({ product: productDetail?.data, qty: qty }))
+    dispatch(
+      addToCheckedProductList({
+        id: productDetail?.data?.id,
+        isChecked: true,
+      })
+    )
+    navigate(Routes.shoppingCart.path)
+  }, [dispatch, navigate, productDetail])
+
+  useEffect(() => {
+    if (tmpProduct) {
+      dispatch(deleteTmpProduct())
+      dispatch(addProduct(tmpProduct))
+      toast({
+        title: "Sản phẩm đã được thêm vào giỏ hàng.",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      })
+    }
+  }, [tmpProduct])
 
   if (errorProductDetail)
     return "An error has occurred: " + errorProductDetail.message
@@ -183,7 +231,12 @@ const ProductDetailPage = () => {
                     >
                       Thêm vào giỏ hàng
                     </Button>
-                    <Button colorScheme="teal" size="lg" w="10rem">
+                    <Button
+                      colorScheme="teal"
+                      size="lg"
+                      w="10rem"
+                      onClick={handleBuy}
+                    >
                       Mua ngay
                     </Button>
                   </HStack>

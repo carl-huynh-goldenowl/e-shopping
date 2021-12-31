@@ -1,4 +1,5 @@
 const replacePathFmt = (path, key) => {
-  return path.replace(/\/:.*/g, `/${key}`)
+  let newPath = "/" + path.replace(/\/:.*/g, `/${key}`)
+  return newPath
 }
 export default replacePathFmt
