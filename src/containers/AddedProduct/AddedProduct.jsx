@@ -8,13 +8,9 @@ import {
   Text,
 } from "@chakra-ui/react"
 import QuantityInputWithDialog from "components/Input/QuantityInputWithDialog"
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
-import {
-  updateQuantity,
-  removeProduct,
-  addToCheckedProductList,
-} from "store/slices/cartSlice"
+import { updateQuantity, removeProduct } from "store/slices/cartSlice"
 import _ from "lodash"
 import { Link } from "react-router-dom"
 import replacePathFmt from "components/TabPanel/AllProductsTabPanel/helpers"
@@ -23,32 +19,18 @@ import { Routes } from "routes/Routes"
 export default function AddedProduct({
   id,
   product,
-  checked,
-  onClickCheckBoxItem,
   handleUpdateQty,
+  isItemSelected,
+  onSelect,
+  onDelete,
 }) {
   const [qty, setQty] = useState(product.qty)
   const dispatch = useDispatch()
 
-  const handleDeleteProduct = useCallback(
-    (productId) => () => {
-      dispatch(removeProduct({ id: productId }))
-    },
-    [dispatch]
-  )
-
-  const handleCheckBox = useCallback(
-    (e) => {
-      onClickCheckBoxItem(e, product.id)
-      dispatch(
-        addToCheckedProductList({
-          id: product.id,
-          isChecked: e.target.checked,
-        })
-      )
-    },
-    [onClickCheckBoxItem]
-  )
+  const handleDeleteProduct = (productId) => () => {
+    onDelete(productId)
+    dispatch(removeProduct({ id: productId }))
+  }
 
   useEffect(() => {
     dispatch(updateQuantity({ productId: product.id, qty: qty }))
@@ -70,8 +52,8 @@ export default function AddedProduct({
           <Checkbox
             colorScheme={"teal"}
             name={String(id)}
-            isChecked={checked}
-            onChange={handleCheckBox}
+            isChecked={isItemSelected}
+            onChange={onSelect(product.id)}
           />
           <Image w="4rem" h="4rem" src={product.pictureUrl} />
           <Link

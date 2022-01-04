@@ -15,19 +15,15 @@ import { useNavigate } from "react-router-dom"
 import { Routes } from "routes/Routes"
 import AddedProduct from "./AddedProduct/AddedProduct"
 import DeleteProductAlertDialog from "./DeleteProductAlertDialog/DeleteProductAlertDialog"
-import { updateDeletedState } from "store/slices/cartSlice"
+import { updateCheckedProductList } from "store/slices/cartSlice"
 
 export default function ShoppingCart() {
   const cart = useSelector((state) => state.cart.cart)
-  const isDeleted = useSelector((state) => state.cart.isDeleted)
-  const deletedProductPos = useSelector((state) => state.cart.deletedProductPos)
   const checkedProductList = useSelector(
     (state) => state.cart.checkedProductList
   )
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [checkAll, setCheckAll] = useState(false)
-  const [count, setCount] = useState(0)
   const [total, setTotal] = useState(0)
 
   // Init checkbox list
@@ -41,8 +37,6 @@ export default function ShoppingCart() {
     })
   })
 
-  const [checkedItems, setCheckedItems] = useState(initCheckState)
-
   // Init quantity list
   let initQuantityList = []
   cart.forEach((element) => {
@@ -50,33 +44,7 @@ export default function ShoppingCart() {
   })
 
   const [quantityList, setQuantityList] = useState(initQuantityList)
-
-  const hanleClickCheckBoxItem = (e, productId) => {
-    const index = _.findIndex(checkedItems, { id: productId })
-    const tmp = [...checkedItems]
-    tmp[index].isChecked = e.target.checked
-    setCheckedItems(tmp)
-  }
-
-  const handleCheckAll = (e) => {
-    let tmp = []
-
-    if (e.target.checked) {
-      cart.forEach((product) => {
-        tmp.push({ id: product.id, isChecked: true })
-      })
-
-      setCheckedItems(tmp)
-    } else {
-      cart.forEach((product) => {
-        tmp.push({ id: product.id, isChecked: false })
-      })
-
-      setCheckedItems(tmp)
-    }
-
-    setCheckAll(e.target.checked)
-  }
+  const [selected, setSelected] = React.useState(checkedProductList)
 
   const handleRedirectToHome = useCallback(() => {
     navigate(Routes.home.path)
@@ -92,42 +60,82 @@ export default function ShoppingCart() {
     )
   }
 
+  const handleSelect = useCallback(
+    (productId) => () => {
+      const selectedIndex = selected.indexOf(productId)
+      let newSelected = []
+
+      if (selectedIndex === -1) {
+        newSelected = newSelected.concat(selected, productId)
+      } else if (selectedIndex === 0) {
+        newSelected = newSelected.concat(selected.slice(1))
+      } else if (selectedIndex === selected.length - 1) {
+        newSelected = newSelected.concat(selected.slice(0, -1))
+      } else if (selectedIndex > 0) {
+        newSelected = newSelected.concat(
+          selected.slice(0, selectedIndex),
+          selected.slice(selectedIndex + 1)
+        )
+      }
+
+      dispatch(updateCheckedProductList(newSelected))
+      setSelected(newSelected)
+    },
+    [setSelected, selected]
+  )
+
+  const handleDelete = useCallback(
+    (productId) => {
+      const selectedIndex = selected.indexOf(productId)
+      let newSelected = []
+
+      if (selectedIndex === -1) {
+        return
+      } else {
+        newSelected = [
+          ...selected.slice(0, selectedIndex),
+          ...selected.slice(selectedIndex + 1),
+        ]
+      }
+
+      setSelected(newSelected)
+      dispatch(updateCheckedProductList(newSelected))
+    },
+    [selected]
+  )
+
+  const isSelected = (id) => selected.indexOf(id) !== -1
+
+  const handleSelectAllClick = (e) => {
+    if (e.target.checked) {
+      const newSelecteds = cart.map((product) => product.id)
+
+      setSelected(newSelecteds)
+      dispatch(updateCheckedProductList(newSelecteds))
+      return
+    }
+    setSelected([])
+    dispatch(updateCheckedProductList([]))
+  }
+
+  const isIndeterminate = selected.length > 0 && selected.length < cart.length
+
   useEffect(() => {
-    setCount(
-      Object.values(checkedItems).filter((element) => element.isChecked).length
-    )
-  }, [checkedItems, isDeleted])
+    setSelected(checkedProductList)
+  }, [checkedProductList])
 
   useEffect(() => {
     let tmp = 0
-    cart.forEach((product, i) => {
-      if (checkedItems[i].isChecked) {
-        tmp += product.discountPrice * product.qty
-      }
+    cart.forEach((product) => {
+      checkedProductList.forEach((productId) => {
+        if (productId === product.id) {
+          tmp += product.discountPrice * product.qty
+        }
+      })
     })
+
     setTotal(_.ceil(tmp, 2))
-  }, [checkedItems, quantityList, cart.length])
-
-  useEffect(() => {
-    if (count === cart.length) {
-      setCheckAll(true)
-    } else setCheckAll(false)
-  }, [cart.length, count])
-
-  // Update checked state after delete
-  useEffect(() => {
-    if (isDeleted) {
-      let tmp = [...checkedItems]
-      tmp.splice(deletedProductPos, 1)
-      setCheckedItems(tmp)
-
-      dispatch(updateDeletedState())
-    }
-  }, [isDeleted])
-
-  const allChecked = checkedItems.every((item) => item.isChecked)
-  const isIndeterminate =
-    checkedItems.some((item) => item.isChecked) && !allChecked
+  }, [quantityList, cart.length, checkedProductList])
 
   if (cart.length === 0) {
     return (
@@ -165,8 +173,8 @@ export default function ShoppingCart() {
               <GridItem colSpan={4}>
                 <Checkbox
                   colorScheme={"teal"}
-                  onChange={handleCheckAll}
-                  isChecked={checkAll}
+                  onChange={handleSelectAllClick}
+                  isChecked={cart.length === selected.length}
                   isIndeterminate={isIndeterminate}
                 >
                   Sản phẩm
@@ -179,23 +187,31 @@ export default function ShoppingCart() {
             </SimpleGrid>
           </GridItem>
 
-          {cart.map((product, index) => (
-            <GridItem key={index}>
-              <AddedProduct
-                id={index}
-                product={product}
-                onClickCheckBoxItem={hanleClickCheckBoxItem}
-                checked={checkedItems[index].isChecked}
-                quantity={quantityList[index]}
-                handleUpdateQty={handleUpdateQty}
-              />
-            </GridItem>
-          ))}
+          {cart.map((product, index) => {
+            const isItemSelected = isSelected(product.id)
+
+            return (
+              <GridItem key={index}>
+                <AddedProduct
+                  id={index}
+                  product={product}
+                  //onClickCheckBoxItem={hanleClickCheckBoxItem}
+                  //checked={checkedItems[index].isChecked}
+                  quantity={quantityList[index]}
+                  handleUpdateQty={handleUpdateQty}
+                  isItemSelected={isItemSelected}
+                  onSelect={handleSelect}
+                  onDelete={handleDelete}
+                />
+              </GridItem>
+            )
+          })}
 
           <GridItem>
             <CurrentOrder
-              handleCheckAll={handleCheckAll}
-              checkAll={checkAll}
+              //handleCheckAll={handleCheckAll}
+              isSelectedAll={cart.length === selected.length}
+              onSelectAll={handleSelectAllClick}
               isIndeterminate={isIndeterminate}
               cartLenght={cart.length}
               total={total}

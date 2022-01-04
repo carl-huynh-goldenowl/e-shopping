@@ -90,7 +90,7 @@ const ProductDetailPage = () => {
       toast({
         title: "Sản phẩm đã được thêm vào giỏ hàng.",
         status: "success",
-        duration: 3000,
+        duration: 1000,
         isClosable: true,
       })
     } else {
@@ -109,12 +109,7 @@ const ProductDetailPage = () => {
 
   const handleBuy = useCallback(() => {
     dispatch(addProduct({ product: productDetail?.data, qty: qty }))
-    dispatch(
-      addToCheckedProductList({
-        id: productDetail?.data?.id,
-        isChecked: true,
-      })
-    )
+    dispatch(addToCheckedProductList(productDetail?.data?.id))
     navigate(Routes.shoppingCart.path)
   }, [dispatch, navigate, productDetail])
 
@@ -125,7 +120,7 @@ const ProductDetailPage = () => {
       toast({
         title: "Sản phẩm đã được thêm vào giỏ hàng.",
         status: "success",
-        duration: 3000,
+        duration: 1000,
         isClosable: true,
       })
     }

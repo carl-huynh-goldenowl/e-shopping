@@ -45,10 +45,10 @@ export default function AccountDropDownMenu({ email, color }) {
       <MenuList>
         {user.isAdmin && (
           <MenuItem onClick={handleRedirectAdminPage}>
-            Sign in as Admin
+            Trang quản lý sản phẩm
           </MenuItem>
         )}
-        <MenuItem onClick={handleSignOut}>Sign out</MenuItem>
+        <MenuItem onClick={handleSignOut}>Đăng xuất</MenuItem>
       </MenuList>
     </Menu>
   )

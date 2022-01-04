@@ -17,8 +17,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { deleteCheckedProduct } from "store/slices/cartSlice"
 
 export default function CurrentOrder({
-  handleCheckAll,
-  checkAll,
+  onSelectAll,
+  isSelectedAll,
   isIndeterminate,
   cartLenght,
   total,
@@ -32,16 +32,11 @@ export default function CurrentOrder({
     (state) => state.cart.checkedProductList
   )
 
-  let length = 0
-  checkedProductList.forEach((product) => {
-    if (product.isChecked) length += 1
-  })
-
   const handleOpenDialog = useCallback(() => {
-    if (length > 0) {
+    if (checkedProductList.length > 0) {
       setIsOpen(true)
     }
-  }, [setIsOpen, length])
+  }, [setIsOpen, checkedProductList.length])
 
   const handleDeleteCheckedProduct = () => {
     setIsOpen(false)
@@ -61,8 +56,8 @@ export default function CurrentOrder({
         <GridItem colSpan={2}>
           <Checkbox
             colorScheme={"teal"}
-            onChange={handleCheckAll}
-            isChecked={checkAll}
+            onChange={onSelectAll}
+            isChecked={isSelectedAll}
             isIndeterminate={isIndeterminate}
           >
             Chọn tất cả ({cartLenght})
@@ -73,6 +68,7 @@ export default function CurrentOrder({
             variant={"ghost"}
             colorScheme={"teal"}
             onClick={handleOpenDialog}
+            disabled={checkedProductList.length > 0 ? false : true}
           >
             Xóa
           </Button>
@@ -107,7 +103,8 @@ export default function CurrentOrder({
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              Bạn có chắc chắn muốn xóa {length} sản phẩm này không?
+              Bạn có chắc chắn muốn xóa {checkedProductList.length} sản phẩm này
+              không?
             </AlertDialogBody>
 
             <AlertDialogFooter>

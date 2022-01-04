@@ -35,17 +35,6 @@ export default function SignUpForm() {
     [dispatch]
   )
 
-  // const onSubmit = (data) => {
-  //   console.log(state)
-  //   dispatch(
-  //     signIn({
-  //       userInfo: {
-  //         email: data.email,
-  //       },
-  //     })
-  //   )
-  // }
-
   useEffect(() => {
     if (user.isAdmin) {
       navigate(Routes.admin.path, { replace: true })
@@ -55,11 +44,6 @@ export default function SignUpForm() {
       })
     }
   }, [user.isAdmin, user.isAuth, navigate])
-
-  // useEffect(() => {
-  //   console.log("admin")
-  //   if (user.isAdmin) navigate("/aaaaa")
-  // }, [user.isAdmin])
 
   return (
     <>

@@ -45,18 +45,10 @@ export const cartSlice = createSlice({
     deleteTmpProduct: (state) => {
       state.tmpProduct = null
     },
-    updateDeletedState: (state) => {
-      state.isDeleted = false
-      state.deletedProductPos = -1
-    },
     addToCheckedProductList: (state, action) => {
-      const index = _.findIndex(state.checkedProductList, {
-        id: action.payload.id,
-      })
+      const index = state.checkedProductList.indexOf(action.payload)
 
-      if (index > -1) {
-        state.checkedProductList[index].isChecked = action.payload.isChecked
-      } else {
+      if (index < 0) {
         state.checkedProductList = _.concat(
           state.checkedProductList,
           action.payload
@@ -64,16 +56,16 @@ export const cartSlice = createSlice({
       }
     },
     deleteCheckedProduct: (state, action) => {
-      action.payload.forEach((product) => {
-        if (product.isChecked) {
-          _.remove(state.cart, (item) => item.id === product.id)
-        }
+      action.payload.forEach((productId) => {
+        _.remove(state.cart, (item) => item.id === productId)
       })
-      action.payload.forEach((product) => {
-        if (product.isChecked) {
-          _.remove(state.checkedProductList, (item) => item.id === product.id)
-        }
+
+      action.payload.forEach((productId) => {
+        _.remove(state.checkedProductList, (id) => id === productId)
       })
+    },
+    updateCheckedProductList: (state, action) => {
+      state.checkedProductList = action.payload
     },
   },
 })
@@ -85,9 +77,9 @@ export const {
   deleteCart,
   addTmpProduct,
   deleteTmpProduct,
-  updateDeletedState,
   addToCheckedProductList,
   deleteCheckedProduct,
+  updateCheckedProductList,
 } = cartSlice.actions
 
 export default cartSlice.reducer

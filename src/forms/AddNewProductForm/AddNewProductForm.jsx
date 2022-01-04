@@ -13,7 +13,7 @@ export default function AddNewProductForm() {
   const onSubmit = () => {}
 
   const hanleCancelForm = useCallback(() => {
-    navigate(Routes.admin.productList.path, { replace: true })
+    navigate(Routes.admin.path)
   }, [navigate])
 
   const { handleSubmit } = useFormContext()

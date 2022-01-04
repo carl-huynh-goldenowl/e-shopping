@@ -1,6 +1,6 @@
 import AddNewProductPage from "pages/AddNewProductPage"
 import React from "react"
-import { Navigate, Route, useLocation } from "react-router-dom"
+import { Navigate, Route } from "react-router-dom"
 
 import {
   Homepage,
@@ -14,7 +14,6 @@ import {
 } from "pages"
 import AdminPage from "pages/AdminPage"
 import LoadingSpinner from "components/LoadingSpinner/LoadingSpinner"
-import { useSelector } from "react-redux"
 
 const DefaultComponent = () => {
   return <Navigate to={Routes.home.path} />
@@ -43,21 +42,34 @@ export const Routes = {
       productList: {
         path: "products",
         element: ProductListManagement,
-        isAuth: true,
+        //isAuth: true,
       },
       addProduct: {
         path: "add-product",
         element: AddNewProductPage,
-        isAuth: true,
+        //isAuth: true,
+        //isAdmin: true,
       },
       editProduct: {
         path: "edit-product/:id",
         element: AddNewProductPage,
-        isAuth: true,
+        //isAuth: true,
       },
       default: {
         path: "*",
         element: DefaultComponent,
+      },
+    },
+  },
+  shoppingCart: {
+    path: "/cart",
+    isAuth: true,
+    element: ShoppingCartPage,
+    index: ShoppingCartPage,
+    routes: {
+      default: {
+        path: "*",
+        element: ShoppingCartPage,
       },
     },
   },
@@ -80,18 +92,6 @@ export const Routes = {
       },
     },
   },
-  shoppingCart: {
-    path: "/cart",
-    isAuth: true,
-    element: ShoppingCartPage,
-    index: ShoppingCartPage,
-    // routes: {
-    //   default: {
-    //     path: "*",
-    //     element: ShoppingCartPage,
-    //   },
-    // },
-  },
   default: {
     path: "*",
     element: DefaultComponent,
@@ -102,18 +102,13 @@ export function AppLoading(props) {
   return <Route path={props.path} element={<LoadingSpinner />} />
 }
 
-export function RouteComponentWrapper(route, key) {
-  const user = useSelector((state) => state.user)
-  let location = useLocation()
-
-  //console.log(route.path, user.isAuth, user.isAdmin)
-
+export function RouteComponentWrapper(route, key, user, location) {
   // if (!user.initialized)
   //   return (
   //     <Route key={key} path={location.pathname} element={<LoadingSpinner />} />
   //   )
 
-  if (!user.isAuth && route.isAuth)
+  if (!user?.isAuth && route.isAuth)
     return (
       <Route
         key={key}
@@ -124,8 +119,8 @@ export function RouteComponentWrapper(route, key) {
       />
     )
 
-  if (!user.isAdmin && route.isAdmin) {
-    if (user.isAuth) {
+  if (!user?.isAdmin && route.isAdmin) {
+    if (user?.isAuth) {
       return (
         <Route
           key={key}
@@ -148,15 +143,6 @@ export function RouteComponentWrapper(route, key) {
     }
   }
 
-  // if (user.isAuth && user.isAdmin && !route.isAuth) {
-  //   return (
-  //     <Route
-  //       key={key}
-  //       path={route.path}
-  //       element={<Navigate to={Routes.admin.path} state={{ from: location }} />}
-  //     />
-  //   )
-  // }
   return (
     <Route path={route.path} element={<route.element />} key={key}>
       {route.index ? <Route index element={<route.index />} /> : undefined}
@@ -165,8 +151,8 @@ export function RouteComponentWrapper(route, key) {
   )
 }
 
-export function RenderRoutes(routes) {
+export function RenderRoutes(routes, user, location) {
   return Object.values(routes).map((route, index) => {
-    return RouteComponentWrapper(route, index)
+    return RouteComponentWrapper(route, index, user, location)
   })
 }
