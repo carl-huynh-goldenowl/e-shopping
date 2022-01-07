@@ -1,6 +1,11 @@
 //import instance from "../axios"
 //import { DEFAULT_ITEM_PER_PAGE } from "./constant"
-import { category, productDetail, productList } from "./mockData"
+import {
+  category,
+  productDetail,
+  productList,
+  checkedProductList,
+} from "./mockData"
 
 export const getCategory = async () => {
   const response = {
@@ -77,6 +82,19 @@ export const getBestSellingProducts = async () => {
     status: 200,
     statusText: "OK",
     data: productDetail,
+    headers: { "content-type": "application/json" },
+  }
+  return Promise.resolve(response)
+}
+
+export const getCheckedProductList = async () => {
+  //const url = `/checked-product-list`
+
+  const response = {
+    config: {},
+    status: 200,
+    statusText: "OK",
+    data: checkedProductList,
     headers: { "content-type": "application/json" },
   }
   return Promise.resolve(response)

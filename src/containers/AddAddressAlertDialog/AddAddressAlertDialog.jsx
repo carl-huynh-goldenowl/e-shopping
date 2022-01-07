@@ -42,8 +42,7 @@ export default function AddAddressAlertDialog() {
     setExistError(status)
   }
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = () => {
     methods.reset(defaultVals)
   }
 

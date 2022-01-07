@@ -192,17 +192,25 @@ export default function ShoppingCart() {
 
             return (
               <GridItem key={index}>
-                <AddedProduct
-                  id={index}
-                  product={product}
-                  //onClickCheckBoxItem={hanleClickCheckBoxItem}
-                  //checked={checkedItems[index].isChecked}
-                  quantity={quantityList[index]}
-                  handleUpdateQty={handleUpdateQty}
-                  isItemSelected={isItemSelected}
-                  onSelect={handleSelect}
-                  onDelete={handleDelete}
-                />
+                <SimpleGrid
+                  columns={8}
+                  bg="white"
+                  rounded="md"
+                  shadow="xl"
+                  p="1rem"
+                  spacing={3}
+                  alignItems={"center"}
+                >
+                  <AddedProduct
+                    id={index}
+                    product={product}
+                    quantity={quantityList[index]}
+                    handleUpdateQty={handleUpdateQty}
+                    isItemSelected={isItemSelected}
+                    onSelect={handleSelect}
+                    onDelete={handleDelete}
+                  />
+                </SimpleGrid>
               </GridItem>
             )
           })}

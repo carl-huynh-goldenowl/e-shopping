@@ -797,3 +797,33 @@ export const productDetail = [
     type: "Alpine",
   },
 ]
+
+export const checkedProductList = [
+  {
+    id: 3,
+    name: "Gorgeous Wooden Pants",
+    pictureUrl: "https://cf.shopee.vn/file/d1fae5bae7153be96056fa2b7e59d650",
+    price: "76.56",
+    discountPrice: "33.72",
+    type: "LeBaron",
+    qty: 1,
+  },
+  {
+    id: 4,
+    name: "Gorgeous Concrete Car",
+    pictureUrl: "https://cf.shopee.vn/file/bcab2156afe7704bdf5a01577b2c8422",
+    price: "53.56",
+    discountPrice: "55.95",
+    type: "Silverado",
+    qty: 3,
+  },
+  {
+    id: 5,
+    name: "Ergonomic Metal Fish",
+    pictureUrl: "https://cf.shopee.vn/file/bcab2156afe7704bdf5a01577b2c8422",
+    price: "53.79",
+    discountPrice: "93.65",
+    type: "Charger",
+    qty: 2,
+  },
+]
