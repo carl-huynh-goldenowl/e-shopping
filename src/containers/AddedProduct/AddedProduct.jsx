@@ -4,7 +4,6 @@ import {
   GridItem,
   HStack,
   Image,
-  SimpleGrid,
   Text,
 } from "@chakra-ui/react"
 import QuantityInputWithDialog from "components/Input/QuantityInputWithDialog"
@@ -38,15 +37,7 @@ export default function AddedProduct({
   }, [qty])
 
   return (
-    <SimpleGrid
-      columns={8}
-      bg="white"
-      rounded="md"
-      shadow="xl"
-      p="1rem"
-      spacing={3}
-      alignItems={"center"}
-    >
+    <>
       <GridItem colSpan={4}>
         <HStack>
           <Checkbox
@@ -94,6 +85,6 @@ export default function AddedProduct({
           Xóa
         </Button>
       </GridItem>
-    </SimpleGrid>
+    </>
   )
 }

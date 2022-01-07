@@ -79,7 +79,7 @@ const ProductDetailPage = () => {
 
   const handleChangeImg = useCallback(
     (index) => {
-      setMainImg(productDetail.data?.detailPicsUrl[index])
+      setMainImg(productDetail?.data?.detailPicsUrl[index])
     },
     [setMainImg]
   )

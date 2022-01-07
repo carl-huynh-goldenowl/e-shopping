@@ -15,6 +15,8 @@ import {
 } from "@chakra-ui/react"
 import { useDispatch, useSelector } from "react-redux"
 import { deleteCheckedProduct } from "store/slices/cartSlice"
+import { useNavigate } from "react-router-dom"
+import { Routes } from "routes/Routes"
 
 export default function CurrentOrder({
   onSelectAll,
@@ -27,6 +29,7 @@ export default function CurrentOrder({
   const onClose = () => setIsOpen(false)
   const cancelRef = React.useRef()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const checkedProductList = useSelector(
     (state) => state.cart.checkedProductList
@@ -42,6 +45,10 @@ export default function CurrentOrder({
     setIsOpen(false)
     dispatch(deleteCheckedProduct(checkedProductList))
   }
+
+  const onCheckout = useCallback(() => {
+    navigate(Routes.checkout.path)
+  })
 
   return (
     <>
@@ -86,6 +93,7 @@ export default function CurrentOrder({
             style={{ width: "100%" }}
             variants={"primary"}
             colorScheme={"teal"}
+            onClick={onCheckout}
           >
             Mua hàng
           </Button>
