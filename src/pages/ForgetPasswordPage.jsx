@@ -2,7 +2,7 @@ import React from "react"
 import { Box, Center, SimpleGrid, GridItem, Image } from "@chakra-ui/react"
 import { FormProvider, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import schema from "forms/LoginForm/validation"
+import schema from "forms/SignInForm/validation"
 import ForgetPasswordForm from "forms/ForgetPasswordForm"
 
 export default function SignUpPage() {

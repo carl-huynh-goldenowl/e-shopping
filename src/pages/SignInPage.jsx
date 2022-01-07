@@ -1,9 +1,9 @@
 import React from "react"
 import { Box, Center, SimpleGrid, GridItem, Image } from "@chakra-ui/react"
-import LoginForm from "forms/LoginForm"
+import SignInForm from "forms/SignInForm"
 import { FormProvider, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
-import schema from "forms/LoginForm/validation"
+import schema from "forms/SignInForm/validation"
 
 export default function SignUpPage() {
   const methods = useForm({
@@ -30,7 +30,7 @@ export default function SignUpPage() {
           </GridItem>
           <GridItem bg="white" rounded={"md"} shadow={"xl"}>
             <FormProvider {...methods}>
-              <LoginForm />
+              <SignInForm />
             </FormProvider>
           </GridItem>
         </SimpleGrid>

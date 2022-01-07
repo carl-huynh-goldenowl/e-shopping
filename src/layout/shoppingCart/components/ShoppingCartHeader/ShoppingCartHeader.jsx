@@ -15,7 +15,7 @@ import SearchBar from "forms/SearchForm/SearchBar"
 import { Link } from "react-router-dom"
 import { Routes } from "routes/Routes"
 
-const ShoppingCartHeader = () => {
+const ShoppingCartHeader = ({ title, displaySearchBar }) => {
   const user = useSelector((state) => state.user)
 
   return (
@@ -44,7 +44,7 @@ const ShoppingCartHeader = () => {
                 />
               </Link>
               <Text fontSize="2xl" color={"teal.400"}>
-                Giỏ hàng
+                {title}
               </Text>
             </HStack>
           </GridItem>
@@ -53,7 +53,7 @@ const ShoppingCartHeader = () => {
             colSpan={{ md: 4, sm: 8 }}
             paddingY={6}
           >
-            <SearchBar />
+            {displaySearchBar && <SearchBar />}
           </GridItem>
         </SimpleGrid>
       </Container>

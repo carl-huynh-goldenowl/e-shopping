@@ -1,4 +1,3 @@
-import AddNewProductPage from "pages/AddNewProductPage"
 import React from "react"
 import { Navigate, Route } from "react-router-dom"
 
@@ -11,8 +10,10 @@ import {
   ProductListPage,
   ForgetPasswordPage,
   ShoppingCartPage,
+  AdminPage,
+  AddNewProductPage,
+  CheckoutPage,
 } from "pages"
-import AdminPage from "pages/AdminPage"
 import LoadingSpinner from "components/LoadingSpinner/LoadingSpinner"
 
 const DefaultComponent = () => {
@@ -91,6 +92,10 @@ export const Routes = {
         element: DefaultComponent,
       },
     },
+  },
+  checkout: {
+    path: "/checkout",
+    element: CheckoutPage,
   },
   default: {
     path: "*",

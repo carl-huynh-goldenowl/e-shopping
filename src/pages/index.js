@@ -21,3 +21,7 @@ export const ProductListPage = loadable(() => import("./ProductListPage"))
 export const ForgetPasswordPage = loadable(() => import("./ForgetPasswordPage"))
 
 export const ShoppingCartPage = loadable(() => import("./ShoppingCartPage"))
+
+export const CheckoutPage = loadable(() =>
+  import("./CheckoutPage/CheckoutPage")
+)
