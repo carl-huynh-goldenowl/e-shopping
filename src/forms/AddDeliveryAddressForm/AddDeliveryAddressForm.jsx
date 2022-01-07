@@ -13,13 +13,10 @@ export default function AddDeliveryAddressForm({ handleIsExistError }) {
   const {
     control,
     formState: { errors },
-    defaultValue,
   } = useFormContext()
-  console.log(errors, defaultValue)
 
   useEffect(() => {
     handleIsExistError(_.isEmpty(errors))
-    console.log(_.isEmpty(errors))
   }, [errors])
 
   return (
