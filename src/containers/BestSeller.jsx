@@ -1,6 +1,7 @@
 import React from "react"
 import { GridItem, Text, Box, SimpleGrid } from "@chakra-ui/layout"
 import { Image } from "@chakra-ui/image"
+import { useTranslation } from "react-i18next"
 
 const Product = ({ name, img, discountPrice }) => {
   return (
@@ -19,6 +20,7 @@ const Product = ({ name, img, discountPrice }) => {
 }
 
 const BestSeller = ({ productList }) => {
+  const { t } = useTranslation()
   return (
     <>
       <GridItem
@@ -30,7 +32,7 @@ const BestSeller = ({ productList }) => {
         alignItems="normal"
       >
         <Text fontSize="md" p="0 1rem 1rem 1rem">
-          Top sản phẩm bán chạy
+          {t("productDetailPage.bestSellerProducts")}
         </Text>
         <SimpleGrid>
           {productList.map((product, index) => (

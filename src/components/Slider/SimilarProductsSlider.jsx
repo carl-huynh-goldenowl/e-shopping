@@ -5,6 +5,7 @@ import { Swiper, SwiperSlide } from "swiper/react/swiper-react"
 // import Swiper core and required modules
 import SwiperCore, { Navigation } from "swiper"
 import { Box, Image, GridItem, Text, VStack } from "@chakra-ui/react"
+import { useTranslation } from "react-i18next"
 
 // install Swiper modules
 SwiperCore.use([Navigation])
@@ -26,9 +27,11 @@ const Product = ({ name, img, discountPrice }) => {
 }
 
 export default function SimilarProductsSlider({ productList }) {
+  const { t } = useTranslation()
+
   return (
     <VStack>
-      <Text w="100%">SẢN PHẨM TƯƠNG TỰ</Text>
+      <Text w="100%">{t("productDetailPage.similarProducts")}</Text>
       <Swiper
         navigation={true}
         slidesPerView={5}

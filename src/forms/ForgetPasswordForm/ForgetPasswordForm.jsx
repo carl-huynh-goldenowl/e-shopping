@@ -1,16 +1,28 @@
 import React, { useCallback } from "react"
 import { useFormContext } from "react-hook-form"
-import { Heading, Input, VStack, Button } from "@chakra-ui/react"
+import {
+  Heading,
+  Input,
+  VStack,
+  Button,
+  SimpleGrid,
+  GridItem,
+  Link,
+} from "@chakra-ui/react"
 //import { useNavigate } from "react-router-dom"
 //import { Routes } from "routes/Routes"
 import { useDispatch } from "react-redux"
 import { forgetPassword } from "store/slices/userSlice"
+import { useTranslation } from "react-i18next"
+import { Link as ReactLink } from "react-router-dom"
+import { Routes } from "routes/Routes"
 
 export default function ForgetPasswordForm() {
   const { register, handleSubmit } = useFormContext()
   //const navigate = useNavigate()
   const dispatch = useDispatch()
   //const user = useSelector((state) => state.user)
+  const { t } = useTranslation()
 
   const onSubmit = useCallback(
     (data) => {
@@ -32,16 +44,24 @@ export default function ForgetPasswordForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <VStack spacing={6} p="3rem">
           <Heading as="h3" size="lg" pb="1rem">
-            Quên mật khẩu
+            {t("forgotPass")}
           </Heading>
           <Input
             {...register("email", { require: true })}
             placeholder="Email"
             type="email"
+            w={"25rem"}
           />
           <Button type="submit" colorScheme={"teal"} w="100%">
-            Lấy lại mật khẩu
+            {t("submit")}
           </Button>
+          <SimpleGrid>
+            <GridItem>
+              <Link as={ReactLink} to={Routes.home.path}>
+                {t("homepage")}
+              </Link>
+            </GridItem>
+          </SimpleGrid>
         </VStack>
       </form>
     </>

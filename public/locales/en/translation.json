@@ -1,0 +1,175 @@
+{
+  "search": "Search...",
+  "signIn": "Sign in",
+  "signUp": "Sign up",
+  "signOut": "Sign out",
+  "homepage": "Homepage",
+  "forgotPass": "Forgot password",
+  "confirmPass": "Confirm password",
+  "password": "Password",
+  "haveAccount": "Already have an account? Sign in",
+  "submit": "Submit",
+  "loading": "Loading...",
+  "productsManagementPage": "Products management",
+  "productDetailPage": {
+    "review": "reviews",
+    "sold": "sold",
+    "buyTitle": "Buy now",
+    "addToCartTitle": "Add to cart",
+    "discountCode": "Discount code",
+    "shipping": "Shipping",
+    "productDetail": "PRODUCT DETAIL",
+    "trademark": "Trademark",
+    "warrantyPeriod": "Warranty period",
+    "warrantyType": "Warranty type",
+    "laptopType": "Laptop type",
+    "status": "Status",
+    "quantity": "Kho hàng",
+    "sendFrom": "Send from",
+    "description": "Description",
+    "similarProducts": "SIMILAR PRODUCTS",
+    "recommnendedProducts": "RECOMMENDED PRODUCTS",
+    "bestSellerProducts": "Best seller",
+    "addedToast": "The product has been added to the cart"
+  },
+  "cart": {
+    "cart": "Cart",
+    "emptyCart": "Empty cart",
+    "product": "Product",
+    "unitPrice": "Unit price",
+    "quantity": "Quantity",
+    "option": "Option",
+    "totalPrice": "Total price",
+    "selectAll": "Select all",
+    "deleteBtn": "Delete",
+    "purchase": "Purchase",
+    "deleteProduct": "Delete product",
+    "alertDelect": "Are you sure you want to remove this product from the cart?",
+    "cancelBtn": "Cancel",
+    "noProduct": "No product",
+    "viewCart": "View cart",
+    "newAddedProducts": "New added products",
+    "deleteProducts": "Are you sure you want to delete these {{count}} products?"
+  },
+  "deliveryAddr": {
+    "deliveryAddr": "Delivery address",
+    "addAddress": "Add new address",
+    "doneBtn": "Done",
+    "backBtn": "Back",
+    "changeBtn": "Change",
+    "newAddress": "New address"
+  },
+  "orderDetail": {
+    "paymentMethod": "Payment method",
+    "payByCash": "Pay by cash",
+    "shippingFee": "Shipping fee",
+    "totalAmount": "Total amount",
+    "totalPayment": "Total payment",
+    "order": "Order",
+    "intoMoney": "Into money"
+  },
+  "productsManagement": {
+    "productsManagement": "Products management",
+    "allProducts": "All products",
+    "addProduct": "Add product",
+    "productName": "Product name",
+    "category": "Category",
+    "basicInfo": "Basic infomation",
+    "otherInfo": "Other information",
+    "sold": "Sold",
+    "stock": "Stock",
+    "findBtn": "Search",
+    "retypeBtn": "Retype",
+    "trademark": "Trademark",
+    "searchRangeSelect": {
+      "productName": "Product name",
+      "productId": "Product Id",
+      "productSKU": "Product SKU"
+    },
+    "selectTrademark": "Select trademark",
+    "date": "Date",
+    "tabs": {
+      "all": "All",
+      "active": "Active",
+      "outOfStock": "Out of stock",
+      "bestselling": "Bestselling",
+      "hidden": "Hidden"
+    },
+    "addNewProductBtn": "Add new product",
+    "priceBtn": "Price",
+    "bestSellingBtn": "Best selling",
+    "addProductForm": {
+      "productName": "Product name",
+      "srademark": "Trademark",
+      "selectTrademark": "Select trademark",
+      "cancelBtn": "Cancel",
+      "saveBtn": "Save",
+      "productPicture": "Product picture",
+      "coverPicture": "Cover picture",
+      "picture": "Picture",
+      "editProductPicture": "Edit product picture",
+      "description": "Product description",
+      "preOrder": "Pre-order",
+      "noRadio": "No",
+      "yesRadio": "Yes",
+      "status": "Status",
+      "contentWithNoRadio": "I will send the goods in 2 days (excluding holidays, New Year and days when the shipping unit is not working",
+      "contentWithYesRadio": "I need the time to prepare the goods is",
+      "daysRange": "days (min: 7 days - max: 15 days)",
+      "statusSelect": {
+        "new": "New",
+        "secondHand": "Second hand"
+      },
+      "preview": "Preview",
+      "closeBtn": "Close"
+    }
+  },
+  "validation": {
+    "addProductForm": {
+      "productNameRequired": "Product name is required",
+      "minCharacters": "Minimum {{count}} characters",
+      "maxCharacters": "Maximum {{count}} characters",
+      "trademarkRequired": "Please select a trademark",
+      "descriptionRequired": "Description is required.",
+      "prepareTimeType": "Input value must be number",
+      "prepareTimeRequired": "Prepare time is required",
+      "minPrepareTime": "Minimum{{count}} days",
+      "maxPrepareTime": "Maximum {{count}} days",
+      "productStatusRequuired": "Product status is required.",
+      "productSKURequired": "Product SKU is required."
+    },
+    "addDeliveryAddressForm": {
+      "fullNameRequired": "Fullname is required",
+      "phoneNumberRequired": "Phone number is required",
+      "phoneNumberMatch": "Phone number is invalid",
+      "addressRequired": "Delivery address is required"
+    },
+    "signUpForm": {
+      "emailRequired": "CEmail is required",
+      "passwordRequired": "Password is required",
+      "confirmPassRequired": "Confirm password is required",
+      "confirmPassMatch": "Not match"
+    },
+    "signInForm": {
+      "emailRequired": "Email is required",
+      "passwordRequired": "Password is required"
+    },
+    "forgotPassRequired": {
+      "emailRequired": "Email is required"
+    },
+    "findProductForm": {
+      "rangeSold": "Must be greater than or equal to 0"
+    }
+  },
+  "errors": {
+    "error": "Error",
+    "errorHasOccurred": "An error has occurred: ",
+    "trademarkErr": "Trademark error",
+    "searchRangeErr": "Search range error"
+  },
+  "footer": {
+    "titleEmailInput": "Sign up to receive promotion email",
+    "yourEmail": "Your email address",
+    "info": "<bold>Golden Owl Consulting</bold> is one of the most prominent agile software outsourcing firms based in Vietnam. Innovative, time-tested software development solutions are at the core of our expertise, allowing us to produce profitable, scalable products that empower your business."
+  }
+}

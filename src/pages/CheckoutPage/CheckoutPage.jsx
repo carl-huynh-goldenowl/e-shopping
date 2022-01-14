@@ -11,6 +11,7 @@ import LoadingSpinner from "components/LoadingSpinner"
 import ProductInOrder from "containers/ProductInOrder/ProductInOrder"
 import _ from "lodash"
 import OrderDetail from "containers/OrderDetail"
+import { useTranslation } from "react-i18next"
 
 export default function CheckoutPage() {
   const [deliveryAddress, setDeliveryAddress] = useState(null)
@@ -27,6 +28,7 @@ export default function CheckoutPage() {
     checkedProductListError,
     checkedProductDetailList,
   } = useCheckedProduct("checkedProductList", getCheckedProductList)
+  const { t } = useTranslation()
 
   const onSelectDeliveryAddr = useCallback(
     (address) => {
@@ -66,7 +68,11 @@ export default function CheckoutPage() {
             colSpan={12}
           >
             {isLoading && <h6>Loading...</h6>}
-            {error && <h6>Lỗi: {error.message}</h6>}
+            {error && (
+              <h6>
+                {t("errors.error")}: {error.message}
+              </h6>
+            )}
             {deliveryInfo && (
               <DeliveryAddress
                 deliveryInfo={deliveryInfo}
@@ -96,14 +102,14 @@ export default function CheckoutPage() {
                   borderBottom={"1px solid #f0f0f0"}
                 >
                   <GridItem colSpan={5}>
-                    <Text>Sản phẩm</Text>
+                    <Text>{t("cart.product")}</Text>
                   </GridItem>
-                  <GridItem>Đơn giá</GridItem>
+                  <GridItem>{t("cart.unitPrice")}</GridItem>
                   <GridItem textAlign={"center"}>
-                    <Text>Số lượng</Text>
+                    <Text>{t("cart.quantity")}</Text>
                   </GridItem>
-                  <GridItem textAlign={"right"} color={"tomato"}>
-                    <Text>Thành tiền</Text>
+                  <GridItem textAlign={"right"}>
+                    <Text>{t("orderDetail.intoMoney")}</Text>
                   </GridItem>
                 </SimpleGrid>
                 <SimpleGrid

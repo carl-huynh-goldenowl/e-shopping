@@ -1,15 +1,8 @@
 import React, { useCallback } from "react"
 import { Container, Box, Button } from "@chakra-ui/react"
-import {
-  SimpleGrid,
-  GridItem,
-  //IconButton,
-  //Icon,
-  HStack,
-} from "@chakra-ui/react"
+import { SimpleGrid, GridItem, HStack } from "@chakra-ui/react"
 import SearchBar from "./SearchBar"
 import { Image } from "@chakra-ui/react"
-//import { MdOutlineShoppingCart } from "react-icons/md"
 import { getCategory } from "apis/products"
 import { useSelector } from "react-redux"
 import { Link, useLocation, useNavigate } from "react-router-dom"
@@ -18,6 +11,8 @@ import AccountDropDownMenu from "components/Menu/AccountDropDownMenu"
 import useCategory from "./hooks/apiHooks/useCategory"
 import { CatalogueSlider } from "components/Slider"
 import CartPopover from "containers/CartPopover/CartPopover"
+import { useTranslation } from "react-i18next"
+import LanguageSelect from "components/Select/LanguageSelect"
 
 const Header = () => {
   const {
@@ -28,6 +23,7 @@ const Header = () => {
   const user = useSelector((state) => state.user)
   const navigate = useNavigate()
   let location = useLocation()
+  const { t } = useTranslation()
 
   const handleSignIn = useCallback(() => {
     navigate(Routes.signIn.path, {
@@ -42,7 +38,7 @@ const Header = () => {
 
   if (isLoading) return <h6>Loading...</h6>
 
-  if (error) return "An error has occurred: " + error.message
+  if (error) return t("errors.errorHasOccurred") + error.message
 
   return (
     <Box bg="teal.300">
@@ -53,8 +49,11 @@ const Header = () => {
               <Image src="/images/golden_owl.svg" alt="Golden Owl logo" />
             </Link>
           </GridItem>
-          <GridItem colSpan={{ md: 7, sm: 9 }} padding={6}>
+          <GridItem colSpan={{ md: 6, sm: 8 }} padding={6}>
             <SearchBar />
+          </GridItem>
+          <GridItem colSpan={{ md: 1, sm: 1 }} padding="0.1rem">
+            <LanguageSelect />
           </GridItem>
           <GridItem colSpan={{ md: 2, sm: 1 }}>
             {user.isAuth ? (
@@ -65,26 +64,20 @@ const Header = () => {
             ) : (
               <HStack>
                 <Button variant="ghost" color={"white"} onClick={handleSignIn}>
-                  Đăng nhập
+                  {t("signIn")}
                 </Button>
                 <Button
                   variant="outline"
                   color={"white"}
                   onClick={handleSignUp}
                 >
-                  Đăng ký
+                  {t("signUp")}
                 </Button>
               </HStack>
             )}
           </GridItem>
 
           <GridItem colSpan={{ md: 1, sm: 1 }} textAlign="right">
-            {/* <IconButton
-              padding="2rem 1rem"
-              borderRadius="50%"
-              aria-label="Shopping cart"
-              icon={<Icon w="2rem" h="2rem" as={MdOutlineShoppingCart} />}
-            /> */}
             <CartPopover />
           </GridItem>
         </SimpleGrid>

@@ -4,6 +4,7 @@ import { FormProvider, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import schema from "forms/SignInForm/validation"
 import ForgetPasswordForm from "forms/ForgetPasswordForm"
+import LanguageSelect from "components/Select/LanguageSelect"
 
 export default function SignUpPage() {
   const methods = useForm({
@@ -16,6 +17,11 @@ export default function SignUpPage() {
 
   return (
     <Box>
+      <SimpleGrid justifyContent={"flex-end"}>
+        <GridItem margin={3} backgroundColor={"gray"} borderRadius={6}>
+          <LanguageSelect />
+        </GridItem>
+      </SimpleGrid>
       <Center>
         <SimpleGrid spacing={6} pos="absolute" top="20%">
           <GridItem>

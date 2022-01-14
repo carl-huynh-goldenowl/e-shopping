@@ -12,6 +12,7 @@ import {
 import AddressRadio from "components/Radio/AddressRadio"
 import AddAddressAlertDialog from "containers/AddAddressAlertDialog"
 import React, { useCallback, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { IoLocationSharp } from "react-icons/io5"
 //import useAddressList from "./hooks/apiHooks/useAddressList"
 
@@ -21,6 +22,8 @@ export default function DeliveryAddress({
   deliveryInfo,
 }) {
   const [displayAddressRadio, setDisplayAddressRadio] = useState(false)
+
+  const { t } = useTranslation()
 
   const handleDisplayRadio = useCallback(() => {
     setDisplayAddressRadio((prevState) => !prevState)
@@ -33,7 +36,7 @@ export default function DeliveryAddress({
           <GridItem colSpan={6} color={"teal.400"} py={"0.5rem"}>
             <HStack>
               <IoLocationSharp />
-              <Text fontSize={"xl"}>Địa chỉ nhận hàng</Text>
+              <Text fontSize={"xl"}>{t("deliveryAddr.deliveryAddr")}</Text>
             </HStack>
           </GridItem>
           <GridItem colSpan={6} textAlign={"right"}>
@@ -57,10 +60,10 @@ export default function DeliveryAddress({
                     onClick={handleDisplayRadio}
                     type="submit"
                   >
-                    Hoàn thành
+                    {t("deliveryAddr.doneBtn")}
                   </Button>
                   <Button variant={"outline"} onClick={handleDisplayRadio}>
-                    Trở lại
+                    {t("deliveryAddr.backBtn")}
                   </Button>
                 </HStack>
               </>
@@ -82,7 +85,7 @@ export default function DeliveryAddress({
                 colorScheme={"teal"}
                 onClick={handleDisplayRadio}
               >
-                Thay đổi
+                {t("deliveryAddr.changeBtn")}
               </Button>
             )}
           </GridItem>

@@ -4,6 +4,7 @@ import PaginatedItems from "components/PaginatedItems/Pagination/Pagination"
 import ProductItem from "components/PaginatedItems/ProductItem"
 import ProductListSkeleton from "components/Skeleton/ProductListSkeleton/ProductListSkeleton"
 import React, { useCallback, useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
 import { useQuery, useQueryClient } from "react-query"
 
 function ProductList({ currentItems }) {
@@ -26,6 +27,7 @@ export default function ProductListPage() {
     data: response,
     isFetching,
   } = useQuery(["productList", page], () => getProductList(page))
+  const { t } = useTranslation()
 
   const handleChangePage = useCallback(
     (data) => {
@@ -56,7 +58,7 @@ export default function ProductListPage() {
     )
   }
 
-  if (error) return "An error has occurred: " + error.message
+  if (error) return t("errors.errorHasOccurred") + error.message
 
   return (
     <SimpleGrid columns={12} spacing={0}>

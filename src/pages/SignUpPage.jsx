@@ -2,11 +2,17 @@ import React from "react"
 import { Box, Center, SimpleGrid, GridItem, Image } from "@chakra-ui/react"
 import SignUpForm from "forms/SignUpForm/SignUpForm"
 import { FormProvider, useForm } from "react-hook-form"
+import LanguageSelect from "components/Select/LanguageSelect"
 
 export default function SignUpPage() {
   const methods = useForm()
   return (
     <Box>
+      <SimpleGrid justifyContent={"flex-end"}>
+        <GridItem margin={3} backgroundColor={"gray"} borderRadius={6}>
+          <LanguageSelect />
+        </GridItem>
+      </SimpleGrid>
       <Center>
         <SimpleGrid spacing={6} pos={"absolute"} top="25%">
           <GridItem>

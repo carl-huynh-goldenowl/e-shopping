@@ -4,6 +4,7 @@ import _ from "lodash"
 import { Link } from "react-router-dom"
 import replacePathFmt from "components/TabPanel/AllProductsTabPanel/helpers"
 import { Routes } from "routes/Routes"
+import { useTranslation } from "react-i18next"
 
 export default function AddedProduct({
   id,
@@ -12,6 +13,8 @@ export default function AddedProduct({
   discountPrice,
   qty,
 }) {
+  const { t } = useTranslation()
+
   return (
     <>
       <SimpleGrid
@@ -24,14 +27,14 @@ export default function AddedProduct({
         alignItems={"center"}
       >
         <GridItem colSpan={5}>
-          <Text>Sản phẩm</Text>
+          <Text>{t("cart.product")}</Text>
         </GridItem>
-        <GridItem>Đơn giá</GridItem>
+        <GridItem>{t("cart.unitPrice")}</GridItem>
         <GridItem textAlign={"center"}>
-          <Text>Số lượng</Text>
+          <Text>{t("cart.quantity")}</Text>
         </GridItem>
-        <GridItem textAlign={"right"} color={"tomato"}>
-          <Text>Thành tiền</Text>
+        <GridItem textAlign={"right"}>
+          <Text>{t("orderDetail.intoMoney")}</Text>
         </GridItem>
       </SimpleGrid>
       <SimpleGrid

@@ -11,26 +11,25 @@ import {
   InputGroup,
   IconButton,
   Input,
-  HStack,
+  //HStack,
 } from "@chakra-ui/react"
 import { FiSend } from "react-icons/fi"
+import { Trans, useTranslation } from "react-i18next"
 
 const Footer = () => {
+  const { t } = useTranslation()
+
   return (
     <Box bg="teal.200">
       <Container maxW="container.xl" py={4}>
         <SimpleGrid columns={12} spacing={2}>
           <GridItem colSpan={{ md: 6, sm: 12 }}>
             <Heading as="h3" size="lg">
-              Shopping website
+              eShopping
             </Heading>
             <br />
             <Text fontSize="lg">
-              <b>Golden Owl Consulting</b> is one of the most prominent agile
-              software outsourcing firms based in Vietnam. Innovative,
-              time-tested software development solutions are at the core of our
-              expertise, allowing us to produce profitable, scalable products
-              that empower your business.
+              <Trans i18nKey="footer.info" components={{ bold: <strong /> }} />
             </Text>
             <br />
             <Stack spacing={0}>
@@ -44,14 +43,14 @@ const Footer = () => {
             <SimpleGrid columns={2} spacing={1}>
               <GridItem colSpan={2} h="7rem">
                 <Heading as="h5" size="md">
-                  Sign up to receive promotion email
+                  {t("footer.titleEmailInput")}
                 </Heading>
                 <br />
                 <FormControl id="email">
                   <InputGroup spacing={0}>
                     <Input
                       variant="filled"
-                      placeholder="Your email address"
+                      placeholder={t("footer.yourEmail")}
                       borderTopRightRadius="0"
                       borderBottomRightRadius="0"
                       _focus={{
@@ -77,7 +76,7 @@ const Footer = () => {
         </SimpleGrid>
       </Container>
 
-      <Box bg="teal.300" py={3}>
+      {/* <Box bg="teal.300" py={3}>
         <Container maxW="container.xl">
           <Heading as="h5" size="md">
             Catalogue
@@ -94,7 +93,7 @@ const Footer = () => {
             <a href="link5">Link5</a>
           </HStack>
         </Container>
-      </Box>
+      </Box> */}
     </Box>
   )
 }

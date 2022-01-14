@@ -15,6 +15,7 @@ import SortButton from "components/Button/SortButton"
 import PaginatedItems from "components/PaginatedItems/Pagination/Pagination"
 import { Routes } from "routes/Routes"
 import replacePathFmt from "./AllProductsTabPanel/helpers"
+import { useTranslation } from "react-i18next"
 
 const product = {
   id: "111",
@@ -27,6 +28,7 @@ const product = {
 
 const ProductItem = () => {
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const handleEditProduct = useCallback(
     (id) => () => {
@@ -54,8 +56,12 @@ const ProductItem = () => {
           ₫{product.price}
         </Text>
 
-        <Text fontSize="sm">Kho hàng: {product.stock}</Text>
-        <Text fontSize="sm">Đã bán: {product.sold}</Text>
+        <Text fontSize="sm">
+          {t("productsManagement.stock")}: {product.stock}
+        </Text>
+        <Text fontSize="sm">
+          {t("productsManagement.sold")}: {product.sold}
+        </Text>
       </Box>
       <Button w="100%" onClick={handleEditProduct(product.id)}>
         <EditIcon />
@@ -70,6 +76,7 @@ export default function AllProductsTabPanel() {
   const [isDescBestSelling, setIsDescBestSelling] = useState(true)
   const [hightlight, setHighlight] = useState([true, false, false])
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const handleSort = (e) => {
     switch (e.target.value) {
@@ -105,21 +112,21 @@ export default function AllProductsTabPanel() {
         <GridItem colSpan={5}>
           <ButtonGroup variant="ghost" spacing="0.5rem">
             <SortButton
-              title="Giá"
+              title={t("productsManagement.priceBtn")}
               isDesc={isDescPrice}
               value="price"
               onClick={(e) => handleSort(e)}
               color={hightlight[0] ? "teal.400" : "black"}
             />
-            <SortButton
+            {/* <SortButton
               title="Kho hàng"
               isDesc={isDescStock}
               value="stock"
               onClick={(e) => handleSort(e)}
               color={hightlight[1] ? "teal.400" : "black"}
-            />
+            /> */}
             <SortButton
-              title="Bán chạy"
+              title={t("productsManagement.bestSellingBtn")}
               isDesc={isDescBestSelling}
               value="bestSelling"
               onClick={(e) => handleSort(e)}
@@ -135,7 +142,7 @@ export default function AllProductsTabPanel() {
             w="100%"
             onClick={handleAddProduct}
           >
-            Thêm 1 sản phẩm mới
+            {t("productsManagement.addNewProductBtn")}
           </Button>
         </GridItem>
       </SimpleGrid>

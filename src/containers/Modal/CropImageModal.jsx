@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react"
 import ReactCrop from "react-image-crop"
 import "react-image-crop/dist/ReactCrop.css"
+import { useTranslation } from "react-i18next"
 
 export default function BasicUsage({
   isOpen,
@@ -26,6 +27,7 @@ export default function BasicUsage({
   const [crop, setCrop] = useState({ unit: "%", width: 30, aspect: 1 / 1 })
   const [completedCrop, setCompletedCrop] = useState(null)
   const [croppedImgUrl, setCroppedImgUrl] = useState("")
+  const { t } = useTranslation()
 
   const onLoad = useCallback((img) => {
     imgRef.current = img
@@ -83,7 +85,9 @@ export default function BasicUsage({
       <Modal isOpen={isOpen} onClose={onClose} size="xl">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Chỉnh sửa hình ảnh sản phẩm</ModalHeader>
+          <ModalHeader>
+            {t("productsManagement.addProductForm.editProductPicture")}
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <SimpleGrid columns={12} spacing={3}>
@@ -97,7 +101,9 @@ export default function BasicUsage({
                 />
               </GridItem>
               <GridItem colSpan={4}>
-                <Text textAlign={"center"}>Xem trước</Text>
+                <Text textAlign={"center"}>
+                  {t("productsManagement.addProductForm.preview")}
+                </Text>
                 <Image src={croppedImgUrl} />
               </GridItem>
             </SimpleGrid>
@@ -105,7 +111,7 @@ export default function BasicUsage({
 
           <ModalFooter>
             <Button colorScheme="teal" mr={3} onClick={onClose}>
-              Close
+              {t("productsManagement.addProductForm.closeBtn")}
             </Button>
             <Button
               variant="ghost"
@@ -115,7 +121,7 @@ export default function BasicUsage({
                 onClose()
               }}
             >
-              Lưu
+              {t("productsManagement.addProductForm.saveBtn")}
             </Button>
           </ModalFooter>
         </ModalContent>

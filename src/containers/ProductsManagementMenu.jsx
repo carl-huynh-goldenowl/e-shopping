@@ -1,13 +1,16 @@
 import React, { useState } from "react"
 import { Heading, Link, Menu, MenuItem, Box } from "@chakra-ui/react"
 import CustomActiveLink from "components/Link/CustomActiveLink"
+import { useTranslation } from "react-i18next"
 
 export default function ProductsManagementMenu() {
   const [isSelected, setIsSelected] = useState([true, false, false, false])
+  const { t } = useTranslation()
+
   return (
     <>
       <Heading as="h4" size="md">
-        Quản lý sản phẩm
+        {t("productsManagement.productsManagement")}
       </Heading>
       <Menu>
         <CustomActiveLink to="/admin/products">
@@ -18,7 +21,7 @@ export default function ProductsManagementMenu() {
               fontWeight: "bold",
             }}
           >
-            Tất cả sản phẩm
+            {t("productsManagement.allProducts")}
           </MenuItem>
         </CustomActiveLink>
 
@@ -30,7 +33,7 @@ export default function ProductsManagementMenu() {
               fontWeight: "bold",
             }}
           >
-            Thêm sản phẩm
+            {t("productsManagement.addProduct")}
           </MenuItem>
         </CustomActiveLink>
       </Menu>
@@ -48,7 +51,7 @@ export default function ProductsManagementMenu() {
               borderLeft={isSelected[0] ? "2px solid teal" : "0"}
               onClick={() => setIsSelected([true, false, false, false])}
             >
-              Tên sản phẩm
+              {t("productsManagement.productName")}
             </MenuItem>
           </Link>
           <Link
@@ -63,7 +66,7 @@ export default function ProductsManagementMenu() {
               borderLeft={isSelected[1] ? "2px solid teal" : "0"}
               onClick={() => setIsSelected([false, true, false, false])}
             >
-              Danh mục
+              {t("productsManagement.trademark")}
             </MenuItem>
           </Link>
           <Link
@@ -78,7 +81,7 @@ export default function ProductsManagementMenu() {
               borderLeft={isSelected[2] ? "2px solid teal" : "0"}
               onClick={() => setIsSelected([false, false, true, false])}
             >
-              Thông tin cơ bản
+              {t("productsManagement.basicInfo")}
             </MenuItem>
           </Link>
 
@@ -94,7 +97,7 @@ export default function ProductsManagementMenu() {
               borderLeft={isSelected[3] ? "2px solid teal" : "0"}
               onClick={() => setIsSelected([false, false, false, true])}
             >
-              Thông tin khác{" "}
+              {t("productsManagement.otherInfo")}
             </MenuItem>
           </Link>
         </Menu>

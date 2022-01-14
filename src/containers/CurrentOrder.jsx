@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { deleteCheckedProduct } from "store/slices/cartSlice"
 import { useNavigate } from "react-router-dom"
 import { Routes } from "routes/Routes"
+import { useTranslation } from "react-i18next"
 
 export default function CurrentOrder({
   onSelectAll,
@@ -30,6 +31,7 @@ export default function CurrentOrder({
   const cancelRef = React.useRef()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const checkedProductList = useSelector(
     (state) => state.cart.checkedProductList
@@ -67,7 +69,7 @@ export default function CurrentOrder({
             isChecked={isSelectedAll}
             isIndeterminate={isIndeterminate}
           >
-            Chọn tất cả ({cartLenght})
+            {t("cart.selectAll")} ({cartLenght})
           </Checkbox>
         </GridItem>
         <GridItem colSpan={4}>
@@ -77,12 +79,12 @@ export default function CurrentOrder({
             onClick={handleOpenDialog}
             disabled={checkedProductList.length > 0 ? false : true}
           >
-            Xóa
+            {t("cart.deleteBtn")}
           </Button>
         </GridItem>
         <GridItem colSpan={4}>
           <HStack>
-            <Text>Tổng thanh toán:</Text>
+            <Text>{t("orderDetail.totalPayment")}:</Text>
             <Text color="tomato" fontSize="2xl">
               {total}
             </Text>
@@ -95,7 +97,7 @@ export default function CurrentOrder({
             colorScheme={"teal"}
             onClick={onCheckout}
           >
-            Mua hàng
+            {t("cart.purchase")}
           </Button>
         </GridItem>
       </SimpleGrid>
@@ -107,24 +109,23 @@ export default function CurrentOrder({
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Xóa sản phẩm
+              {t("cart.deleteProduct")}
             </AlertDialogHeader>
 
             <AlertDialogBody>
-              Bạn có chắc chắn muốn xóa {checkedProductList.length} sản phẩm này
-              không?
+              {t("cart.deleteProducts", { count: checkedProductList.length })}
             </AlertDialogBody>
 
             <AlertDialogFooter>
               <Button ref={cancelRef} onClick={onClose}>
-                Hủy
+                {t("cart.cancelBtn")}
               </Button>
               <Button
                 colorScheme="red"
                 onClick={handleDeleteCheckedProduct}
                 ml={3}
               >
-                Xóa
+                {t("cart.deleteBtn")}
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

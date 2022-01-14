@@ -2,18 +2,21 @@ import React from "react"
 import { FormControl, Input, InputGroup } from "@chakra-ui/react"
 import { IconButton } from "@chakra-ui/react"
 import { SearchIcon } from "@chakra-ui/icons"
+import { useTranslation } from "react-i18next"
 
 const SearchBar = () => {
   const handleClick = () => {
     alert("Search")
   }
+  const { t } = useTranslation()
+
   return (
     <>
       <FormControl id="email">
         <InputGroup spacing={0}>
           <Input
             variant="filled"
-            placeholder="Tìm kiếm..."
+            placeholder={t("search")}
             borderTopRightRadius="0"
             borderBottomRightRadius="0"
             _focus={{

@@ -41,6 +41,7 @@ import {
 } from "store/slices/cartSlice"
 import { Routes } from "routes/Routes"
 import { useToast } from "@chakra-ui/react"
+import { useTranslation } from "react-i18next"
 
 const ProductDetailPage = () => {
   const [mainImg, setMainImg] = useState("")
@@ -52,6 +53,7 @@ const ProductDetailPage = () => {
   const toast = useToast()
   let location = useLocation()
   const tmpProduct = useSelector((state) => state.cart.tmpProduct)
+  const { t } = useTranslation()
 
   const {
     isLoading: loadingProductDetail,
@@ -88,7 +90,7 @@ const ProductDetailPage = () => {
     if (user.isAuth) {
       dispatch(addProduct({ product: productDetail?.data, qty: qty }))
       toast({
-        title: "Sản phẩm đã được thêm vào giỏ hàng.",
+        title: t("productDetailPage.addedToast"),
         status: "success",
         duration: 1000,
         isClosable: true,
@@ -118,7 +120,7 @@ const ProductDetailPage = () => {
       dispatch(deleteTmpProduct())
       dispatch(addProduct(tmpProduct))
       toast({
-        title: "Sản phẩm đã được thêm vào giỏ hàng.",
+        title: t("productDetailPage.addedToast"),
         status: "success",
         duration: 1000,
         isClosable: true,
@@ -127,16 +129,16 @@ const ProductDetailPage = () => {
   }, [tmpProduct])
 
   if (errorProductDetail)
-    return "An error has occurred: " + errorProductDetail.message
+    return t("errors.errorHasOccurred") + errorProductDetail.message
 
   if (errorSimilarProduct)
-    return "An error has occurred: " + errorSimilarProduct.message
+    return t("errors.errorHasOccurred") + errorSimilarProduct.message
 
   if (errorRecommendedProducts)
-    return "An error has occurred: " + errorRecommendedProducts.message
+    return t("errors.errorHasOccurred") + errorRecommendedProducts.message
 
   if (errorBestSellingProducts)
-    return "An error has occurred: " + errorBestSellingProducts.message
+    return t("errors.errorHasOccurred") + errorBestSellingProducts.message
 
   return (
     <SimpleGrid spacing={6}>
@@ -184,9 +186,14 @@ const ProductDetailPage = () => {
                   <HStack spacing={6}>
                     <Rating />
                     <span>|</span>
-                    <Box>{productDetail.data?.review} đánh giá</Box>
+                    <Box>
+                      {productDetail.data?.review}{" "}
+                      {t("productDetailPage.review")}
+                    </Box>
                     <span>|</span>
-                    <Box>{productDetail.data?.sold} đã bán</Box>
+                    <Box>
+                      {productDetail.data?.sold} {t("productDetailPage.sold")}
+                    </Box>
                   </HStack>
                 </GridItem>
                 <GridItem colSpan={4}>
@@ -199,7 +206,7 @@ const ProductDetailPage = () => {
                     </Heading>
                   </HStack>
                 </GridItem>
-                <GridItem>Mã Giảm Giá</GridItem>
+                <GridItem>{t("productDetailPage.discountCode")}</GridItem>
                 <GridItem colSpan={3}>
                   <VStack alignItems="flex-start">
                     <Tag bg="tomato" color="white">
@@ -207,11 +214,13 @@ const ProductDetailPage = () => {
                     </Tag>
                   </VStack>
                 </GridItem>
-                <GridItem>Vận chuyển</GridItem>
+                <GridItem>{t("productDetailPage.shipping")}</GridItem>
                 <GridItem colSpan={2}>
                   <ShippingFeeSelect />
                 </GridItem>
-                <GridItem colStart={1}>Số lượng</GridItem>
+                <GridItem colStart={1}>
+                  {t("productDetailPage.quantity")}
+                </GridItem>
                 <GridItem>
                   <QuantityInput handleChangeQty={setQty} />
                 </GridItem>
@@ -224,7 +233,7 @@ const ProductDetailPage = () => {
                       variant="outline"
                       onClick={handleAddToCart}
                     >
-                      Thêm vào giỏ hàng
+                      {t("productDetailPage.addToCartTitle")}
                     </Button>
                     <Button
                       colorScheme="teal"
@@ -232,7 +241,7 @@ const ProductDetailPage = () => {
                       w="10rem"
                       onClick={handleBuy}
                     >
-                      Mua ngay
+                      {t("productDetailPage.buyTitle")}
                     </Button>
                   </HStack>
                 </GridItem>

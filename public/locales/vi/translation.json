@@ -1,0 +1,179 @@
+{
+  "search": "Tìm kiếm...",
+  "signIn": "Đăng nhập",
+  "signUp": "Đăng ký",
+  "signOut": "Đăng xuất",
+  "homepage": "Trang chủ",
+  "forgotPass": "Quên mật khẩu",
+  "confirmPass": "Xác nhận mật khẩu",
+  "password": "Mật khẩu",
+  "haveAccount": "Đã có tài khoản? Đăng nhập",
+  "submit": "Gửi",
+  "loading": "Đang tải...",
+  "productsManagementPage": "Quản lý sản phẩm",
+  "productDetailPage": {
+    "review": "đánh giá",
+    "sold": "đã bán",
+    "buyTitle": "Mua ngay",
+    "addToCartTitle": "Thêm vào giỏ hàng",
+    "discountCode": "Mã giảm giá",
+    "shipping": "Vận chuyển",
+    "productDetail": "CHI TIẾT SẢN PHẨM",
+    "trademark": "Thương hiệu",
+    "warrantyPeriod": "Hạn bảo hành",
+    "warrantyType": "Loại bảo hành",
+    "laptopType": "Loại laptop",
+    "status": "Tình trạng",
+    "quantity": "Kho hàng",
+    "sendFrom": "Gửi từ",
+    "description": "MÔ TẢ SẢN PHẨM",
+    "similarProducts": "SẢN PHẨM TƯƠNG TỰ",
+    "recommnendedProducts": "CÓ THỂ BẠN CŨNG THÍCH",
+    "bestSellerProducts": "Top sản phẩm bán chạy",
+    "addedToast": "Sản phẩm đã được thêm vào giỏ hàng"
+  },
+  "cart": {
+    "cart": "Giỏ hàng",
+    "emptyCart": "Giỏ hàng của bạn còn trống",
+    "product": "Sản phẩm",
+    "unitPrice": "Đơn giá",
+    "quantity": "Số lượng",
+    "option": "Thao tác",
+    "totalPrice": "Số tiền",
+    "selectAll": "Chọn tất cả",
+    "deleteBtn": "Xóa",
+    "purchase": "Mua hàng",
+    "deleteProduct": "Xóa sản phẩm",
+    "alertDelect": "Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng không?",
+    "cancelBtn": "Hủy",
+    "noProduct": "Chưa có sản phẩm",
+    "viewCart": "Xem giỏ hàng",
+    "newAddedProducts": "Sản phẩm mới thêm",
+    "deleteProducts": "Bạn có chắc chắn muốn xóa {{count}} sản phẩm này không?"
+  },
+  "deliveryAddr": {
+    "deliveryAddr": "Địa chỉ nhận hàng",
+    "addAddress": "Thêm địa chỉ mới",
+    "doneBtn": "Hoàn thành",
+    "backBtn": "Trở lại",
+    "changeBtn": "Thay đổi",
+    "newAddress": "Địa chỉ mới"
+  },
+  "orderDetail": {
+    "paymentMethod": "Phương thức thanh toán",
+    "payByCash": "Thanh toán bằng tiền mặt",
+    "shippingFee": "Phí vận chuyển",
+    "totalAmount": "Tổng tiền hàng",
+    "totalPayment": "Tổng thanh toán",
+    "order": "Đặt hàng",
+    "intoMoney": "Thành tiền"
+  },
+  "productsManagement": {
+    "productsManagement": "Quản lý sản phẩm",
+    "allProducts": "Tất cả sản phẩm",
+    "addProduct": "Thêm sản phấm",
+    "productName": "Tên sản phẩm",
+    "category": "Danh mục",
+    "basicInfo": "Thông tin cơ bản",
+    "otherInfo": "Thông tin khác",
+    "sold": "Đã bán",
+    "stock": "Kho hàng",
+    "findBtn": "Tìm",
+    "retypeBtn": "Nhập lại",
+    "trademark": "Thương hiệu",
+    "searchRangeSelect": {
+      "productName": "Tên sản phẩm",
+      "productId": "Mã sản phẩm",
+      "productSKU": "SKU sản phẩm"
+    },
+    "selectTrademark": "Chọn thương hiệu",
+    "date": "Ngày",
+    "tabs": {
+      "all": "Tất cả",
+      "active": "Đang hoạt động",
+      "outOfStock": "Hết hàng",
+      "bestselling": "Bán chạy",
+      "hidden": "Đã ẩn"
+    },
+    "addNewProductBtn": "Thêm sản phẩm mới",
+    "priceBtn": "Giá",
+    "bestSellingBtn": "Bán chạy",
+    "addProductForm": {
+      "productName": "Tến sản phẩm",
+      "srademark": "Thương hiệu",
+      "selectTrademark": "Chọn thương hiệu",
+      "cancelBtn": "Hủy",
+      "saveBtn": "Lưu",
+      "productPicture": "Hình ảnh sản phẩm",
+      "coverPicture": "Ảnh bìa",
+      "picture": "Ảnh",
+      "editProductPicture": "Chỉnh sửa hình ảnh sản phẩm",
+      "description": "Mô tả sản phẩm",
+      "preOrder": "Hàng đặt trước",
+      "noRadio": "Không",
+      "yesRadio": "Đồng ý",
+      "status": "Tình trạng",
+      "contentWithNoRadio": "Tôi sẽ gửi hàng trong 2 ngày (không bao gồm các ngày nghỉ lễ, Tết và những ngày đơn vị vận chuyển không làm việc)",
+      "contentWithYesRadio": "Tôi cần thời gian chuẩn bị hàng là",
+      "daysRange": "ngày (tối thiểu: 7 ngày - tối đa: 15 ngày)",
+      "statusSelect": {
+        "new": "Mới",
+        "secondHand": "Đã sử dụng"
+      },
+      "preview": "Xem trước",
+      "closeBtn": "Đóng"
+    },
+    "producStatus": {
+      "newStatus": "Mới",
+      "secondHandStatus": "Đã sử dụng"
+    }
+  },
+  "validation": {
+    "addProductForm": {
+      "productNameRequired": "Tên sản phẩm không được để trống.",
+      "minCharacters": "Tối thiểu {{count}} kí tự",
+      "maxCharacters": "Tối đa {{count}} kí tự",
+      "trademarkRequired": "Chưa chọn thương hiệu sản phẩm",
+      "descriptionRequired": "Mô tả sản phẩm không được để trống.",
+      "prepareTimeType": "Giá trị nhập vào phải là số",
+      "prepareTimeRequired": "Thời gian chuẩn bị hàng không được để trống.",
+      "minPrepareTime": "Tối thiểu {{count}} ngày",
+      "maxPrepareTime": "Tối đa {{count}} ngày",
+      "productStatusRequuired": "Tình trạng không được để trống.",
+      "productSKURequired": "SKU sản phẩm không được để trống."
+    },
+    "addDeliveryAddressForm": {
+      "fullNameRequired": "Vui lòng nhập tên người nhận",
+      "phoneNumberRequired": "Vui lòng nhập số điện thoại",
+      "phoneNumberMatch": "Số điện thoại không hợp lệ",
+      "addressRequired": "Vui lòng nhập địa chỉ"
+    },
+    "signUpForm": {
+      "emailRequired": "Chưa nhập email",
+      "passwordRequired": "Chưa nhập mật khẩu",
+      "confirmPassRequired": "Chưa nhập lại mật khẩu",
+      "confirmPassMatch": "Mật khẩu không trùng khớp"
+    },
+    "signInForm": {
+      "emailRequired": "Chưa nhập email",
+      "passwordRequired": "Chưa nhập mật khẩu"
+    },
+    "forgotPassRequired": {
+      "emailRequired": "Chưa nhập email"
+    },
+    "findProductForm": {
+      "rangeSold": "Phải lớn hơn hoặc bằng 0"
+    }
+  },
+  "errors": {
+    "error": "Lỗi",
+    "errorHasOccurred": "Một lỗi đã xảy ra: ",
+    "trademarkErr": "Lỗi thương hiệu",
+    "searchRangeErr": "Lỗi phạm vi tìm kiếm"
+  },
+  "footer": {
+    "titleEmailInput": "Đăng ký để nhận email quảng cáo",
+    "yourEmail": "Đại chỉ email",
+    "info": "<bold>Golden Owl Consulting</bold> là một trong những công ty gia công phần mềm nhanh nổi bật nhất có trụ sở tại Việt Nam. Các giải pháp phát triển phần mềm sáng tạo, được kiểm tra theo thời gian là cốt lõi trong chuyên môn của chúng tôi, cho phép chúng tôi tạo ra các sản phẩm có khả năng mở rộng, có lợi nhuận để trao quyền cho doanh nghiệp của bạn."
+  }
+}

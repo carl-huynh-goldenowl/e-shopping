@@ -9,11 +9,14 @@ import { getCategory } from "apis/products"
 import { useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { Routes } from "routes/Routes"
+import { useTranslation } from "react-i18next"
+import LanguageSelect from "components/Select/LanguageSelect"
 
 const AdminHeader = () => {
   const { isLoading, error } = useCategory("category", getCategory)
   const user = useSelector((state) => state.user)
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const handleSignIn = useCallback(() => {
     navigate(Routes.signIn.path, { replace: true })
@@ -23,9 +26,9 @@ const AdminHeader = () => {
     navigate(Routes.signUp.path)
   }, [navigate])
 
-  if (isLoading) return <h6>Loading...</h6>
+  if (isLoading) return <h6>{t("loading")}</h6>
 
-  if (error) return "An error has occurred: " + error.message
+  if (error) return t("errors.errorHasOccurred") + error.message
 
   return (
     <Box bg="teal.300">
@@ -33,13 +36,16 @@ const AdminHeader = () => {
         <SimpleGrid
           alignItems="center"
           justifyContent="space-around"
-          py="2rem"
+          py="1rem"
           columns={12}
         >
           <GridItem colSpan={2}>
             <Link to={Routes.home.path}>
               <Image src="/images/golden_owl.svg" alt="Golden Owl logo" />
             </Link>
+          </GridItem>
+          <GridItem colStart={9}>
+            <LanguageSelect />
           </GridItem>
           <GridItem colStart={10} colSpan={3}>
             {user.isAuth ? (

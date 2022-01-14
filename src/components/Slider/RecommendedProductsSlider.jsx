@@ -12,6 +12,7 @@ import {
   VStack,
   SimpleGrid,
 } from "@chakra-ui/react"
+import { useTranslation } from "react-i18next"
 
 // install Swiper modules
 SwiperCore.use([Navigation])
@@ -33,9 +34,11 @@ const Product = ({ name, img, discountPrice }) => {
 }
 
 export default function RecommendedProductsSlider({ productList }) {
+  const { t } = useTranslation()
+
   return (
     <VStack>
-      <Text w="100%">CÓ THỂ BẠN CŨNG THÍCH</Text>
+      <Text w="100%">{t("productDetailPage.recommnendedProducts")}</Text>
       <Swiper
         navigation={true}
         slidesPerView={5}

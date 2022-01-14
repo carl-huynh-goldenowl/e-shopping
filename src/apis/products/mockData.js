@@ -827,3 +827,46 @@ export const checkedProductList = [
     qty: 2,
   },
 ]
+
+export const laptopType = [
+  {
+    id: 1,
+    name: "Gaming",
+  },
+  {
+    id: 2,
+    name: "Ultrabook",
+  },
+]
+
+export const trademarks = [
+  {
+    id: 1,
+    trademarkName: "Apple",
+  },
+  {
+    id: 2,
+    trademarkName: "Asus",
+  },
+  {
+    id: 3,
+    trademarkName: "Dell",
+  },
+  {
+    id: 4,
+    trademarkName: "HP",
+  },
+  {
+    id: 5,
+    trademarkName: "Lenovo",
+  },
+  {
+    id: 6,
+    trademarkName: "MSI",
+  },
+]
+
+export const productStatus = [
+  { id: 1, status: "newStatus" },
+  { id: 2, status: "secondHandStatus" },
+]

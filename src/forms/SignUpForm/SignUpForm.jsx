@@ -12,6 +12,7 @@ import {
 import PasswordInput from "components/Input/PasswordInput"
 import { Link as ReactLink } from "react-router-dom"
 import { Routes } from "routes/Routes"
+import { useTranslation } from "react-i18next"
 
 export default function SignUpForm() {
   const {
@@ -23,6 +24,7 @@ export default function SignUpForm() {
       email: "",
     },
   })
+  const { t } = useTranslation()
 
   const onSubmit = () => {}
 
@@ -31,7 +33,7 @@ export default function SignUpForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <VStack spacing={6} p="3rem">
           <Heading as="h3" size="lg" pb="1rem">
-            Đăng ký
+            {t("signUp")}
           </Heading>
           {errors.passwordConfirmation && (
             <p color="#fff000">{errors.passwordConfirmation?.message}</p>
@@ -44,24 +46,24 @@ export default function SignUpForm() {
           />
 
           <PasswordInput
-            placeholderContent="Enter password"
+            placeholderContent={t("password")}
             registerName="password"
             focusBorderColor="teal.400"
           />
 
           <PasswordInput
-            placeholderContent="Confirm password"
+            placeholderContent={t("confirmPass")}
             registerName="passwordConfirmation"
             focusBorderColor="teal.400"
           />
 
           <Button type="submit" colorScheme={"teal"} w="100%">
-            Đăng ký
+            {t("signUp")}
           </Button>
           <SimpleGrid>
             <GridItem>
               <Link as={ReactLink} to={Routes.signIn.path}>
-                Đã có tài khoản?
+                {t("haveAccount")}
               </Link>
             </GridItem>
           </SimpleGrid>

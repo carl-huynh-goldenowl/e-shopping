@@ -19,6 +19,7 @@ import {
   Box,
 } from "@chakra-ui/react"
 import React, { useCallback } from "react"
+import { useTranslation } from "react-i18next"
 import { MdOutlineShoppingCart } from "react-icons/md"
 import { useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
@@ -54,6 +55,7 @@ const Product = ({ id, name, pictureUrl, discountPrice }) => {
 export default function CartPopover() {
   const navigate = useNavigate()
   const cart = useSelector((state) => state.cart.cart)
+  const { t } = useTranslation()
 
   const handleRedirectToCart = useCallback(() => {
     navigate(Routes.shoppingCart.path)
@@ -80,7 +82,7 @@ export default function CartPopover() {
                 </Center>
               </Box>
               <Box textAlign={"center"}>
-                <Text>Chưa có sản phẩm</Text>
+                <Text>{t("cart.noProduct")}</Text>
               </Box>
             </PopoverBody>
           </PopoverContent>
@@ -101,7 +103,7 @@ export default function CartPopover() {
         <Portal>
           <PopoverContent>
             <PopoverArrow />
-            <PopoverHeader>Sản phẩm mới thêm</PopoverHeader>
+            <PopoverHeader>{t("cart.newAddedProducts")}</PopoverHeader>
             <PopoverCloseButton />
             <PopoverBody>
               {cart.map((product, index) => (
@@ -110,7 +112,7 @@ export default function CartPopover() {
             </PopoverBody>
             <PopoverFooter textAlign={"right"}>
               <Button colorScheme="teal" onClick={handleRedirectToCart}>
-                Xem giỏ hàng
+                {t("cart.viewCart")}
               </Button>
             </PopoverFooter>
           </PopoverContent>

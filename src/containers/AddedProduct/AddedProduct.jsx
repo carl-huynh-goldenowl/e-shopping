@@ -14,6 +14,7 @@ import _ from "lodash"
 import { Link } from "react-router-dom"
 import replacePathFmt from "components/TabPanel/AllProductsTabPanel/helpers"
 import { Routes } from "routes/Routes"
+import { useTranslation } from "react-i18next"
 
 export default function AddedProduct({
   id,
@@ -25,6 +26,7 @@ export default function AddedProduct({
 }) {
   const [qty, setQty] = useState(product.qty)
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   const handleDeleteProduct = (productId) => () => {
     onDelete(productId)
@@ -82,7 +84,7 @@ export default function AddedProduct({
       </GridItem>
       <GridItem textAlign={"center"}>
         <Button variant={"ghost"} onClick={handleDeleteProduct(product.id)}>
-          Xóa
+          {t("cart.deleteBtn")}
         </Button>
       </GridItem>
     </>

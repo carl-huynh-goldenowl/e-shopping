@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Suspense } from "react"
 import ReactDOM from "react-dom"
 import App from "./App"
 import reportWebVitals from "./reportWebVitals"
@@ -11,6 +11,7 @@ import LoadingSpinner from "components/LoadingSpinner/LoadingSpinner"
 import { store } from "store/store"
 import { persistStore } from "redux-persist"
 import theme from "./theme"
+import "./i18n"
 
 let persistor = persistStore(store)
 
@@ -20,7 +21,9 @@ ReactDOM.render(
       <PersistGate loading={<LoadingSpinner />} persistor={persistor}>
         <ChakraProvider theme={theme}>
           <BrowserRouter>
-            <App />
+            <Suspense fallback="...is loading">
+              <App />
+            </Suspense>
           </BrowserRouter>
         </ChakraProvider>
       </PersistGate>

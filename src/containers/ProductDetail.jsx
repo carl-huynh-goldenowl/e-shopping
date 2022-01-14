@@ -1,48 +1,51 @@
 import React from "react"
 import { GridItem, Text } from "@chakra-ui/layout"
 import { Table, Tbody, Tr, Td } from "@chakra-ui/react"
+import { useTranslation } from "react-i18next"
 
 const ProductDetail = ({ productDetail, description }) => {
+  const { t } = useTranslation()
+
   return (
     <>
       <GridItem bg="white" boxShadow="xl" rounded="md" p={6}>
         <Text fontSize="2xl" p={3} bg="gray.100" w="100%">
-          CHI TIẾT SẢN PHẨM
+          {t("productDetailPage.productDetail")}
         </Text>
         <Table variant="simple" w="100%">
           <Tbody>
             <Tr>
-              <Td>Thương hiệu</Td>
+              <Td>{t("productDetailPage.trademark")}</Td>
               <Td>{productDetail?.trademark}</Td>
             </Tr>
             <Tr>
-              <Td>Hạn bảo hành</Td>
+              <Td>{t("productDetailPage.warrantyPeriod")}</Td>
               <Td>{productDetail?.warrantyPeriod}</Td>
             </Tr>
             <Tr>
-              <Td>Loại bảo hành</Td>
+              <Td>{t("productDetailPage.warrantyType")}</Td>
               <Td>{productDetail?.warrantyType}</Td>
             </Tr>
             <Tr>
-              <Td>Loại laptop</Td>
+              <Td>{t("productDetailPage.laptopType")}</Td>
               <Td>{productDetail?.laptopType}</Td>
             </Tr>
             <Tr>
-              <Td>Tình trạng</Td>
+              <Td>{t("productDetailPage.status")}</Td>
               <Td>{productDetail?.status}</Td>
             </Tr>
             <Tr>
-              <Td>Kho hàng</Td>
+              <Td>{t("productDetailPage.quantity")}</Td>
               <Td>{productDetail?.quantity}</Td>
             </Tr>
             <Tr>
-              <Td>Gửi từ</Td>
+              <Td>{t("productDetailPage.sendFrom")}</Td>
               <Td>{productDetail?.sendFrom}</Td>
             </Tr>
           </Tbody>
         </Table>
         <Text fontSize="2xl" p={3} mt={16} bg="gray.100" w="100%">
-          MÔ TẢ SẢN PHẨM
+          {t("productDetailPage.description")}
         </Text>
         <Text fontSize="md" p="1rem 1rem 0 1rem">
           {description}

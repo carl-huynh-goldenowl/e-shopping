@@ -21,6 +21,7 @@ import { useDropzone } from "react-dropzone"
 
 import { AiOutlineLine } from "react-icons/ai"
 import CropImageModal from "containers/Modal/CropImageModal"
+import { useTranslation } from "react-i18next"
 
 export function ProductPicInput({ title, inputId }) {
   const [productImg, setProductImg] = useState(null)
@@ -125,17 +126,25 @@ export function ProductPicInput({ title, inputId }) {
 }
 
 export default function ProductPicInputList() {
+  const { t } = useTranslation()
+
   return (
     <SimpleGrid justifyContent={"flex-start"} columns={12} spacingY={6}>
       <GridItem colSpan={[6, 4, 3, 2]}>
-        <ProductPicInput title="Ảnh bìa" index={0} inputId="mainImg" />
+        <ProductPicInput
+          title={t("productsManagement.addProductForm.coverPicture")}
+          index={0}
+          inputId="mainImg"
+        />
       </GridItem>
       {Array(8)
         .fill(0)
         .map((item, index) => (
           <GridItem key={index} colSpan={[6, 4, 3, 2]}>
             <ProductPicInput
-              title={`Ảnh ${index + 1}`}
+              title={`${t("productsManagement.addProductForm.picture")} ${
+                index + 1
+              }`}
               index={index + 1}
               inputId={`detailImgs${index + 1}`}
             />

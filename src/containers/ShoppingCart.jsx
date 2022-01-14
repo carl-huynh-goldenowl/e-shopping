@@ -16,6 +16,7 @@ import { Routes } from "routes/Routes"
 import AddedProduct from "./AddedProduct/AddedProduct"
 import DeleteProductAlertDialog from "./DeleteProductAlertDialog/DeleteProductAlertDialog"
 import { updateCheckedProductList } from "store/slices/cartSlice"
+import { useTranslation } from "react-i18next"
 
 export default function ShoppingCart() {
   const cart = useSelector((state) => state.cart.cart)
@@ -25,6 +26,7 @@ export default function ShoppingCart() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [total, setTotal] = useState(0)
+  const { t } = useTranslation()
 
   // Init checkbox list
   let initCheckState = []
@@ -145,14 +147,14 @@ export default function ShoppingCart() {
             <Image w="10rem" src="/images/empty_cart.png" alt="empty_cart" />
           </Center>
         </GridItem>
-        <GridItem>
+        <GridItem textAlign={"center"}>
           <Text fontSize="xl" color="gray">
-            Giỏ hàng của bạn còn trống
+            {t("cart.emptyCart")}
           </Text>
         </GridItem>
         <GridItem textAlign={"center"} pt="2rem">
           <Button colorScheme={"teal"} onClick={handleRedirectToHome}>
-            Mua ngay
+            {t("productDetailPage.buyTitle")}
           </Button>
         </GridItem>
       </SimpleGrid>
@@ -177,13 +179,13 @@ export default function ShoppingCart() {
                   isChecked={cart.length === selected.length}
                   isIndeterminate={isIndeterminate}
                 >
-                  Sản phẩm
+                  {t("cart.product")}
                 </Checkbox>
               </GridItem>
-              <GridItem textAlign={"center"}>Đơn giá</GridItem>
-              <GridItem textAlign={"center"}>Số Lượng</GridItem>
-              <GridItem textAlign={"center"}>Số Tiền</GridItem>
-              <GridItem textAlign={"center"}>Thao Tác</GridItem>
+              <GridItem textAlign={"center"}>{t("cart.unitPrice")}</GridItem>
+              <GridItem textAlign={"center"}>{t("cart.quantity")}</GridItem>
+              <GridItem textAlign={"center"}>{t("cart.totalPrice")}</GridItem>
+              <GridItem textAlign={"center"}>{t("cart.option")}</GridItem>
             </SimpleGrid>
           </GridItem>
 

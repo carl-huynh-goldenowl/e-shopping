@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { HStack, Input, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react"
 import { useFormContext } from "react-hook-form"
+import { useTranslation } from "react-i18next"
 
 export default function PreOrderRadioGroup() {
   const {
@@ -8,6 +9,7 @@ export default function PreOrderRadioGroup() {
     formState: { errors },
   } = useFormContext()
   const [orderType, setOrderType] = useState("")
+  const { t } = useTranslation()
 
   const handleChangePrepareTime = (e) => {
     setOrderType(e.target.value)
@@ -24,21 +26,20 @@ export default function PreOrderRadioGroup() {
             })}
             value="noPreOrder"
           >
-            Không
+            {t("productsManagement.addProductForm.noRadio")}
           </Radio>
           <Radio colorScheme="teal" {...register("orderType")} value="preOrder">
-            Đồng ý
+            {t("productsManagement.addProductForm.yesRadio")}
           </Radio>
         </Stack>
       </RadioGroup>
       {orderType === "noPreOrder" ? (
-        <Text>
-          Tôi sẽ gửi hàng trong 2 ngày (không bao gồm các ngày nghỉ lễ, Tết và
-          những ngày đơn vị vận chuyển không làm việc)
-        </Text>
+        <Text>{t("productsManagement.addProductForm.contentWithNoRadio")}</Text>
       ) : (
         <HStack justifyContent={"left"}>
-          <Text>Tôi cần thời gian chuẩn bị hàng là </Text>
+          <Text>
+            {t("productsManagement.addProductForm.contentWithYesRadio")}{" "}
+          </Text>
           <Input
             textAlign={"center"}
             w="5rem"
@@ -48,7 +49,7 @@ export default function PreOrderRadioGroup() {
             })}
             type="number"
           />
-          <Text>ngày (tối thiểu: 7 ngày - tối đa: 15 ngày)</Text>
+          <Text>{t("productsManagement.addProductForm.daysRange")}</Text>
         </HStack>
       )}
       {errors.prepareTime && (

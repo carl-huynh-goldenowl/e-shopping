@@ -13,6 +13,7 @@ import AddDeliveryAddressForm from "forms/AddDeliveryAddressForm"
 import { FormProvider, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import schema from "forms/AddDeliveryAddressForm/validation"
+import { useTranslation } from "react-i18next"
 
 const defaultVals = {
   name: "",
@@ -27,8 +28,8 @@ export default function AddAddressAlertDialog() {
     defaultValues: defaultVals,
     resolver: yupResolver(schema),
   })
-
   const cancelRef = React.useRef()
+  const { t } = useTranslation()
 
   const onClose = useCallback(() => setIsOpen(false), [setIsOpen])
 
@@ -54,7 +55,7 @@ export default function AddAddressAlertDialog() {
         colorScheme={"teal"}
         onClick={onOpen}
       >
-        Thêm địa chỉ mới
+        {t("deliveryAddr.addAddress")}
       </Button>
       <AlertDialog
         isOpen={isOpen}
@@ -64,7 +65,7 @@ export default function AddAddressAlertDialog() {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Địa chỉ mới
+              {t("deliveryAddr.newAddress")}
             </AlertDialogHeader>
             <FormProvider {...methods}>
               <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -76,7 +77,7 @@ export default function AddAddressAlertDialog() {
 
                 <AlertDialogFooter>
                   <Button ref={cancelRef} onClick={onClose}>
-                    Trở lại
+                    {t("deliveryAddr.backBtn")}
                   </Button>
                   <Button
                     colorScheme="teal"
@@ -84,7 +85,7 @@ export default function AddAddressAlertDialog() {
                     ml={3}
                     type={"submit"}
                   >
-                    Hoàn thành
+                    {t("deliveryAddr.doneBtn")}
                   </Button>
                 </AlertDialogFooter>
               </form>

@@ -5,6 +5,8 @@ import {
   productDetail,
   productList,
   checkedProductList,
+  trademarks,
+  productStatus,
 } from "./mockData"
 
 export const getCategory = async () => {
@@ -95,6 +97,32 @@ export const getCheckedProductList = async () => {
     status: 200,
     statusText: "OK",
     data: checkedProductList,
+    headers: { "content-type": "application/json" },
+  }
+  return Promise.resolve(response)
+}
+
+export const getTrademarks = async () => {
+  //const url = `/trademarks`
+
+  const response = {
+    config: {},
+    status: 200,
+    statusText: "OK",
+    data: trademarks,
+    headers: { "content-type": "application/json" },
+  }
+  return Promise.resolve(response)
+}
+
+export const getProductStatus = async () => {
+  //const url = `/product-status`
+
+  const response = {
+    config: {},
+    status: 200,
+    statusText: "OK",
+    data: productStatus,
     headers: { "content-type": "application/json" },
   }
   return Promise.resolve(response)

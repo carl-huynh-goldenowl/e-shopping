@@ -14,11 +14,13 @@ import { useNavigate } from "react-router-dom"
 import { Routes } from "routes/Routes"
 import { deleteCart } from "store/slices/cartSlice"
 import { signOut } from "store/slices/userSlice"
+import { useTranslation } from "react-i18next"
 
 export default function AccountDropDownMenu({ email, color }) {
   const dispatch = useDispatch()
   let navigate = useNavigate()
   const user = useSelector((state) => state.user)
+  const { t } = useTranslation()
 
   const handleSignOut = useCallback(() => {
     dispatch(signOut())
@@ -45,10 +47,10 @@ export default function AccountDropDownMenu({ email, color }) {
       <MenuList>
         {user.isAdmin && (
           <MenuItem onClick={handleRedirectAdminPage}>
-            Trang quản lý sản phẩm
+            {t("productsManagementPage")}
           </MenuItem>
         )}
-        <MenuItem onClick={handleSignOut}>Đăng xuất</MenuItem>
+        <MenuItem onClick={handleSignOut}>{t("signOut")}</MenuItem>
       </MenuList>
     </Menu>
   )

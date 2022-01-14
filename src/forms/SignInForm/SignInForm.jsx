@@ -14,6 +14,7 @@ import { Link as ReactLink, useLocation, useNavigate } from "react-router-dom"
 import { Routes } from "routes/Routes"
 import { useDispatch, useSelector } from "react-redux"
 import { signIn } from "store/slices/userSlice"
+import { useTranslation } from "react-i18next"
 
 export default function SignUpForm() {
   const { register, handleSubmit } = useFormContext()
@@ -21,6 +22,7 @@ export default function SignUpForm() {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
   const { state } = useLocation()
+  const { t } = useTranslation()
 
   const onSubmit = useCallback(
     (data) => {
@@ -50,7 +52,7 @@ export default function SignUpForm() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <VStack spacing={6} p="3rem">
           <Heading as="h3" size="lg" pb="1rem">
-            Đăng nhập
+            {t("signIn")}
           </Heading>
           <Input
             {...register("email", { require: true })}
@@ -63,7 +65,7 @@ export default function SignUpForm() {
             focusBorderColor="teal.400"
           />
           <Button type="submit" colorScheme={"teal"} w="100%">
-            Đăng nhập
+            {t("signIn")}
           </Button>
           <SimpleGrid
             pt="1rem"
@@ -73,12 +75,12 @@ export default function SignUpForm() {
           >
             <GridItem>
               <Link as={ReactLink} to={Routes.home.path}>
-                Về trang chủ
+                {t("homepage")}
               </Link>
             </GridItem>
             <GridItem>
               <Link as={ReactLink} to={Routes.forgetPassword.path}>
-                Quên mật khẩu?
+                {t("forgotPass")}?
               </Link>
             </GridItem>
           </SimpleGrid>
