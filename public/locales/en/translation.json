@@ -24,13 +24,15 @@
     "warrantyType": "Warranty type",
     "laptopType": "Laptop type",
     "status": "Status",
-    "quantity": "Kho hàng",
+    "quantity": "Stock",
     "sendFrom": "Send from",
     "description": "Description",
     "similarProducts": "SIMILAR PRODUCTS",
     "recommnendedProducts": "RECOMMENDED PRODUCTS",
     "bestSellerProducts": "Best seller",
-    "addedToast": "The product has been added to the cart"
+    "addedToast": "The product has been added to the cart",
+    "selectArea": "Select area",
+    "optionArea": "Radius {{radius}}km - ₫{{shippingFee}}"
   },
   "cart": {
     "cart": "Cart",
@@ -165,7 +167,8 @@
     "error": "Error",
     "errorHasOccurred": "An error has occurred: ",
     "trademarkErr": "Trademark error",
-    "searchRangeErr": "Search range error"
+    "searchRangeErr": "Search range error",
+    "shippingAreaErr": "Shipping area error"
   },
   "footer": {
     "titleEmailInput": "Sign up to receive promotion email",

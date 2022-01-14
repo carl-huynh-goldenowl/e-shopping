@@ -11,8 +11,7 @@ import {
 import { Image } from "@chakra-ui/image"
 import { Button } from "@chakra-ui/button"
 import { Tag } from "@chakra-ui/tag"
-import { useQuery } from "react-query"
-import { SkeletonText } from "@chakra-ui/react"
+import { Skeleton, SkeletonText } from "@chakra-ui/react"
 import ProductDetailSkeleton from "components/Skeleton/ProductDetailSkeleton/ProductDetailSkeleton"
 import {
   ProductDetailImgsSlider,
@@ -25,12 +24,6 @@ import QuantityInput from "components/Input/QuantityInput"
 import ProductDetail from "containers/ProductDetail"
 import ProductListSkeleton from "components/Skeleton/ProductListSkeleton/ProductListSkeleton"
 import BestSeller from "containers/BestSeller"
-import {
-  getProductDetail,
-  getSimilarProducts,
-  getRecommendedProducts,
-  getBestSellingProducts,
-} from "apis/products"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import {
@@ -42,6 +35,11 @@ import {
 import { Routes } from "routes/Routes"
 import { useToast } from "@chakra-ui/react"
 import { useTranslation } from "react-i18next"
+import useProductDetail from "./hooks/apiHooks/useProductDetail"
+import useRecommendedProducts from "./hooks/apiHooks/useRecommendedProducts"
+import useSimilarProducts from "./hooks/apiHooks/useSimilarProducts"
+import useBestSellingProducts from "./hooks/apiHooks/useBestSellingProduct"
+import useShippingArea from "./hooks/apiHooks/useShippingArea"
 
 const ProductDetailPage = () => {
   const [mainImg, setMainImg] = useState("")
@@ -55,29 +53,26 @@ const ProductDetailPage = () => {
   const tmpProduct = useSelector((state) => state.cart.tmpProduct)
   const { t } = useTranslation()
 
-  const {
-    isLoading: loadingProductDetail,
-    error: errorProductDetail,
-    data: productDetail,
-  } = useQuery("productDetail", () => getProductDetail(params.id))
+  const { loadingProductDetail, errorProductDetails, productDetail } =
+    useProductDetail(params.id)
+
+  const { loadingSimilarProducts, errorSimilarProducts, similarProducts } =
+    useSimilarProducts(params.id)
 
   const {
-    isLoading: loadingSimilarProducts,
-    error: errorSimilarProduct,
-    data: similarProduct,
-  } = useQuery("similarProducts", () => getSimilarProducts(params.id))
+    loadingRecommendedProducts,
+    errorRecommendedProducts,
+    recommendedProducts,
+  } = useRecommendedProducts(params.id)
 
   const {
-    isLoading: loadingRecommendedProducts,
-    error: errorRecommendedProducts,
-    data: recommendedProducts,
-  } = useQuery("recommendedProducts", () => getRecommendedProducts(params.id))
+    loadingBestSellingProducts,
+    errorBestSellingProducts,
+    bestSellingProducts,
+  } = useBestSellingProducts("laptop")
 
-  const {
-    isLoading: loadingBestSellingProducts,
-    error: errorBestSellingProducts,
-    data: bestSellingProducts,
-  } = useQuery("bestSellingProducts", () => getBestSellingProducts("laptop"))
+  const { loadingShippingArea, errorShippingArea, shippingArea } =
+    useShippingArea()
 
   const handleChangeImg = useCallback(
     (index) => {
@@ -128,11 +123,11 @@ const ProductDetailPage = () => {
     }
   }, [tmpProduct])
 
-  if (errorProductDetail)
-    return t("errors.errorHasOccurred") + errorProductDetail.message
+  if (errorProductDetails)
+    return t("errors.errorHasOccurred") + errorProductDetails.message
 
-  if (errorSimilarProduct)
-    return t("errors.errorHasOccurred") + errorSimilarProduct.message
+  if (errorSimilarProducts)
+    return t("errors.errorHasOccurred") + errorSimilarProducts.message
 
   if (errorRecommendedProducts)
     return t("errors.errorHasOccurred") + errorRecommendedProducts.message
@@ -162,15 +157,15 @@ const ProductDetailPage = () => {
                       objectFit="cover"
                       width="100%"
                       height="30rem"
-                      src={mainImg || productDetail.data?.pictureUrl}
-                      alt={productDetail.data?.name}
+                      src={mainImg || productDetail?.data?.pictureUrl}
+                      alt={productDetail?.data?.name}
                     />
                   </Box>
                 </GridItem>
                 <GridItem>
                   <ProductDetailImgsSlider
                     handleChangeImg={handleChangeImg}
-                    imgs={productDetail.data?.detailPicsUrl}
+                    imgs={productDetail?.data?.detailPicsUrl}
                   />
                 </GridItem>
               </SimpleGrid>
@@ -179,7 +174,7 @@ const ProductDetailPage = () => {
               <SimpleGrid columns={4} spacing={6} alignItems="center">
                 <GridItem colSpan={4}>
                   <Heading as="h4" size="md">
-                    {productDetail.data?.name}
+                    {productDetail?.data?.name}
                   </Heading>
                 </GridItem>
                 <GridItem colSpan={4}>
@@ -187,22 +182,22 @@ const ProductDetailPage = () => {
                     <Rating />
                     <span>|</span>
                     <Box>
-                      {productDetail.data?.review}{" "}
+                      {productDetail?.data?.review}{" "}
                       {t("productDetailPage.review")}
                     </Box>
                     <span>|</span>
                     <Box>
-                      {productDetail.data?.sold} {t("productDetailPage.sold")}
+                      {productDetail?.data?.sold} {t("productDetailPage.sold")}
                     </Box>
                   </HStack>
                 </GridItem>
                 <GridItem colSpan={4}>
                   <HStack spacing={5} bg="gray.50" rounded="md" p={5}>
                     <Text fontSize="lg" textDecoration="tomato line-through">
-                      ₫{productDetail.data?.price}
+                      ₫{productDetail?.data?.price}
                     </Text>
                     <Heading color="tomato">
-                      ₫{productDetail.data?.discountPrice}
+                      ₫{productDetail?.data?.discountPrice}
                     </Heading>
                   </HStack>
                 </GridItem>
@@ -216,7 +211,22 @@ const ProductDetailPage = () => {
                 </GridItem>
                 <GridItem>{t("productDetailPage.shipping")}</GridItem>
                 <GridItem colSpan={2}>
-                  <ShippingFeeSelect />
+                  {loadingShippingArea ? (
+                    <GridItem colSpan={12}>
+                      <Skeleton height="2rem" />
+                    </GridItem>
+                  ) : errorShippingArea ? (
+                    <GridItem colSpan={12}>
+                      <Text color="tomato">
+                        {t("errors.shippingAreaErr")}:{" "}
+                        {errorShippingArea.message}
+                      </Text>
+                    </GridItem>
+                  ) : null}
+
+                  {shippingArea && (
+                    <ShippingFeeSelect shippingArea={shippingArea} />
+                  )}
                 </GridItem>
                 <GridItem colStart={1}>
                   {t("productDetailPage.quantity")}
@@ -258,8 +268,8 @@ const ProductDetailPage = () => {
               <SkeletonText noOfLines={20} spacing="4" />
             ) : (
               <ProductDetail
-                productDetail={productDetail.data?.detail}
-                description={productDetail.data?.description}
+                productDetail={productDetail?.data?.detail}
+                description={productDetail?.data?.description}
               />
             )}
             <GridItem>
@@ -271,7 +281,7 @@ const ProductDetailPage = () => {
                   pictureHeight={8}
                 />
               ) : (
-                <SimilarProductsSlider productList={similarProduct.data} />
+                <SimilarProductsSlider productList={similarProducts} />
               )}
             </GridItem>
             <GridItem>
@@ -283,9 +293,7 @@ const ProductDetailPage = () => {
                   pictureHeight={8}
                 />
               ) : (
-                <RecommendedProductsSlider
-                  productList={recommendedProducts.data}
-                />
+                <RecommendedProductsSlider productList={recommendedProducts} />
               )}
             </GridItem>
           </SimpleGrid>
@@ -300,7 +308,7 @@ const ProductDetailPage = () => {
             />
           </GridItem>
         ) : (
-          <BestSeller productList={bestSellingProducts.data} />
+          <BestSeller productList={bestSellingProducts} />
         )}
       </SimpleGrid>
     </SimpleGrid>

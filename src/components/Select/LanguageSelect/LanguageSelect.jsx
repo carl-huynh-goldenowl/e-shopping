@@ -9,13 +9,19 @@ export default function LanguageSelect() {
     localStorage.setItem("i18nextLng", e.target.value)
   }
 
+  const lng = localStorage.getItem("i18nextLng")
+    ? localStorage.getItem("i18nextLng")
+    : LNGS[1]
+
+  localStorage.setItem("i18nextLng", lng)
+
   return (
-    <Select onChange={onChangeLanguage} color="white">
+    <Select onChange={onChangeLanguage} color="white" defaultValue={lng}>
       {LNGS.map((lng, index) => (
         <option
           key={index}
           style={{ color: "black" }}
-          selected={localStorage.getItem("i18nextLng") === lng}
+          //selected={localStorage.getItem("i18nextLng") === lng}
           value={lng}
         >
           {lng}

@@ -18,7 +18,7 @@ export default function ProductDetailImgsSlider({ imgs, handleChangeImg }) {
         spaceBetween={3}
         onClick={(e) => handleChangeImg(e.clickedIndex)}
       >
-        {imgs.map((item, index) => (
+        {imgs?.map((item, index) => (
           <SwiperSlide key={"img" + index}>
             <Box>
               <Image

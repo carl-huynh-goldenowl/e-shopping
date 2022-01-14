@@ -1,18 +1,18 @@
 import React from "react"
 import { Select } from "@chakra-ui/react"
+import { useTranslation } from "react-i18next"
 
-const shippingMethod = [
-  { distance: "1km", fee: 5000 },
-  { distance: "5km", fee: 20000 },
-  { distance: "10km", fee: 100000 },
-]
+export default function ShippingFeeSelect({ shippingArea }) {
+  const { t } = useTranslation()
 
-export default function ShippingFeeSelect() {
   return (
-    <Select placeholder="Chọn khu vực">
-      {shippingMethod.map((item, index) => (
-        <option key={index} value={item.fee}>
-          {"Bán kính " + item.distance + " - " + item.fee}₫
+    <Select placeholder={t("productDetailPage.selectArea")}>
+      {shippingArea.map((item) => (
+        <option key={item.id} value={item.shippingFee}>
+          {t("productDetailPage.optionArea", {
+            radius: item.radius,
+            shippingFee: item.shippingFee,
+          })}
         </option>
       ))}
     </Select>

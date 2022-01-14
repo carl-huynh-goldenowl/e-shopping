@@ -30,7 +30,9 @@
     "similarProducts": "SẢN PHẨM TƯƠNG TỰ",
     "recommnendedProducts": "CÓ THỂ BẠN CŨNG THÍCH",
     "bestSellerProducts": "Top sản phẩm bán chạy",
-    "addedToast": "Sản phẩm đã được thêm vào giỏ hàng"
+    "addedToast": "Sản phẩm đã được thêm vào giỏ hàng",
+    "selectArea": "Chọn khu vực",
+    "optionArea": "Bán kính {{radius}}km - ₫{{shippingFee}}"
   },
   "cart": {
     "cart": "Giỏ hàng",
@@ -169,7 +171,8 @@
     "error": "Lỗi",
     "errorHasOccurred": "Một lỗi đã xảy ra: ",
     "trademarkErr": "Lỗi thương hiệu",
-    "searchRangeErr": "Lỗi phạm vi tìm kiếm"
+    "searchRangeErr": "Lỗi phạm vi tìm kiếm",
+    "shippingAreaErr": "Lỗi khu vực vận chuyển"
   },
   "footer": {
     "titleEmailInput": "Đăng ký để nhận email quảng cáo",

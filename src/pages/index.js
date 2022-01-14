@@ -4,7 +4,9 @@ export const Homepage = loadable(() => import("./Homepage"))
 
 export const SignInPage = loadable(() => import("./SignInPage"))
 
-export const ProductDetailPage = loadable(() => import("./ProductDetailPage"))
+export const ProductDetailPage = loadable(() =>
+  import("./ProductDetailPage/ProductDetailPage")
+)
 
 export const AdminPage = loadable(() => import("./AdminPage"))
 
