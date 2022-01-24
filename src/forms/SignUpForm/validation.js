@@ -12,7 +12,7 @@ const schema = yup.object().shape({
     .required(t("validation.signUpForm.confirmPassRequired"))
     .oneOf(
       [yup.ref("password"), null],
-      t("validation.signUpForm.confirmPassRequired")
+      t("validation.signUpForm.confirmPassMatch")
     ),
 })
 

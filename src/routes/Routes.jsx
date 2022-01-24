@@ -95,6 +95,7 @@ export const Routes = {
   },
   checkout: {
     path: "/checkout",
+    isAuth: true,
     element: CheckoutPage,
   },
   default: {

@@ -9,9 +9,10 @@ import {
   Text,
   Button,
   Skeleton,
+  FormControl,
 } from "@chakra-ui/react"
-import React from "react"
-import { useForm } from "react-hook-form"
+import React, { useCallback } from "react"
+import { Controller, useForm } from "react-hook-form"
 import schema from "./validation"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useTranslation } from "react-i18next"
@@ -19,12 +20,16 @@ import useSearchRange from "./hooks/apiHooks/useSearchRange"
 import { getSearchRange } from "apis/admin"
 import useTrademarks from "./hooks/apiHooks/useTrademarks"
 import { getTrademarks } from "apis/products"
+import ReactDatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
+import "./styles.css"
 
 export default function FindProductForm() {
   const {
-    register,
     handleSubmit,
+    control,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onBlur",
@@ -37,7 +42,16 @@ export default function FindProductForm() {
     getTrademarks
   )
 
-  const onSubmit = () => {}
+  const onSubmit = useCallback(() => {}, [])
+
+  const handleRetype = useCallback(() => {
+    reset({
+      startDate: "",
+      endDate: "",
+      minSold: "",
+      maxSold: "",
+    })
+  })
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <SimpleGrid columns={12} spacingX={10} spacingY={6}>
@@ -51,19 +65,34 @@ export default function FindProductForm() {
           ) : null}
           {searchRange && (
             <InputGroup>
-              <InputLeftAddon>
-                <Select border="none" {...register("field")}>
-                  {searchRange?.map((opt) => (
-                    <option key={opt.id} value={opt.id}>
-                      {t("productsManagement.searchRangeSelect." + opt.value)}
-                    </option>
-                  ))}
-                </Select>
-              </InputLeftAddon>
-              <Input
-                type="text"
-                focusBorderColor="teal.400"
-                {...register("keyword")}
+              <Controller
+                name="searchRange"
+                control={control}
+                defaultValue={
+                  searchRange?.length > 0 ? searchRange[0].id : null
+                }
+                render={({ field }) => (
+                  <InputLeftAddon>
+                    <Select border="none" {...field}>
+                      {searchRange?.map((opt) => (
+                        <option key={opt.id} value={opt.id}>
+                          {t(
+                            "productsManagement.searchRangeSelect." + opt.value
+                          )}
+                        </option>
+                      ))}
+                    </Select>
+                  </InputLeftAddon>
+                )}
+              />
+
+              <Controller
+                name="keyword"
+                control={control}
+                defaultValue={""}
+                render={({ field }) => (
+                  <Input type="text" focusBorderColor="teal.400" {...field} />
+                )}
               />
             </InputGroup>
           )}
@@ -88,20 +117,24 @@ export default function FindProductForm() {
                   {t("productsManagement.trademark")}
                 </GridItem>
                 <GridItem colSpan={9}>
-                  <Select
-                    placeholder={t("productsManagement.selectTrademark")}
-                    focusBorderColor="teal.400"
-                    {...register("category")}
-                  >
-                    {trademarks.map((trademark) => (
-                      <option
-                        key={trademark.id}
-                        value={trademark.trademarkName}
+                  <Controller
+                    name="category"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <Select
+                        placeholder={t("productsManagement.selectTrademark")}
+                        focusBorderColor="teal.400"
+                        {...field}
                       >
-                        {trademark.trademarkName}
-                      </option>
-                    ))}
-                  </Select>
+                        {trademarks.map((trademark) => (
+                          <option key={trademark.id} value={trademark.id}>
+                            {trademark.trademarkName}
+                          </option>
+                        ))}
+                      </Select>
+                    )}
+                  />
                 </GridItem>
               </>
             )}
@@ -112,23 +145,50 @@ export default function FindProductForm() {
             <GridItem colSpan={3}>{t("productsManagement.date")}</GridItem>
             <GridItem colSpan={9}>
               <HStack>
-                <Input
-                  type="number"
-                  focusBorderColor="teal.400"
-                  {...register("minStock")}
-                />
+                <FormControl isInvalid={errors.startDate}>
+                  <Controller
+                    name="startDate"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <ReactDatePicker
+                        {...field}
+                        placeholderText={t(
+                          "validation.findProductForm.startDate"
+                        )}
+                        onChange={field.onChange}
+                        selected={field.value}
+                      />
+                    )}
+                  />
+                </FormControl>
                 <Text>-</Text>
-                <Input
-                  type="number"
-                  focusBorderColor="teal.400"
-                  {...register("maxStock")}
-                />
+                <FormControl isInvalid={errors.endDate}>
+                  <Controller
+                    name="endDate"
+                    control={control}
+                    defaultValue=""
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <ReactDatePicker
+                        {...field}
+                        placeholderText={t(
+                          "validation.findProductForm.endDate"
+                        )}
+                        onChange={(date) => field.onChange(date)}
+                        selected={field.value}
+                      />
+                    )}
+                  />
+                </FormControl>
               </HStack>
-              {errors.minStock && (
-                <Text color="red.500">{errors.minStock?.message}</Text>
+            </GridItem>
+            <GridItem colSpan={12}>
+              {errors.startDate && (
+                <Text color="red">{errors.startDate?.message}</Text>
               )}
-              {errors.maxStock && (
-                <Text color="red.500">{errors.maxStock?.message}</Text>
+              {errors.endDate && (
+                <Text color="red">{errors.endDate?.message}</Text>
               )}
             </GridItem>
           </SimpleGrid>
@@ -138,18 +198,38 @@ export default function FindProductForm() {
             <GridItem colSpan={3}>{t("productsManagement.sold")}</GridItem>
             <GridItem colSpan={9}>
               <HStack>
-                <Input
-                  type="number"
-                  focusBorderColor="teal.400"
-                  {...register("minSold")}
-                />
+                <FormControl isInvalid={errors.minSold}>
+                  <Controller
+                    name="minSold"
+                    control={control}
+                    defaultValue=""
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <Input {...field} focusBorderColor="teal.400" />
+                    )}
+                  />
+                </FormControl>
                 <Text>-</Text>
-                <Input
-                  type="number"
-                  focusBorderColor="teal.400"
-                  {...register("maxSold")}
-                />
+                <FormControl isInvalid={errors.maxSold}>
+                  <Controller
+                    name="maxSold"
+                    control={control}
+                    defaultValue=""
+                    rules={{ required: true }}
+                    render={({ field }) => (
+                      <Input {...field} focusBorderColor="teal.400" />
+                    )}
+                  />
+                </FormControl>
               </HStack>
+            </GridItem>
+            <GridItem colSpan={12} height={"3rem"}>
+              {errors.minSold && (
+                <Text color="red">{errors.minSold?.message}</Text>
+              )}
+              {errors.maxSold && (
+                <Text color="red">{errors.maxSold?.message}</Text>
+              )}
             </GridItem>
           </SimpleGrid>
         </GridItem>
@@ -161,7 +241,12 @@ export default function FindProductForm() {
               </Button>
             </GridItem>
             <GridItem colSpan={1}>
-              <Button variant={"outline"} w="100%" type="reset">
+              <Button
+                variant={"outline"}
+                w="100%"
+                type="reset"
+                onClick={handleRetype}
+              >
                 {t("productsManagement.retypeBtn")}
               </Button>
             </GridItem>

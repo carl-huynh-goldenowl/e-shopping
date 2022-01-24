@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from "react"
-import { useFormContext } from "react-hook-form"
+import { Controller, useFormContext } from "react-hook-form"
 import {
   Heading,
   Input,
@@ -8,6 +8,8 @@ import {
   SimpleGrid,
   GridItem,
   Link,
+  FormControl,
+  FormErrorMessage,
 } from "@chakra-ui/react"
 import PasswordInput from "components/Input/PasswordInput"
 import { Link as ReactLink, useLocation, useNavigate } from "react-router-dom"
@@ -17,7 +19,11 @@ import { signIn } from "store/slices/userSlice"
 import { useTranslation } from "react-i18next"
 
 export default function SignUpForm() {
-  const { register, handleSubmit } = useFormContext()
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useFormContext()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
@@ -54,11 +60,19 @@ export default function SignUpForm() {
           <Heading as="h3" size="lg" pb="1rem">
             {t("signIn")}
           </Heading>
-          <Input
-            {...register("email", { require: true })}
-            placeholder="Email"
-            type="email"
-          />
+          <FormControl isInvalid={errors.email}>
+            <Controller
+              name="email"
+              control={control}
+              defaultValue={""}
+              render={({ field }) => (
+                <Input {...field} placeholder="Email" type="email" />
+              )}
+            />
+            {errors.email && (
+              <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
+            )}
+          </FormControl>
           <PasswordInput
             placeholderContent="Enter password"
             registerName="password"

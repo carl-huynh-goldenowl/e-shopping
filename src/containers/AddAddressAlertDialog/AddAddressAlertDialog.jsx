@@ -14,6 +14,7 @@ import { FormProvider, useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import schema from "forms/AddDeliveryAddressForm/validation"
 import { useTranslation } from "react-i18next"
+import _ from "lodash"
 
 const defaultVals = {
   name: "",
@@ -23,10 +24,10 @@ const defaultVals = {
 
 export default function AddAddressAlertDialog() {
   const [isOpen, setIsOpen] = useState(false)
-  const [isExistError, setExistError] = useState(false)
   const methods = useForm({
     defaultValues: defaultVals,
     resolver: yupResolver(schema),
+    mode: "onBlur",
   })
   const cancelRef = React.useRef()
   const { t } = useTranslation()
@@ -36,16 +37,14 @@ export default function AddAddressAlertDialog() {
   const onOpen = useCallback(() => setIsOpen(true), [setIsOpen])
 
   const onCloseAndSubmit = useCallback(() => {
-    if (!isExistError) onClose()
+    if (_.isEmpty(methods.formState.errors)) {
+      onClose()
+    }
   })
 
-  const handleIsExistError = (status) => () => {
-    setExistError(status)
-  }
-
-  const onSubmit = () => {
+  const onSubmit = useCallback(() => {
     methods.reset(defaultVals)
-  }
+  }, [])
 
   return (
     <>
@@ -70,9 +69,7 @@ export default function AddAddressAlertDialog() {
             <FormProvider {...methods}>
               <form onSubmit={methods.handleSubmit(onSubmit)}>
                 <AlertDialogBody>
-                  <AddDeliveryAddressForm
-                    handleIsExistError={handleIsExistError}
-                  />
+                  <AddDeliveryAddressForm />
                 </AlertDialogBody>
 
                 <AlertDialogFooter>

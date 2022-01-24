@@ -1,5 +1,5 @@
-import React from "react"
-import { useFormContext } from "react-hook-form"
+import React, { useCallback } from "react"
+import { Controller, useFormContext } from "react-hook-form"
 import {
   Heading,
   Input,
@@ -8,6 +8,8 @@ import {
   SimpleGrid,
   GridItem,
   Link,
+  FormControl,
+  FormErrorMessage,
 } from "@chakra-ui/react"
 import PasswordInput from "components/Input/PasswordInput"
 import { Link as ReactLink } from "react-router-dom"
@@ -16,17 +18,13 @@ import { useTranslation } from "react-i18next"
 
 export default function SignUpForm() {
   const {
-    register,
     handleSubmit,
     formState: { errors },
-  } = useFormContext({
-    defaultValues: {
-      email: "",
-    },
-  })
+    control,
+  } = useFormContext()
   const { t } = useTranslation()
 
-  const onSubmit = () => {}
+  const onSubmit = useCallback(() => {}, [])
 
   return (
     <>
@@ -35,16 +33,24 @@ export default function SignUpForm() {
           <Heading as="h3" size="lg" pb="1rem">
             {t("signUp")}
           </Heading>
-          {errors.passwordConfirmation && (
-            <p color="#fff000">{errors.passwordConfirmation?.message}</p>
-          )}
-          <Input
-            placeholder="Email"
-            {...register("email", { required: true })}
-            type="email"
-            focusBorderColor="teal.400"
-          />
-
+          <FormControl isInvalid={errors.email}>
+            <Controller
+              name="email"
+              control={control}
+              // rules={{ require: true }}
+              defaultValue={""}
+              render={({ field }) => (
+                <Input
+                  placeholder="Email"
+                  {...field}
+                  focusBorderColor="teal.400"
+                />
+              )}
+            />
+            {errors.email && (
+              <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
+            )}
+          </FormControl>
           <PasswordInput
             placeholderContent={t("password")}
             registerName="password"

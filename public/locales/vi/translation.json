@@ -59,7 +59,10 @@
     "doneBtn": "Hoàn thành",
     "backBtn": "Trở lại",
     "changeBtn": "Thay đổi",
-    "newAddress": "Địa chỉ mới"
+    "newAddress": "Địa chỉ mới",
+    "fullName": "Họ và tên",
+    "phoneNumber": "Số điện thoại",
+    "address": "Địa chỉ"
   },
   "orderDetail": {
     "paymentMethod": "Phương thức thanh toán",
@@ -119,15 +122,11 @@
       "contentWithYesRadio": "Tôi cần thời gian chuẩn bị hàng là",
       "daysRange": "ngày (tối thiểu: 7 ngày - tối đa: 15 ngày)",
       "statusSelect": {
-        "new": "Mới",
-        "secondHand": "Đã sử dụng"
+        "newStatus": "Mới",
+        "secondHandStatus": "Đã sử dụng"
       },
       "preview": "Xem trước",
       "closeBtn": "Đóng"
-    },
-    "producStatus": {
-      "newStatus": "Mới",
-      "secondHandStatus": "Đã sử dụng"
     }
   },
   "validation": {
@@ -142,7 +141,8 @@
       "minPrepareTime": "Tối thiểu {{count}} ngày",
       "maxPrepareTime": "Tối đa {{count}} ngày",
       "productStatusRequuired": "Tình trạng không được để trống.",
-      "productSKURequired": "SKU sản phẩm không được để trống."
+      "productSKURequired": "SKU sản phẩm không được để trống.",
+      "coverPicRequired": "Ảnh bìa không được để trống."
     },
     "addDeliveryAddressForm": {
       "fullNameRequired": "Vui lòng nhập tên người nhận",
@@ -164,7 +164,11 @@
       "emailRequired": "Chưa nhập email"
     },
     "findProductForm": {
-      "rangeSold": "Phải lớn hơn hoặc bằng 0"
+      "rangeSold": "Phải lớn hơn hoặc bằng 0",
+      "endDateInvalid": "Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu",
+      "startDate": "Ngày bắt đầu",
+      "endDate": "Ngày kết thúc",
+      "maxSoldInvalid": "Số sản phẩm lớn nhất đã bán phải lớn hơn hoặc bằng số sản phẩm nhỏ nhất đã bán"
     }
   },
   "errors": {

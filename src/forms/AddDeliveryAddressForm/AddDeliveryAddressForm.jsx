@@ -5,19 +5,17 @@ import {
   Input,
   SimpleGrid,
 } from "@chakra-ui/react"
-import React, { useEffect } from "react"
+import React from "react"
 import { Controller, useFormContext } from "react-hook-form"
-import _ from "lodash"
+import { useTranslation } from "react-i18next"
 
-export default function AddDeliveryAddressForm({ handleIsExistError }) {
+export default function AddDeliveryAddressForm() {
   const {
     control,
     formState: { errors },
   } = useFormContext()
 
-  useEffect(() => {
-    handleIsExistError(_.isEmpty(errors))
-  }, [errors])
+  const { t } = useTranslation()
 
   return (
     <SimpleGrid columns={12} spacing={3}>
@@ -30,7 +28,7 @@ export default function AddDeliveryAddressForm({ handleIsExistError }) {
             <FormControl isInvalid={errors.name}>
               <Input
                 {...field}
-                placeholder="Họ và tên"
+                placeholder={t("deliveryAddr.fullName")}
                 focusBorderColor="teal.400"
               />
               {errors.name && (
@@ -49,7 +47,7 @@ export default function AddDeliveryAddressForm({ handleIsExistError }) {
             <FormControl isInvalid={errors.phoneNumber}>
               <Input
                 {...field}
-                placeholder="Số điện thoại"
+                placeholder={t("deliveryAddr.phoneNumber")}
                 focusBorderColor="teal.400"
               />
               {errors.phoneNumber && (
@@ -70,7 +68,7 @@ export default function AddDeliveryAddressForm({ handleIsExistError }) {
             <FormControl isInvalid={errors.address}>
               <Input
                 {...field}
-                placeholder="Địa chỉ"
+                placeholder={t("deliveryAddr.address")}
                 focusBorderColor="teal.400"
               />
               {errors.address && (

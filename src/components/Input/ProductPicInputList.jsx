@@ -10,6 +10,7 @@ import {
   HStack,
   Image,
   useDisclosure,
+  FormControl,
 } from "@chakra-ui/react"
 import { useFormContext } from "react-hook-form"
 import {
@@ -66,14 +67,15 @@ export function ProductPicInput({ title, inputId }) {
 
   return (
     <VStack>
-      <input
-        type="file"
-        {...register(inputId, {
-          required: "Ảnh bìa không được để trống.",
-          validate: (value) => value != null,
-        })}
-        hidden
-      />
+      <FormControl isInvalid={errors[inputId]}>
+        <input
+          type="file"
+          {...register(inputId, {
+            value: null,
+          })}
+          hidden
+        />
+      </FormControl>
       {acceptedFiles.length > 0 ? (
         <Center
           w="6rem"
@@ -120,13 +122,15 @@ export function ProductPicInput({ title, inputId }) {
         }
         handleUpdateImg={handleUpdateImg}
       />
-      {errors.mainImg && <Text color="red.500">{errors.mainImg?.message}</Text>}
     </VStack>
   )
 }
 
 export default function ProductPicInputList() {
   const { t } = useTranslation()
+  const {
+    formState: { errors },
+  } = useFormContext()
 
   return (
     <SimpleGrid justifyContent={"flex-start"} columns={12} spacingY={6}>
@@ -150,6 +154,11 @@ export default function ProductPicInputList() {
             />
           </GridItem>
         ))}
+      <GridItem colSpan={12}>
+        {errors.mainImg && (
+          <Text color="red.500">{errors.mainImg?.message}</Text>
+        )}
+      </GridItem>
     </SimpleGrid>
   )
 }

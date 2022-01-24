@@ -3,9 +3,13 @@ import { Box, Center, SimpleGrid, GridItem, Image } from "@chakra-ui/react"
 import SignUpForm from "forms/SignUpForm/SignUpForm"
 import { FormProvider, useForm } from "react-hook-form"
 import LanguageSelect from "components/Select/LanguageSelect"
+import { yupResolver } from "@hookform/resolvers/yup"
+import schema from "forms/SignUpForm/validation"
 
 export default function SignUpPage() {
-  const methods = useForm()
+  const methods = useForm({
+    resolver: yupResolver(schema),
+  })
   return (
     <Box>
       <SimpleGrid justifyContent={"flex-end"}>

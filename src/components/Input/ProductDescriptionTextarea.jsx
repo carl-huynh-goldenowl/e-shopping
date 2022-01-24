@@ -1,21 +1,24 @@
 import React from "react"
-import { Textarea, Text } from "@chakra-ui/react"
-import { useFormContext } from "react-hook-form"
+import { Textarea, FormControl, FormErrorMessage } from "@chakra-ui/react"
+import { Controller, useFormContext } from "react-hook-form"
 
 export default function ProductDescriptionTextarea() {
   const {
-    register,
+    control,
     formState: { errors },
   } = useFormContext()
   return (
-    <div>
-      <Textarea
-        focusBorderColor="teal.400"
-        {...register("description", { required: true })}
+    <FormControl isInvalid={errors.description}>
+      <Controller
+        name="description"
+        control={control}
+        render={({ field }) => (
+          <Textarea {...field} focusBorderColor="teal.400" />
+        )}
       />
       {errors.description && (
-        <Text color="red.500">{errors.description?.message}</Text>
+        <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
       )}
-    </div>
+    </FormControl>
   )
 }

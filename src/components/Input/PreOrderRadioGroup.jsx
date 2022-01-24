@@ -1,38 +1,46 @@
-import React, { useState } from "react"
+import React, { useCallback, useState } from "react"
 import { HStack, Input, Radio, RadioGroup, Stack, Text } from "@chakra-ui/react"
-import { useFormContext } from "react-hook-form"
+import { Controller, useFormContext } from "react-hook-form"
 import { useTranslation } from "react-i18next"
 
 export default function PreOrderRadioGroup() {
   const {
-    register,
     formState: { errors },
+    control,
   } = useFormContext()
   const [orderType, setOrderType] = useState("")
   const { t } = useTranslation()
 
-  const handleChangePrepareTime = (e) => {
-    setOrderType(e.target.value)
-  }
+  const onChange = useCallback((value) => {
+    setOrderType(value)
+  })
 
   return (
     <>
-      <RadioGroup defaultValue="noPreOrder">
-        <Stack spacing={5} direction="row">
-          <Radio
-            colorScheme="teal"
-            {...register("orderType", {
-              onChange: (e) => setOrderType(e.target.value),
-            })}
-            value="noPreOrder"
+      <Controller
+        name="orderType"
+        control={control}
+        defaultValue="noPreOrder"
+        render={({ field }) => (
+          <RadioGroup
+            {...field}
+            onChange={(value) => {
+              onChange(value)
+              field.onChange(value)
+            }}
           >
-            {t("productsManagement.addProductForm.noRadio")}
-          </Radio>
-          <Radio colorScheme="teal" {...register("orderType")} value="preOrder">
-            {t("productsManagement.addProductForm.yesRadio")}
-          </Radio>
-        </Stack>
-      </RadioGroup>
+            <Stack spacing={5} direction="row">
+              <Radio colorScheme="teal" value="noPreOrder">
+                {t("productsManagement.addProductForm.noRadio")}
+              </Radio>
+              <Radio colorScheme="teal" value="preOrder">
+                {t("productsManagement.addProductForm.yesRadio")}
+              </Radio>
+            </Stack>
+          </RadioGroup>
+        )}
+      />
+
       {orderType === "noPreOrder" ? (
         <Text>{t("productsManagement.addProductForm.contentWithNoRadio")}</Text>
       ) : (
@@ -40,15 +48,22 @@ export default function PreOrderRadioGroup() {
           <Text>
             {t("productsManagement.addProductForm.contentWithYesRadio")}{" "}
           </Text>
-          <Input
-            textAlign={"center"}
-            w="5rem"
-            {...register("prepareTime", {
-              value: 7,
-              onChange: (e) => handleChangePrepareTime(e),
-            })}
-            type="number"
+
+          <Controller
+            name="prepareTime"
+            control={control}
+            defaultValue={7}
+            render={({ field }) => (
+              <Input
+                textAlign={"center"}
+                w="5rem"
+                {...field}
+                type="number"
+                focusBorderColor="teal.400"
+              />
+            )}
           />
+
           <Text>{t("productsManagement.addProductForm.daysRange")}</Text>
         </HStack>
       )}

@@ -1,25 +1,31 @@
 import React, { useCallback } from "react"
-import { SimpleGrid, GridItem, Text, Button } from "@chakra-ui/react"
+import { SimpleGrid, GridItem, Text, Button, Skeleton } from "@chakra-ui/react"
 import BasicProductInfo from "containers/BasicProductInfo"
 import { useNavigate } from "react-router-dom"
-import CategorySelect from "components/Select/CategorySelect"
+import TrademarkSelect from "components/Select/TrademarkSelect"
 import OtherInfo from "containers/OrderInfo/OtherInfo"
 import ProductNameInput from "components/Input/ProductNameInput"
 import { useFormContext } from "react-hook-form"
 import { Routes } from "routes/Routes"
 import { useTranslation } from "react-i18next"
+import { getTrademarks } from "apis/products"
+import useTrademarks from "./hooks/apiHooks/useTrademarks"
 
 export default function AddNewProductForm() {
   let navigate = useNavigate()
   const { t } = useTranslation()
+  const { handleSubmit } = useFormContext()
 
-  const onSubmit = () => {}
+  const onSubmit = useCallback(() => {}, [])
 
   const hanleCancelForm = useCallback(() => {
     navigate(Routes.admin.path)
   }, [navigate])
 
-  const { handleSubmit } = useFormContext()
+  const { isLoadingTrademarks, errorTrademarks, trademarks } = useTrademarks(
+    "trademarks",
+    getTrademarks
+  )
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -54,7 +60,18 @@ export default function AddNewProductForm() {
               <Text>{t("productsManagement.trademark")}</Text>
             </GridItem>
             <GridItem colSpan={[12, 12, 10]}>
-              <CategorySelect />
+              {isLoadingTrademarks ? (
+                <GridItem colSpan={12}>
+                  <Skeleton height="2rem" />
+                </GridItem>
+              ) : errorTrademarks ? (
+                <GridItem colSpan={12}>
+                  <Text color="tomato">
+                    {t("errors.trademarkErr")}: {errorTrademarks.message}
+                  </Text>
+                </GridItem>
+              ) : null}
+              {trademarks && <TrademarkSelect trademarks={trademarks} />}
             </GridItem>
           </SimpleGrid>
         </GridItem>

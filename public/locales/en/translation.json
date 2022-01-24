@@ -59,7 +59,10 @@
     "doneBtn": "Done",
     "backBtn": "Back",
     "changeBtn": "Change",
-    "newAddress": "New address"
+    "newAddress": "New address",
+    "fullName": "Full name",
+    "phoneNumber": "Phone number",
+    "address": "Address"
   },
   "orderDetail": {
     "paymentMethod": "Payment method",
@@ -119,8 +122,8 @@
       "contentWithYesRadio": "I need the time to prepare the goods is",
       "daysRange": "days (min: 7 days - max: 15 days)",
       "statusSelect": {
-        "new": "New",
-        "secondHand": "Second hand"
+        "newStatus": "New",
+        "secondHandStatus": "Second hand"
       },
       "preview": "Preview",
       "closeBtn": "Close"
@@ -137,8 +140,9 @@
       "prepareTimeRequired": "Prepare time is required",
       "minPrepareTime": "Minimum{{count}} days",
       "maxPrepareTime": "Maximum {{count}} days",
-      "productStatusRequuired": "Product status is required.",
-      "productSKURequired": "Product SKU is required."
+      "productStatusRequired": "Product status is required.",
+      "productSKURequired": "Product SKU is required.",
+      "coverPicRequired": "Cover picture is required"
     },
     "addDeliveryAddressForm": {
       "fullNameRequired": "Fullname is required",
@@ -160,7 +164,11 @@
       "emailRequired": "Email is required"
     },
     "findProductForm": {
-      "rangeSold": "Must be greater than or equal to 0"
+      "rangeSold": "Must be greater than or equal to 0",
+      "endDateInvalid": "The end date must be greater than or equal to the start date",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "maxSoldInvalid": "The max sold must be greater than or equal to the min sold"
     }
   },
   "errors": {

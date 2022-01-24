@@ -1,11 +1,17 @@
 import React, { useState } from "react"
-import { Input, InputGroup, InputRightAddon, Text } from "@chakra-ui/react"
-import { useFormContext } from "react-hook-form"
+import {
+  FormControl,
+  FormErrorMessage,
+  Input,
+  InputGroup,
+  InputRightAddon,
+} from "@chakra-ui/react"
+import { Controller, useFormContext } from "react-hook-form"
 import { MAX_LENGTH_PRODUCT_NAME } from "./constants"
 
 export default function ProductNameInput() {
   const {
-    register,
+    control,
     formState: { errors },
     setValue,
   } = useFormContext()
@@ -23,24 +29,28 @@ export default function ProductNameInput() {
   }
 
   return (
-    <>
-      <InputGroup>
-        <Input
-          type="text"
-          focusBorderColor="teal.400"
-          {...register("productName", {
-            onChange: (e) => handleChangeName(e),
-          })}
-        />
+    <FormControl isInvalid={errors.productName}>
+      <Controller
+        name="productName"
+        control={control}
+        render={({ field }) => (
+          <InputGroup {...field}>
+            <Input
+              type="text"
+              focusBorderColor="teal.400"
+              onChange={(e) => handleChangeName(e)}
+            />
 
-        <InputRightAddon>
-          {nameLength}/{MAX_LENGTH_PRODUCT_NAME}
-        </InputRightAddon>
-      </InputGroup>
+            <InputRightAddon>
+              {nameLength}/{MAX_LENGTH_PRODUCT_NAME}
+            </InputRightAddon>
+          </InputGroup>
+        )}
+      />
 
       {errors.productName && (
-        <Text color="red.500">{errors.productName?.message}</Text>
+        <FormErrorMessage>{errors.productName?.message}</FormErrorMessage>
       )}
-    </>
+    </FormControl>
   )
 }

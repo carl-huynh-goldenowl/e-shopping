@@ -25,13 +25,19 @@ const schema = yup.object().shape({
         count: MIN_LENGTH_PRODUCT_NAME,
       })
     ),
-  category: yup
+  trademark: yup
     .string()
     .required(t("validation.addProductForm.trademarkRequired")),
-  // mainImg: yup
-  //   .string()
-  //   .typeError("Ảnh bìa không được để trống.")
-  //   .required("Ảnh bìa không được để trống."),
+  mainImg: yup
+    .string()
+    .typeError(t("validation.addProductForm.coverPicRequired"))
+    .required(t("validation.addProductForm.coverPicRequired"))
+    .min(
+      1,
+      t("validation.addProductForm.minCharacters", {
+        count: MIN_LENGTH_PRODUCT_NAME,
+      })
+    ),
   description: yup
     .string()
     .required(t("validation.addProductForm.descriptionRequired"))
@@ -49,17 +55,17 @@ const schema = yup.object().shape({
     ),
   prepareTime: yup
     .number()
-    .typeError("")
-    .required()
+    .typeError(t("validation.addProductForm.prepareTimeRequired"))
+    .required(t("validation.addProductForm.prepareTimeRequired"))
     .max(
       MAX_PREPARE_TIME,
-      t("validation.addProductForm.maxCharacters", {
+      t("validation.addProductForm.maxPrepareTime", {
         count: MAX_PREPARE_TIME,
       })
     )
     .min(
       MIN_PREPARE_TIME,
-      t("validation.addProductForm.minCharacters", {
+      t("validation.addProductForm.minPrepareTime", {
         count: MIN_PREPARE_TIME,
       })
     ),

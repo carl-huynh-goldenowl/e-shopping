@@ -1,18 +1,24 @@
 import React from "react"
-import { Input, Text } from "@chakra-ui/react"
-import { useFormContext } from "react-hook-form"
+import { FormControl, FormErrorMessage, Input } from "@chakra-ui/react"
+import { Controller, useFormContext } from "react-hook-form"
 
 export default function ProductSKUInput() {
   const {
-    register,
+    control,
     formState: { errors },
   } = useFormContext()
   return (
-    <>
-      <Input {...register("productSKU")} focusBorderColor="teal.400" />
+    <FormControl isInvalid={errors.productSKU}>
+      <Controller
+        name="productSKU"
+        control={control}
+        defaultValue={""}
+        render={({ field }) => <Input {...field} focusBorderColor="teal.400" />}
+      />
+
       {errors.productSKU && (
-        <Text color="red.500">{errors.productSKU?.message}</Text>
+        <FormErrorMessage>{errors.productSKU?.message}</FormErrorMessage>
       )}
-    </>
+    </FormControl>
   )
 }
