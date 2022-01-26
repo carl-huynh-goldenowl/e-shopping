@@ -111,7 +111,7 @@ const ProductDetailPage = () => {
     dispatch(addProduct({ product: productDetail?.data, qty: qty }))
     dispatch(addToCheckedProductList(productDetail?.data?.id))
     navigate(Routes.shoppingCart.path)
-  }, [dispatch, navigate, productDetail])
+  }, [dispatch, navigate, productDetail, qty])
 
   useEffect(() => {
     if (tmpProduct) {
