@@ -1,19 +1,20 @@
 import { Select } from "@chakra-ui/react"
 import i18n from "i18n"
-import React from "react"
+import React, { useCallback } from "react"
 import { LNGS } from "./constant"
 
 export default function LanguageSelect() {
-  const onChangeLanguage = (e) => {
+  const onChangeLanguage = useCallback((e) => {
     i18n.changeLanguage(e.target.value)
     localStorage.setItem("i18nextLng", e.target.value)
+  }, [])
+
+  let lng = localStorage.getItem("i18nextLng")
+
+  if (LNGS.indexOf(lng) === -1) {
+    lng = "EN"
+    localStorage.setItem("i18nextLng", lng)
   }
-
-  const lng = localStorage.getItem("i18nextLng")
-    ? localStorage.getItem("i18nextLng")
-    : LNGS[1]
-
-  localStorage.setItem("i18nextLng", lng)
 
   return (
     <Select onChange={onChangeLanguage} color="white" defaultValue={lng}>

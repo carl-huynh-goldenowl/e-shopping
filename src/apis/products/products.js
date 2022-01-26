@@ -8,6 +8,7 @@ import {
   trademarks,
   productStatus,
 } from "./mockData"
+import _ from "lodash"
 
 export const getCategory = async () => {
   const response = {
@@ -17,6 +18,7 @@ export const getCategory = async () => {
     data: category,
     headers: { "content-type": "application/json" },
   }
+
   return Promise.resolve(response)
 }
 
@@ -39,7 +41,12 @@ export const getProductList = async (page = 0) => {
     data: productList[page],
     headers: { "content-type": "application/json" },
   }
-  return Promise.resolve(response)
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(response)
+    }, 2000)
+  })
 }
 
 export const getProductDetail = async (productId) => {
@@ -50,7 +57,12 @@ export const getProductDetail = async (productId) => {
     data: productDetail[productId],
     headers: { "content-type": "application/json" },
   }
-  return Promise.resolve(response)
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(response)
+    }, 1000)
+  })
 }
 
 export const getSimilarProducts = async () => {
@@ -62,7 +74,12 @@ export const getSimilarProducts = async () => {
     data: productDetail,
     headers: { "content-type": "application/json" },
   }
-  return Promise.resolve(response)
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(response)
+    }, 2000)
+  })
 }
 
 export const getRecommendedProducts = async () => {
@@ -74,19 +91,29 @@ export const getRecommendedProducts = async () => {
     data: productDetail,
     headers: { "content-type": "application/json" },
   }
-  return Promise.resolve(response)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(response)
+    }, 2000)
+  })
 }
 
 export const getBestSellingProducts = async () => {
   //const url = `/products/${type}/best-selling-products`
+  const result = _.slice(productDetail, 0, 4)
   const response = {
     config: {},
     status: 200,
     statusText: "OK",
-    data: productDetail,
+    data: result,
     headers: { "content-type": "application/json" },
   }
-  return Promise.resolve(response)
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(response)
+    }, 2000)
+  })
 }
 
 export const getCheckedProductList = async () => {

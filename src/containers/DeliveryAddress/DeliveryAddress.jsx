@@ -55,15 +55,15 @@ export default function DeliveryAddress({
                   onSelectDeliveryAddr={onSelectDeliveryAddr}
                 />
                 <HStack pt={"1rem"}>
+                  <Button variant={"outline"} onClick={handleDisplayRadio}>
+                    {t("deliveryAddr.backBtn")}
+                  </Button>
                   <Button
                     colorScheme={"teal"}
                     onClick={handleDisplayRadio}
                     type="submit"
                   >
                     {t("deliveryAddr.doneBtn")}
-                  </Button>
-                  <Button variant={"outline"} onClick={handleDisplayRadio}>
-                    {t("deliveryAddr.backBtn")}
                   </Button>
                 </HStack>
               </>

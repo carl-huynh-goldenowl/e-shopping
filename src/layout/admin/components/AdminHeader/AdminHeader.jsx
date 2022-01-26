@@ -38,6 +38,7 @@ const AdminHeader = () => {
           justifyContent="space-around"
           py="1rem"
           columns={12}
+          spacing={6}
         >
           <GridItem colSpan={2}>
             <Link to={Routes.home.path}>

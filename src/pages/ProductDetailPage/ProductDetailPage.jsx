@@ -23,7 +23,7 @@ import { ShippingFeeSelect } from "components/Select"
 import QuantityInput from "components/Input/QuantityInput"
 import ProductDetail from "containers/ProductDetail"
 import ProductListSkeleton from "components/Skeleton/ProductListSkeleton/ProductListSkeleton"
-import BestSeller from "containers/BestSeller"
+import BestSeller from "containers/BestSeller/BestSeller"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import {
@@ -40,6 +40,7 @@ import useRecommendedProducts from "./hooks/apiHooks/useRecommendedProducts"
 import useSimilarProducts from "./hooks/apiHooks/useSimilarProducts"
 import useBestSellingProducts from "./hooks/apiHooks/useBestSellingProduct"
 import useShippingArea from "./hooks/apiHooks/useShippingArea"
+import { useQueryClient } from "react-query"
 
 const ProductDetailPage = () => {
   const [mainImg, setMainImg] = useState("")
@@ -52,18 +53,20 @@ const ProductDetailPage = () => {
   let location = useLocation()
   const tmpProduct = useSelector((state) => state.cart.tmpProduct)
   const { t } = useTranslation()
+  const [productId, setProductId] = useState(0)
+  const queryClient = useQueryClient()
 
   const { loadingProductDetail, errorProductDetails, productDetail } =
-    useProductDetail(params.id)
+    useProductDetail(productId)
 
   const { loadingSimilarProducts, errorSimilarProducts, similarProducts } =
-    useSimilarProducts(params.id)
+    useSimilarProducts(productId)
 
   const {
     loadingRecommendedProducts,
     errorRecommendedProducts,
     recommendedProducts,
-  } = useRecommendedProducts(params.id)
+  } = useRecommendedProducts(productId)
 
   const {
     loadingBestSellingProducts,
@@ -87,7 +90,7 @@ const ProductDetailPage = () => {
       toast({
         title: t("productDetailPage.addedToast"),
         status: "success",
-        duration: 1000,
+        duration: 2000,
         isClosable: true,
       })
     } else {
@@ -122,6 +125,16 @@ const ProductDetailPage = () => {
       })
     }
   }, [tmpProduct])
+
+  useEffect(() => {
+    setProductId(params.id)
+    queryClient.removeQueries("productDetail", { exact: true })
+    queryClient.removeQueries("similarProduct", { exact: true })
+    queryClient.removeQueries("recommendedProduct", { exact: true })
+    queryClient.removeQueries("bestSellingProducts", { exact: true })
+
+    window.scrollTo(0, 0)
+  }, [params.id])
 
   if (errorProductDetails)
     return t("errors.errorHasOccurred") + errorProductDetails.message
@@ -265,7 +278,9 @@ const ProductDetailPage = () => {
         <GridItem colSpan={9}>
           <SimpleGrid columns={1} spacing={6}>
             {loadingProductDetail ? (
-              <SkeletonText noOfLines={20} spacing="4" />
+              <GridItem bg="white" boxShadow="xl" rounded="md" p={6}>
+                <SkeletonText noOfLines={20} spacing="4" />
+              </GridItem>
             ) : (
               <ProductDetail
                 productDetail={productDetail?.data?.detail}

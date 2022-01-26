@@ -23,16 +23,17 @@ export default function CatalogueSlider({ category }) {
         slidesPerGroup={10}
         spaceBetween={16}
         style={{ zIndex: 0 }}
+        grid={{ columns: 5 }}
       >
-        <SwiperSlide>
-          <HStack spacing={12}>
-            {category?.map((item, index) => (
-              <div key={item + index}>
+        <HStack spacing={12}>
+          {category?.map((item, index) => (
+            <SwiperSlide key={item + index}>
+              <div>
                 <Link to={`/products/${item.type}`}>{item.type}</Link>
               </div>
-            ))}
-          </HStack>
-        </SwiperSlide>
+            </SwiperSlide>
+          ))}
+        </HStack>
       </Swiper>
     </>
   )

@@ -2,7 +2,7 @@ import loadable from "@loadable/component"
 
 export const Homepage = loadable(() => import("./Homepage"))
 
-export const SignInPage = loadable(() => import("./SignInPage"))
+export const SignInPage = loadable(() => import("./SignInPage/SignInPage"))
 
 export const ProductDetailPage = loadable(() =>
   import("./ProductDetailPage/ProductDetailPage")

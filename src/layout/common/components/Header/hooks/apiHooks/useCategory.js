@@ -1,9 +1,13 @@
+import { getCategory } from "apis/products"
+
 const { useQuery } = require("react-query")
 
-const useCategory = (url, queryFunc) => {
-  const { isLoading, error, data } = useQuery(url, queryFunc)
+const useCategory = () => {
+  const { isLoading, error, data } = useQuery("category", async () => {
+    return await getCategory()
+  })
 
-  return { isLoading, error, data }
+  return { isLoading, error, category: data?.data }
 }
 
 export default useCategory

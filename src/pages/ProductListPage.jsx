@@ -10,10 +10,9 @@ import { useQuery, useQueryClient } from "react-query"
 function ProductList({ currentItems }) {
   return (
     <>
-      {currentItems &&
-        currentItems.map((product, index) => (
-          <ProductItem key={index} product={product} />
-        ))}
+      {currentItems?.map((product, index) => (
+        <ProductItem key={index} product={product} />
+      ))}
     </>
   )
 }

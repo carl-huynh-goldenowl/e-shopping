@@ -15,10 +15,10 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     signIn: (state, action) => {
-      state.userInfo.email = action.payload.userInfo.email
+      state.userInfo = action.payload.userInfo
       state.token = action.payload.token
-      state.isAuth = true
-      state.isAdmin = true
+      state.isAuth = action.payload.isAuth
+      state.isAdmin = action.payload.isAdmin
     },
     signInAsAdmin: (state, action) => {
       state.userInfo = action.payload.userInfo

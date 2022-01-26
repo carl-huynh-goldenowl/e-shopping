@@ -8,25 +8,26 @@ import {
   Text,
   Box,
 } from "@chakra-ui/react"
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import { AddIcon, EditIcon } from "@chakra-ui/icons"
 import { useNavigate } from "react-router-dom"
 import SortButton from "components/Button/SortButton"
 import PaginatedItems from "components/PaginatedItems/Pagination/Pagination"
 import { Routes } from "routes/Routes"
-import replacePathFmt from "./AllProductsTabPanel/helpers"
+import replacePathFmt from "./helpers"
 import { useTranslation } from "react-i18next"
+import usePriceSorting from "./hooks/apiHooks/usePriceSorting"
 
-const product = {
-  id: "111",
-  name: "product name",
-  pictureUrl: "https://cf.shopee.vn/file/7e970b23dff00959b680fbb0928d8dd4_tn",
-  price: "1000",
-  stock: 0,
-  sold: 0,
-}
+// const product = {
+//   id: "111",
+//   name: "product name",
+//   pictureUrl: "https://cf.shopee.vn/file/7e970b23dff00959b680fbb0928d8dd4_tn",
+//   price: "1000",
+//   stock: 0,
+//   sold: 0,
+// }
 
-const ProductItem = () => {
+const ProductItem = ({ product }) => {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
@@ -40,27 +41,33 @@ const ProductItem = () => {
   return (
     <GridItem
       colSpan={[6, 4, 3, 2]}
-      border="1px solid gray "
+      border="0.001rem solid teal"
       borderRadius={"5px"}
       shadow="lg"
       bg={"white.100"}
       p={2}
+      m={1}
+      _hover={{
+        border: "0.2rem solid red",
+        borderColor: "teal.300",
+        margin: "0.1",
+      }}
     >
-      <Image src={product.pictureUrl} />
+      <Image src={product.pictureUrl} width="100%" h="8rem" />
       <Box>
-        <Text fontSize="sm" noOfLines={2}>
+        <Text fontSize="sm" noOfLines={2} h="3rem">
           {product.name}
         </Text>
 
         <Text fontSize="lg" color="tomato">
-          ₫{product.price}
+          ₫{product.discountPrice}
         </Text>
 
         <Text fontSize="sm">
-          {t("productsManagement.stock")}: {product.stock}
+          {t("productsManagement.stock")}: {product.stock || 0}
         </Text>
         <Text fontSize="sm">
-          {t("productsManagement.sold")}: {product.sold}
+          {t("productsManagement.sold")}: {product.sold || 0}
         </Text>
       </Box>
       <Button w="100%" onClick={handleEditProduct(product.id)}>
@@ -72,34 +79,48 @@ const ProductItem = () => {
 
 export default function AllProductsTabPanel() {
   const [isDescPrice, setIsDescPrice] = useState(true)
-  const [isDescStock, setIsDescStock] = useState(true)
   const [isDescBestSelling, setIsDescBestSelling] = useState(true)
-  const [hightlight, setHighlight] = useState([true, false, false])
+  const [hightlight, setHighlight] = useState([true, false])
+  const [page, setPage] = useState(0)
+  const [productList, setProductList] = useState(null)
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const { priceSortingList } = usePriceSorting(
+    isDescPrice,
+    productList?.hasMore,
+    page
+  )
 
   const handleSort = (e) => {
     switch (e.target.value) {
       case "price":
         setIsDescPrice(!isDescPrice)
-        setHighlight([true, false, false])
-        break
-      case "stock":
-        setIsDescStock(!isDescStock)
-        setHighlight([false, true, false])
+        setHighlight([true, false])
+
         break
       case "bestSelling":
         setIsDescBestSelling(!isDescBestSelling)
-        setHighlight([false, false, true])
+        setHighlight([false, true])
         break
       default:
         break
     }
   }
 
-  const handleAddProduct = () => {
+  const handleAddProduct = useCallback(() => {
     navigate(Routes.admin.path + "/" + Routes.admin.routes.addProduct.path)
-  }
+  }, [])
+
+  const handleChangePage = useCallback(
+    (data) => {
+      setPage(data)
+    },
+    [setPage]
+  )
+
+  useEffect(() => {
+    setProductList(priceSortingList)
+  }, [priceSortingList])
 
   return (
     <>
@@ -118,13 +139,6 @@ export default function AllProductsTabPanel() {
               onClick={(e) => handleSort(e)}
               color={hightlight[0] ? "teal.400" : "black"}
             />
-            {/* <SortButton
-              title="Kho hàng"
-              isDesc={isDescStock}
-              value="stock"
-              onClick={(e) => handleSort(e)}
-              color={hightlight[1] ? "teal.400" : "black"}
-            /> */}
             <SortButton
               title={t("productsManagement.bestSellingBtn")}
               isDesc={isDescBestSelling}
@@ -146,10 +160,17 @@ export default function AllProductsTabPanel() {
           </Button>
         </GridItem>
       </SimpleGrid>
-      <SimpleGrid columns={12} alignItems={"center"} pt={10} spacing={3}>
-        <ProductItem />
+      <SimpleGrid columns={12} alignItems={"center"} p={"2rem 0"} spacing={3}>
+        {productList?.productList.map((product) => (
+          <ProductItem key={product.id} product={product} />
+        ))}
       </SimpleGrid>
-      <PaginatedItems itemsPerPage={36} total={1} />
+      <PaginatedItems
+        itemsPerPage={productList?.itemsPerPage || 1}
+        total={productList?.total || 0}
+        handleChangePage={handleChangePage}
+        initPage={page || 0}
+      />
     </>
   )
 }

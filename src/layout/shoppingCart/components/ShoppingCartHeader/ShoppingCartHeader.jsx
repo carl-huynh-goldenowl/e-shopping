@@ -23,7 +23,7 @@ const ShoppingCartHeader = ({ title, displaySearchBar }) => {
     <Box bg="white">
       <Box bg="teal.300">
         <Container maxW="container.xl">
-          <SimpleGrid p={1} columns={12} alignItems={"center"}>
+          <SimpleGrid p={1} columns={12} alignItems={"center"} spacing={6}>
             <GridItem colStart={[9]} colSpan={[1]}>
               <LanguageSelect />
             </GridItem>

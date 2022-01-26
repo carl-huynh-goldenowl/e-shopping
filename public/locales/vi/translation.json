@@ -158,7 +158,8 @@
     },
     "signInForm": {
       "emailRequired": "Chưa nhập email",
-      "passwordRequired": "Chưa nhập mật khẩu"
+      "passwordRequired": "Chưa nhập mật khẩu",
+      "error401": "Email hoặc mật khẩu không chính xác"
     },
     "forgotPassRequired": {
       "emailRequired": "Chưa nhập email"

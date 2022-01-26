@@ -15,3 +15,23 @@ export const deliveryInfo = {
   ],
   selectedAddress: 2,
 }
+
+export const adminAccount = {
+  userInfo: {
+    username: "admin",
+    email: "admin@gmail.com",
+  },
+  token: "token123",
+  isAuth: true,
+  isAdmin: true,
+}
+
+export const userAccount = {
+  userInfo: {
+    username: "user",
+    email: "user@gmail.com",
+  },
+  token: "token456",
+  isAuth: true,
+  isAdmin: false,
+}

@@ -1,9 +1,8 @@
-import React, { useCallback } from "react"
+import React, { useCallback, useEffect } from "react"
 import { Container, Box, Button } from "@chakra-ui/react"
 import { SimpleGrid, GridItem, HStack } from "@chakra-ui/react"
 import SearchBar from "./SearchBar"
 import { Image } from "@chakra-ui/react"
-import { getCategory } from "apis/products"
 import { useSelector } from "react-redux"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { Routes } from "routes/Routes"
@@ -13,17 +12,15 @@ import { CatalogueSlider } from "components/Slider"
 import CartPopover from "containers/CartPopover/CartPopover"
 import { useTranslation } from "react-i18next"
 import LanguageSelect from "components/Select/LanguageSelect"
+import { useQueryClient } from "react-query"
 
 const Header = () => {
-  const {
-    isLoading,
-    error,
-    data: category,
-  } = useCategory("category", getCategory)
+  const { isLoading, error, category } = useCategory()
   const user = useSelector((state) => state.user)
   const navigate = useNavigate()
   let location = useLocation()
   const { t } = useTranslation()
+  const queryClient = useQueryClient()
 
   const handleSignIn = useCallback(() => {
     navigate(Routes.signIn.path, {
@@ -35,6 +32,13 @@ const Header = () => {
   const handleSignUp = useCallback(() => {
     navigate(Routes.signUp.path)
   }, [navigate])
+
+  useEffect(() => {
+    const a = async () => {
+      await queryClient.refetchQueries()
+    }
+    a()
+  }, [])
 
   if (isLoading) return <h6>Loading...</h6>
 
@@ -84,7 +88,7 @@ const Header = () => {
       </Container>
       <Box bg="white" py={1}>
         <Container maxW="container.xl" h="3rem">
-          <CatalogueSlider category={category.data} />
+          <CatalogueSlider category={category} />
         </Container>
       </Box>
     </Box>

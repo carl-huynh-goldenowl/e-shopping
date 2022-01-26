@@ -1,1 +1,1 @@
-export { default } from "../AllProductsTabPanel"
+export { default } from "./AllProductsTabPanel"

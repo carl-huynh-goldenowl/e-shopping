@@ -151,14 +151,15 @@
       "addressRequired": "Delivery address is required"
     },
     "signUpForm": {
-      "emailRequired": "CEmail is required",
+      "emailRequired": "Email is required",
       "passwordRequired": "Password is required",
       "confirmPassRequired": "Confirm password is required",
       "confirmPassMatch": "Not match"
     },
     "signInForm": {
       "emailRequired": "Email is required",
-      "passwordRequired": "Password is required"
+      "passwordRequired": "Password is required",
+      "error401": "Email or password is incorrect"
     },
     "forgotPassRequired": {
       "emailRequired": "Email is required"
