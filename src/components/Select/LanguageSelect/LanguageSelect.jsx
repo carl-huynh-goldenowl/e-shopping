@@ -12,7 +12,7 @@ export default function LanguageSelect() {
   let lng = localStorage.getItem("i18nextLng")
   useEffect(() => {
     if (LNGS.indexOf(lng) === -1) {
-      lng = "EN"
+      lng = "en"
       localStorage.setItem("i18nextLng", lng)
     }
 

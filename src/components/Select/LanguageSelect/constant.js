@@ -1,1 +1,1 @@
-export const LNGS = ["EN", "VI"]
+export const LNGS = ["en", "vi"]
